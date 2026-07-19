@@ -42,16 +42,16 @@ This document answers:
 
 The wider documentation structure is:
 
-- **PROJECT.md** defines how the project thinks.
-- **MVP_SCOPE.md** defines what belongs in the MVP.
-- **WORKFLOW.md** defines how work is performed.
-- **DEFINITION_OF_DONE.md** defines how completion is verified.
-- **ARCHITECTURE.md** describes how the system is organised.
-- **DECISIONS.md** records important product and engineering decisions.
-- **CHANGELOG.md** records meaningful completed changes.
-- **BUILD_LOG.md** records build progress, challenges and lessons.
+- **.codex/PROJECT.md** defines how the project thinks.
+- **docs/MVP_SCOPE.md** defines what belongs in the MVP.
+- **.codex/WORKFLOW.md** defines how work is performed.
+- **.codex/DEFINITION_OF_DONE.md** defines how completion is verified.
+- **docs/ARCHITECTURE.md** describes how the system is organised.
+- **docs/DECISIONS.md** records important product and engineering decisions.
+- **docs/CHANGELOG.md** records meaningful completed changes.
+- **docs/BUILD_LOG.md** records build progress, challenges and lessons.
 
-If this workflow conflicts with the Engineering Constitution, **PROJECT.md** takes precedence.
+If this workflow conflicts with the Engineering Constitution, **.codex/PROJECT.md** takes precedence.
 
 ---
 
@@ -204,7 +204,7 @@ Prevent the implementation from expanding beyond the agreed objective or MVP bou
 Confirm:
 
 - The task directly supports the agreed objective.
-- The task remains within `MVP_SCOPE.md`.
+- The task remains within `docs/MVP_SCOPE.md`.
 - No unrelated features have been added.
 - Future improvements have not become current requirements.
 - Optional enhancements are separated from required work.
@@ -387,7 +387,7 @@ Preserve the reasoning behind important product and engineering choices.
 
 ### Actions
 
-Add an entry to `DECISIONS.md` when the task introduces a meaningful decision involving:
+Add an entry to `docs/DECISIONS.md` when the task introduces a meaningful decision involving:
 
 - Product direction
 - MVP scope
@@ -467,7 +467,7 @@ Confirm that the task meets the project's completion standard.
 
 ### Actions
 
-Apply `DEFINITION_OF_DONE.md`.
+Apply `.codex/DEFINITION_OF_DONE.md`.
 
 Review each relevant checklist item.
 
@@ -541,8 +541,8 @@ Maintain an accurate history of meaningful project progress.
 
 Where appropriate:
 
-- Add completed user-facing or engineering changes to `CHANGELOG.md`.
-- Add build progress, challenges and lessons to `BUILD_LOG.md`.
+- Add completed user-facing or engineering changes to `docs/CHANGELOG.md`.
+- Add build progress, challenges and lessons to `docs/BUILD_LOG.md`.
 - Update task tracking to reflect the actual state of the work.
 - Record deferred improvements without presenting them as complete.
 
@@ -607,7 +607,7 @@ Stop and seek approval when:
 - Requirements are ambiguous.
 - The expected outcome is unclear.
 - Multiple materially different solutions are available.
-- The requested work expands beyond `MVP_SCOPE.md`.
+- The requested work expands beyond `docs/MVP_SCOPE.md`.
 - A new major dependency is required.
 - A significant architectural change is required.
 - Security or privacy may be affected.

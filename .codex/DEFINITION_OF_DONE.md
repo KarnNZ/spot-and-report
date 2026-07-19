@@ -106,7 +106,7 @@ Where AI is involved:
 
 ## Implementation
 
-- [ ] The implementation follows `PROJECT.md`.
+- [ ] The implementation follows `.codex/PROJECT.md`.
 - [ ] Existing project conventions have been followed.
 - [ ] The approved implementation plan has been respected.
 - [ ] Responsibilities remain clear.
@@ -218,9 +218,9 @@ Where user or application data is involved:
 - [ ] Architecture documentation has been updated where required.
 - [ ] Technology documentation has been updated where required.
 - [ ] MVP scope documentation has been updated where required.
-- [ ] Important decisions have been recorded in `DECISIONS.md`.
-- [ ] Meaningful completed changes have been recorded in `CHANGELOG.md` where appropriate.
-- [ ] Build progress or lessons have been recorded in `BUILD_LOG.md` where appropriate.
+- [ ] Important decisions have been recorded in `docs/DECISIONS.md`.
+- [ ] Meaningful completed changes have been recorded in `docs/CHANGELOG.md` where appropriate.
+- [ ] Build progress or lessons have been recorded in `docs/BUILD_LOG.md` where appropriate.
 - [ ] Code comments explain why rather than restating what the code does.
 - [ ] Public documentation does not overstate completed capability.
 - [ ] Deferred work is clearly separated from completed work.

@@ -30,7 +30,7 @@ It explains:
 
 This document records implementation choices.
 
-The organisation of the system, data flow and architectural boundaries are documented separately in `ARCHITECTURE.md`.
+The organisation of the system, data flow and architectural boundaries are documented separately in `docs/ARCHITECTURE.md`.
 
 ---
 
@@ -49,7 +49,7 @@ The technology stack must support:
 - report submission,
 - and straightforward deployment.
 
-Technology choices should preserve the architectural principles established in `ARCHITECTURE.md`:
+Technology choices should preserve the architectural principles established in `docs/ARCHITECTURE.md`:
 
 - simplicity before abstraction,
 - clear responsibility boundaries,
@@ -755,7 +755,7 @@ The exact commands should reflect the implemented repository configuration.
 
 Git provides version control.
 
-Commits should represent meaningful development steps and follow the process defined in `WORKFLOW.md`.
+Commits should represent meaningful development steps and follow the process defined in `.codex/WORKFLOW.md`.
 
 ---
 
@@ -1004,7 +1004,7 @@ Before replacing an existing technology, document:
 - the migration cost,
 - and the effect on the MVP timeline.
 
-Significant technology decisions should also be recorded in `DECISIONS.md`.
+Significant technology decisions should also be recorded in `docs/DECISIONS.md`.
 
 ---
 
@@ -1016,17 +1016,17 @@ The most closely related documents are:
 
 | Document | Responsibility |
 |---|---|
-| `ARCHITECTURE.md` | Defines how the system is organised |
-| `IMPLEMENTATION_PLAN.md` | Describes the recommended implementation sequence |
-| `DECISIONS.md` | Records significant technical decisions and trade-offs |
+| `docs/ARCHITECTURE.md` | Defines how the system is organised |
+| `docs/IMPLEMENTATION_PLAN.md` | Describes the recommended implementation sequence |
+| `docs/DECISIONS.md` | Records significant technical decisions and trade-offs |
 | `.codex/WORKFLOW.md` | Defines the engineering workflow |
 | `.codex/DEFINITION_OF_DONE.md` | Defines quality standards for completed work |
 
 Technology changes should be recorded in this document.
 
-Architectural consequences should be reflected in `ARCHITECTURE.md`.
+Architectural consequences should be reflected in `docs/ARCHITECTURE.md`.
 
-The reasoning behind significant technology changes should be captured in `DECISIONS.md`.
+The reasoning behind significant technology changes should be captured in `docs/DECISIONS.md`.
 
 ---
 

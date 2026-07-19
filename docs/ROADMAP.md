@@ -34,7 +34,7 @@ Roadmaps describe intent—not promises.
 
 The sequence of work may change as new information becomes available.
 
-Product principles defined in `PRINCIPLES.md` always take precedence over roadmap items.
+Product principles defined in `docs/PRINCIPLES.md` always take precedence over roadmap items.
 
 The objective is not to deliver the greatest number of features.
 
@@ -312,7 +312,7 @@ The roadmap intentionally avoids committing to:
 - speculative technologies,
 - unnecessary infrastructure,
 - platform features without demonstrated need,
-- or capabilities that conflict with the principles defined in `PRINCIPLES.md`.
+- or capabilities that conflict with the principles defined in `docs/PRINCIPLES.md`.
 
 The roadmap should remain adaptable as the product evolves.
 

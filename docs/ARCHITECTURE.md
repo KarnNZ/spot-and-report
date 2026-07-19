@@ -30,13 +30,13 @@ Specifically, it defines:
 - how trust boundaries are enforced,
 - and how the architecture supports future workflows without introducing unnecessary complexity today.
 
-Frameworks, libraries and deployment technologies are documented separately in `TECH_STACK.md`.
+Frameworks, libraries and deployment technologies are documented separately in `docs/TECH_STACK.md`.
 
 ---
 
 # Relationship to Product Scope
 
-The architecture exists to support the Build Week MVP defined in `MVP_SCOPE.md`.
+The architecture exists to support the Build Week MVP defined in `docs/MVP_SCOPE.md`.
 
 The MVP intentionally delivers one complete reporting experience:
 
@@ -676,15 +676,15 @@ Supporting documentation provides additional context.
 
 | Document | Responsibility |
 |----------|----------------|
-| `VISION.md` | Why the product exists |
-| `MVP_SCOPE.md` | What the Build Week MVP delivers |
-| `PROJECT.md` | Engineering philosophy |
-| `WORKFLOW.md` | Development process |
-| `DEFINITION_OF_DONE.md` | Quality standards |
-| `TECH_STACK.md` | Implementation technologies |
-| `DECISIONS.md` | Significant architectural decisions |
-| `CHANGELOG.md` | Completed changes |
-| `BUILD_LOG.md` | Development journal |
+| `docs/VISION.md` | Why the product exists |
+| `docs/MVP_SCOPE.md` | What the Build Week MVP delivers |
+| `.codex/PROJECT.md` | Engineering philosophy |
+| `.codex/WORKFLOW.md` | Development process |
+| `.codex/DEFINITION_OF_DONE.md` | Quality standards |
+| `docs/TECH_STACK.md` | Implementation technologies |
+| `docs/DECISIONS.md` | Significant architectural decisions |
+| `docs/CHANGELOG.md` | Completed changes |
+| `docs/BUILD_LOG.md` | Development journal |
 
 Together these documents describe the product from vision through implementation.
 

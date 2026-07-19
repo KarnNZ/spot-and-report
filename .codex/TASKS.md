@@ -20,7 +20,7 @@
 
 This document tracks the current implementation work for Spot & Report.
 
-Unlike `IMPLEMENTATION_PLAN.md`, which defines the complete build strategy, this document focuses only on the work that is currently active or immediately upcoming.
+Unlike `docs/IMPLEMENTATION_PLAN.md`, which defines the complete build strategy, this document focuses only on the work that is currently active or immediately upcoming.
 
 Its purpose is to help AI coding assistants and human developers maintain focus by answering a single question:
 
@@ -36,7 +36,7 @@ Each engineering document has a distinct responsibility.
 
 | Document | Responsibility |
 |----------|----------------|
-| `IMPLEMENTATION_PLAN.md` | Overall build strategy and implementation phases |
+| `docs/IMPLEMENTATION_PLAN.md` | Overall build strategy and implementation phases |
 | `.codex/TASKS.md` | Current implementation priorities |
 | `.codex/WORKFLOW.md` | Standard engineering workflow |
 | `.codex/DEFINITION_OF_DONE.md` | Quality standards for task completion |
@@ -59,8 +59,8 @@ Before beginning implementation:
 7. Confirm the current active task.
 8. Implement one coherent task at a time.
 9. Update this file when priorities change.
-10. Record meaningful progress in `BUILD_LOG.md`.
-11. Update `CHANGELOG.md` if user-visible behaviour changes.
+10. Record meaningful progress in `docs/BUILD_LOG.md`.
+11. Update `docs/CHANGELOG.md` if user-visible behaviour changes.
 
 Only one primary implementation task should be active at any time.
 
@@ -109,7 +109,7 @@ Current implementation efforts should prioritise delivering this end-to-end work
 
 **Reference**
 
-See `IMPLEMENTATION_PLAN.md` — Phase 1.
+See `docs/IMPLEMENTATION_PLAN.md` — Phase 1.
 
 ### Objective
 
@@ -152,7 +152,7 @@ The following tasks should be completed in order unless priorities change.
 
 **Reference**
 
-`IMPLEMENTATION_PLAN.md` — Phase 2.
+`docs/IMPLEMENTATION_PLAN.md` — Phase 2.
 
 ### Objective
 
@@ -175,7 +175,7 @@ Expected work includes:
 
 **Reference**
 
-`IMPLEMENTATION_PLAN.md` — Phase 3.
+`docs/IMPLEMENTATION_PLAN.md` — Phase 3.
 
 ### Objective
 
@@ -195,7 +195,7 @@ Expected work includes:
 
 **Reference**
 
-`IMPLEMENTATION_PLAN.md` — Phase 4.
+`docs/IMPLEMENTATION_PLAN.md` — Phase 4.
 
 ### Objective
 
@@ -215,7 +215,7 @@ Expected work includes:
 
 **Reference**
 
-`IMPLEMENTATION_PLAN.md` — Phase 5.
+`docs/IMPLEMENTATION_PLAN.md` — Phase 5.
 
 ### Objective
 
@@ -227,7 +227,7 @@ Allow users to capture or upload photographic evidence.
 
 **Reference**
 
-`IMPLEMENTATION_PLAN.md` — Phase 6.
+`docs/IMPLEMENTATION_PLAN.md` — Phase 6.
 
 ### Objective
 
@@ -239,7 +239,7 @@ Capture and confirm the report location.
 
 **Reference**
 
-`IMPLEMENTATION_PLAN.md` — Phase 7.
+`docs/IMPLEMENTATION_PLAN.md` — Phase 7.
 
 ### Objective
 
@@ -251,7 +251,7 @@ Collect the minimum information required to produce a useful report.
 
 **Reference**
 
-`IMPLEMENTATION_PLAN.md` — Phase 8.
+`docs/IMPLEMENTATION_PLAN.md` — Phase 8.
 
 ### Objective
 
@@ -263,7 +263,7 @@ Generate an AI-assisted report summary using the approved OpenAI integration.
 
 **Reference**
 
-`IMPLEMENTATION_PLAN.md` — Phase 9.
+`docs/IMPLEMENTATION_PLAN.md` — Phase 9.
 
 ### Objective
 
@@ -275,7 +275,7 @@ Allow users to review and edit the complete report before submission.
 
 **Reference**
 
-`IMPLEMENTATION_PLAN.md` — Phase 10.
+`docs/IMPLEMENTATION_PLAN.md` — Phase 10.
 
 ### Objective
 
@@ -287,7 +287,7 @@ Submit the validated canonical report.
 
 **Reference**
 
-`IMPLEMENTATION_PLAN.md` — Phase 11.
+`docs/IMPLEMENTATION_PLAN.md` — Phase 11.
 
 ### Objective
 
@@ -299,7 +299,7 @@ Provide a clear confirmation experience after successful submission.
 
 **Reference**
 
-`IMPLEMENTATION_PLAN.md` — Phase 12.
+`docs/IMPLEMENTATION_PLAN.md` — Phase 12.
 
 ### Objective
 
@@ -311,7 +311,7 @@ Implement automated testing across the MVP.
 
 **Reference**
 
-`IMPLEMENTATION_PLAN.md` — Phase 13.
+`docs/IMPLEMENTATION_PLAN.md` — Phase 13.
 
 ### Objective
 
@@ -323,7 +323,7 @@ Create the project's CI workflow.
 
 **Reference**
 
-`IMPLEMENTATION_PLAN.md` — Phase 14.
+`docs/IMPLEMENTATION_PLAN.md` — Phase 14.
 
 ### Objective
 
@@ -335,7 +335,7 @@ Review the application against accessibility and mobile usability standards.
 
 **Reference**
 
-`IMPLEMENTATION_PLAN.md` — Phase 15.
+`docs/IMPLEMENTATION_PLAN.md` — Phase 15.
 
 ### Objective
 
@@ -347,7 +347,7 @@ Improve reliability and performance before release.
 
 **Reference**
 
-`IMPLEMENTATION_PLAN.md` — Phase 16.
+`docs/IMPLEMENTATION_PLAN.md` — Phase 16.
 
 ### Objective
 
@@ -359,7 +359,7 @@ Deploy the MVP to production.
 
 **Reference**
 
-`IMPLEMENTATION_PLAN.md` — Phase 17.
+`docs/IMPLEMENTATION_PLAN.md` — Phase 17.
 
 ### Objective
 
@@ -517,7 +517,7 @@ When updating this file:
 5. Keep only one primary implementation task active.
 6. Avoid duplicating implementation details already documented elsewhere.
 
-Detailed implementation guidance belongs in `IMPLEMENTATION_PLAN.md`.
+Detailed implementation guidance belongs in `docs/IMPLEMENTATION_PLAN.md`.
 
 Quality requirements belong in `.codex/DEFINITION_OF_DONE.md`.
 

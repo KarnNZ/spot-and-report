@@ -329,15 +329,15 @@ This document explains why Spot & Report exists and where it is heading.
 
 Supporting project documentation provides additional detail:
 
-- **PROJECT.md** defines the engineering philosophy of the project.
-- **WORKFLOW.md** defines how engineering work is performed.
-- **DEFINITION_OF_DONE.md** defines the quality standard required before work is considered complete.
-- **MVP_SCOPE.md** defines exactly what the Build Week MVP includes.
-- **ARCHITECTURE.md** describes how the platform is organised.
-- **TECH_STACK.md** documents the technologies used.
-- **DECISIONS.md** records significant product and engineering decisions.
-- **CHANGELOG.md** records meaningful completed changes.
-- **BUILD_LOG.md** records development progress and lessons learned.
+- **.codex/PROJECT.md** defines the engineering philosophy of the project.
+- **.codex/WORKFLOW.md** defines how engineering work is performed.
+- **.codex/DEFINITION_OF_DONE.md** defines the quality standard required before work is considered complete.
+- **docs/MVP_SCOPE.md** defines exactly what the Build Week MVP includes.
+- **docs/ARCHITECTURE.md** describes how the platform is organised.
+- **docs/TECH_STACK.md** documents the technologies used.
+- **docs/DECISIONS.md** records significant product and engineering decisions.
+- **docs/CHANGELOG.md** records meaningful completed changes.
+- **docs/BUILD_LOG.md** records development progress and lessons learned.
 
 Together these documents provide a complete understanding of both the product and the engineering practices used to build it.
 

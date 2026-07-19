@@ -437,15 +437,15 @@ This document defines the scope of the Build Week MVP.
 
 Supporting documentation provides additional context:
 
-- **VISION.md** explains why the product exists.
-- **PROJECT.md** defines the engineering philosophy.
-- **WORKFLOW.md** defines the engineering lifecycle.
-- **DEFINITION_OF_DONE.md** defines the project's quality standard.
-- **ARCHITECTURE.md** describes the system design.
-- **TECH_STACK.md** documents implementation technologies.
-- **DECISIONS.md** records significant engineering decisions.
-- **CHANGELOG.md** records completed changes.
-- **BUILD_LOG.md** records development progress.
+- **docs/VISION.md** explains why the product exists.
+- **.codex/PROJECT.md** defines the engineering philosophy.
+- **.codex/WORKFLOW.md** defines the engineering lifecycle.
+- **.codex/DEFINITION_OF_DONE.md** defines the project's quality standard.
+- **docs/ARCHITECTURE.md** describes the system design.
+- **docs/TECH_STACK.md** documents implementation technologies.
+- **docs/DECISIONS.md** records significant engineering decisions.
+- **docs/CHANGELOG.md** records completed changes.
+- **docs/BUILD_LOG.md** records development progress.
 
 ---
 

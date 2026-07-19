@@ -46,7 +46,7 @@ Whenever design decisions conflict, this document should take precedence over pe
 
 # Relationship to Product Scope
 
-`MVP_SCOPE.md` defines what the Build Week experience must deliver.
+`docs/MVP_SCOPE.md` defines what the Build Week experience must deliver.
 
 This document defines how that experience should communicate, behave and feel.
 
@@ -797,21 +797,21 @@ The following documents provide the most relevant supporting context.
 ## Product
 
 - `README.md` — Project overview
-- `VISION.md` — Why the product exists
-- `PRINCIPLES.md` — Enduring product and engineering principles
-- `MVP_SCOPE.md` — Defines the Build Week MVP
+- `docs/VISION.md` — Why the product exists
+- `docs/PRINCIPLES.md` — Enduring product and engineering principles
+- `docs/MVP_SCOPE.md` — Defines the Build Week MVP
 
 ## Engineering
 
-- `ARCHITECTURE.md` — System organisation
-- `TECH_STACK.md` — Technology choices and rationale
-- `IMPLEMENTATION_PLAN.md` — Recommended build sequence
+- `docs/ARCHITECTURE.md` — System organisation
+- `docs/TECH_STACK.md` — Technology choices and rationale
+- `docs/IMPLEMENTATION_PLAN.md` — Recommended build sequence
 
 ## Project Development
 
-- `DECISIONS.md` — Significant product and engineering decisions
-- `BUILD_LOG.md` — Development journal
-- `CHANGELOG.md` — Version history
+- `docs/DECISIONS.md` — Significant product and engineering decisions
+- `docs/BUILD_LOG.md` — Development journal
+- `docs/CHANGELOG.md` — Version history
 
 ## AI Development
 

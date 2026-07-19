@@ -33,11 +33,11 @@ This document defines **the order in which the product is built**.
 
 It does not replace:
 
-- `TASKS.md` — current development work.
-- `ROADMAP.md` — future product evolution.
-- `ARCHITECTURE.md` — technical organisation.
-- `WORKFLOW.md` — engineering process.
-- `DEFINITION_OF_DONE.md` — completion standards.
+- `.codex/TASKS.md` — current development work.
+- `docs/ROADMAP.md` — future product evolution.
+- `docs/ARCHITECTURE.md` — technical organisation.
+- `.codex/WORKFLOW.md` — engineering process.
+- `.codex/DEFINITION_OF_DONE.md` — completion standards.
 
 ---
 
@@ -517,7 +517,7 @@ Improve clarity, trust and perceived quality without expanding product scope.
 - Add restrained state-transition motion.
 - Improve touch-target comfort.
 - Refine mobile spacing.
-- Review the journey against `UI.md`.
+- Review the journey against `docs/UI.md`.
 - Review accessibility and reduced-motion behaviour.
 
 ## Rule
@@ -709,7 +709,7 @@ Additional use cases weaken delivery of the bird-reporting MVP.
 
 Response:
 
-Protect `MVP_SCOPE.md` and defer expansion to `ROADMAP.md`.
+Protect `docs/MVP_SCOPE.md` and defer expansion to `docs/ROADMAP.md`.
 
 ## Infrastructure Overbuilding
 
@@ -785,20 +785,20 @@ This document defines the recommended sequence for implementing the Spot & Repor
 
 It should be read alongside:
 
-- `MVP_SCOPE.md` — Defines what the MVP must deliver.
-- `ARCHITECTURE.md` — Defines how the system is organised.
-- `TECH_STACK.md` — Defines the selected technologies.
+- `docs/MVP_SCOPE.md` — Defines what the MVP must deliver.
+- `docs/ARCHITECTURE.md` — Defines how the system is organised.
+- `docs/TECH_STACK.md` — Defines the selected technologies.
 - `.codex/WORKFLOW.md` — Defines the development workflow.
 - `.codex/TASKS.md` — Tracks the current implementation work.
 - `.codex/DEFINITION_OF_DONE.md` — Defines the quality required for completion.
 
 Changes to implementation order should be reflected in this document.
 
-Changes to scope belong in `MVP_SCOPE.md`.
+Changes to scope belong in `docs/MVP_SCOPE.md`.
 
-Architectural changes belong in `ARCHITECTURE.md`.
+Architectural changes belong in `docs/ARCHITECTURE.md`.
 
-Technology changes belong in `TECH_STACK.md`.
+Technology changes belong in `docs/TECH_STACK.md`.
 
 ---
 

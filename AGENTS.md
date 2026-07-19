@@ -52,11 +52,11 @@ When working within the Spot & Report repository, use the following order of pre
 
 1. Current explicit user instructions
 2. `.codex/PROJECT.md`
-3. `MVP_SCOPE.md`
-4. `PRINCIPLES.md`
-5. `ARCHITECTURE.md`
-6. `UI.md`
-7. `TECH_STACK.md`
+3. `docs/MVP_SCOPE.md`
+4. `docs/PRINCIPLES.md`
+5. `docs/ARCHITECTURE.md`
+6. `docs/UI.md`
+7. `docs/TECH_STACK.md`
 8. `.codex/WORKFLOW.md`
 9. `.codex/DEFINITION_OF_DONE.md`
 10. `.codex/TASKS.md`
@@ -218,7 +218,7 @@ Architecture should emerge through proven need—not prediction.
 
 # UI & UX Expectations
 
-Follow UI.md.
+Follow docs/UI.md.
 
 Every interface should feel:
 
@@ -322,8 +322,8 @@ When making meaningful changes:
 
 - Update relevant documentation.
 - Record important architectural decisions.
-- Update BUILD_LOG.md.
-- Update CHANGELOG.md where appropriate.
+- Update docs/BUILD_LOG.md.
+- Update docs/CHANGELOG.md where appropriate.
 - Keep documentation consistent.
 
 Documentation is part of the product.

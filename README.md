@@ -115,7 +115,7 @@ Report Submission
 
 The architecture deliberately remains simple, modular and easy to extend.
 
-For the complete design see **ARCHITECTURE.md**.
+For the complete design see **docs/ARCHITECTURE.md**.
 
 ---
 
@@ -145,7 +145,7 @@ For the complete design see **ARCHITECTURE.md**.
 - ⏳ Demo Video
 - ⏳ Submission
 
-Daily progress and engineering decisions are documented in **BUILD_LOG.md**.
+Daily progress and engineering decisions are documented in **docs/BUILD_LOG.md**.
 
 ---
 
@@ -161,7 +161,7 @@ The MVP is built using a modern, production-ready web stack.
 - ✅ Zod
 - 🌐 Modern Browser APIs
 
-See **TECH_STACK.md** for the complete technology rationale.
+See **docs/TECH_STACK.md** for the complete technology rationale.
 
 ---
 
@@ -200,14 +200,14 @@ Together they form an engineering handbook describing the product, the engineeri
 
 | Document | Purpose |
 |----------|---------|
-| `VISION.md` | Why Spot & Report exists |
-| `PRINCIPLES.md` | Enduring product and engineering principles |
-| `MVP_SCOPE.md` | Defines the Build Week MVP |
-| `UI.md` | Product design and interaction standards |
-| `ARCHITECTURE.md` | High-level system architecture |
-| `TECH_STACK.md` | Technology choices and rationale |
-| `DECISIONS.md` | Significant product and engineering decisions |
-| `ROADMAP.md` | Planned product evolution |
+| `docs/VISION.md` | Why Spot & Report exists |
+| `docs/PRINCIPLES.md` | Enduring product and engineering principles |
+| `docs/MVP_SCOPE.md` | Defines the Build Week MVP |
+| `docs/UI.md` | Product design and interaction standards |
+| `docs/ARCHITECTURE.md` | High-level system architecture |
+| `docs/TECH_STACK.md` | Technology choices and rationale |
+| `docs/DECISIONS.md` | Significant product and engineering decisions |
+| `docs/ROADMAP.md` | Planned product evolution |
 
 ---
 
@@ -215,11 +215,11 @@ Together they form an engineering handbook describing the product, the engineeri
 
 | Document | Purpose |
 |----------|---------|
-| `WORKFLOW.md` | Development workflow and engineering process |
-| `DEFINITION_OF_DONE.md` | Quality standards and completion criteria |
-| `IMPLEMENTATION_PLAN.md` | Recommended build sequence for the MVP |
-| `BUILD_LOG.md` | Engineering journal and development progress |
-| `CHANGELOG.md` | Version history and completed changes |
+| `.codex/WORKFLOW.md` | Development workflow and engineering process |
+| `.codex/DEFINITION_OF_DONE.md` | Quality standards and completion criteria |
+| `docs/IMPLEMENTATION_PLAN.md` | Recommended build sequence for the MVP |
+| `docs/BUILD_LOG.md` | Engineering journal and development progress |
+| `docs/CHANGELOG.md` | Version history and completed changes |
 
 ---
 
