@@ -781,27 +781,24 @@ The order may change only through a documented decision.
 
 # Relationship to Other Documents
 
-`PROJECT.md` explains the project's engineering philosophy.
+This document defines the recommended sequence for implementing the Spot & Report MVP.
 
-`VISION.md` defines the future the project seeks to create.
+It should be read alongside:
 
-`PRINCIPLES.md` defines enduring product beliefs.
+- `MVP_SCOPE.md` — Defines what the MVP must deliver.
+- `ARCHITECTURE.md` — Defines how the system is organised.
+- `TECH_STACK.md` — Defines the selected technologies.
+- `.codex/WORKFLOW.md` — Defines the development workflow.
+- `.codex/TASKS.md` — Tracks the current implementation work.
+- `.codex/DEFINITION_OF_DONE.md` — Defines the quality required for completion.
 
-`MVP_SCOPE.md` defines what Build Week will deliver.
+Changes to implementation order should be reflected in this document.
 
-`USER_FLOW.md` defines what users do.
+Changes to scope belong in `MVP_SCOPE.md`.
 
-`UI.md` defines how the experience should feel.
+Architectural changes belong in `ARCHITECTURE.md`.
 
-`ARCHITECTURE.md` defines how the system is organised.
-
-`WORKFLOW.md` defines how development work is performed.
-
-`IMPLEMENTATION_PLAN.md` defines the order in which the MVP is built.
-
-`TASKS.md` defines the work currently being executed.
-
-`DEFINITION_OF_DONE.md` defines the quality required for completion.
+Technology changes belong in `TECH_STACK.md`.
 
 ---
 

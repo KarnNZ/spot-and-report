@@ -118,9 +118,7 @@ Using a consistent format makes decisions easier to understand and review.
 
 # ADR-001 — Mobile-First Web Application
 
-**Status**
-
-Accepted
+**Status:** Accepted
 
 ### Context
 
@@ -171,9 +169,7 @@ Review this decision if:
 
 # ADR-002 — Modular Monolith
 
-**Status**
-
-Accepted
+**Status:** Accepted
 
 ### Context
 
@@ -223,9 +219,7 @@ Review if:
 
 # ADR-003 — Server-Side OpenAI Integration
 
-**Status**
-
-Accepted
+**Status:** Accepted
 
 ### Context
 
@@ -270,9 +264,7 @@ Review if:
 
 # ADR-004 — Human Review Before Submission
 
-**Status**
-
-Accepted
+**Status:** Accepted
 
 ### Context
 
@@ -312,9 +304,7 @@ Require users to review and approve every report before submission.
 
 # ADR-005 — Canonical Report Object
 
-**Status**
-
-Accepted
+**Status:** Accepted
 
 ### Context
 
@@ -361,9 +351,7 @@ Review if:
 
 # ADR-006 — One Workflow Before Many
 
-**Status**
-
-Accepted
+**Status:** Accepted
 
 ### Context
 
@@ -413,9 +401,7 @@ Review once:
 
 # ADR-007 — Submission Adapters
 
-**Status**
-
-Accepted
+**Status:** Accepted
 
 ### Context
 
@@ -464,9 +450,7 @@ Review if:
 
 # ADR-008 — Avoid Premature Infrastructure
 
-**Status**
-
-Accepted
+**Status:** Accepted
 
 ### Context
 
@@ -516,9 +500,7 @@ Review if:
 
 # ADR-009 — Responsible AI Through Validation
 
-**Status**
-
-Accepted
+**Status:** Accepted
 
 ### Context
 
@@ -568,9 +550,7 @@ Review if:
 
 # ADR-010 — Documentation as a First-Class Deliverable
 
-**Status**
-
-Accepted
+**Status:** Accepted
 
 ### Context
 
@@ -614,9 +594,7 @@ All repository documentation.
 
 # ADR-011 — AI Assists Rather Than Decides
 
-**Status**
-
-Accepted
+**Status:** Accepted
 
 ### Context
 
@@ -668,9 +646,7 @@ Users remain responsible for reviewing and approving every report before submiss
 
 # ADR-012 — Public Reporting Without Authentication
 
-**Status**
-
-Accepted
+**Status:** Accepted
 
 ### Context
 
