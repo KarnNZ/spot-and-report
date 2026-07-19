@@ -1,0 +1,402 @@
+# Spot & Report Build Log
+
+> A chronological engineering journal documenting the design, development and evolution of Spot & Report throughout OpenAI Build Week.
+
+---
+
+**Document:** BUILD_LOG.md
+
+**Version:** 1.0
+
+**Status:** Living
+
+**Owner:** Project Owner
+
+**Last Updated:** 19 July 2026
+
+---
+
+# Purpose
+
+This document records the journey of building Spot & Report.
+
+Rather than describing the finished product, it captures the engineering process behind it—including planning, implementation, technical decisions, challenges, experiments and lessons learned.
+
+The Build Log provides transparency into how the project evolved and serves as a permanent historical record of Build Week.
+
+It is intended to demonstrate not only what was built, but how engineering decisions were made and refined over time.
+
+---
+
+# Build Philosophy
+
+Spot & Report is being developed using an iterative engineering process centred around rapid experimentation, responsible AI and continuous refinement.
+
+The objective is not simply to build working software, but to demonstrate how modern AI-assisted development can accelerate high-quality engineering while maintaining clear architectural thinking, responsible decision-making and production-quality standards.
+
+---
+
+# Build Principles
+
+Throughout Build Week every implementation session should aim to leave the project in a better state than it was found.
+
+Development is guided by the following principles:
+
+- Ship working software frequently.
+- Keep commits small and understandable.
+- Prefer clarity over cleverness.
+- Maintain production-quality standards.
+- Document important decisions immediately.
+- Test continuously.
+- Avoid unnecessary complexity.
+- Build reusable foundations.
+- Build for users—not judges.
+
+---
+
+# Build Week Objectives
+
+The primary objectives for Build Week are to:
+
+- Deliver a polished production-quality MVP.
+- Demonstrate responsible use of OpenAI technologies.
+- Showcase AI-assisted software engineering.
+- Produce professional engineering documentation.
+- Create an excellent user experience.
+- Build a compelling public demonstration.
+- Establish foundations for future platform growth.
+
+Success will be measured by quality, usability and engineering discipline rather than feature count.
+
+---
+
+# Build at a Glance
+
+```
+                     Spot & Report Build
+
+✔ Project Started
+        │
+        ▼
+✔ Planning & Architecture
+        │
+        ▼
+✔ Documentation Complete
+        │
+        ▼
+▶ Implementation Begins
+        │
+        ▼
+○ Core MVP Complete
+        │
+        ▼
+○ Testing & Refinement
+        │
+        ▼
+○ Submission
+```
+
+This roadmap illustrates the current stage of development.
+
+Progress should be updated as major milestones are completed.
+
+---
+
+# Milestone Timeline
+
+| Milestone | Status |
+|-----------|--------|
+| Project vision defined | ✅ Complete |
+| Brand established | ✅ Complete |
+| Documentation framework completed | ✅ Complete |
+| Repository created | ✅ Complete |
+| Development environment configured | ⏳ In Progress |
+| Core application implementation | ⏳ In Progress |
+| AI reporting workflow | ⏳ Planned |
+| End-to-end MVP complete | ⏳ Planned |
+| Testing & refinement | ⏳ Planned |
+| Build Week submission | ⏳ Planned |
+
+This timeline should evolve alongside the project.
+
+---
+
+# Development Journal
+
+The following journal records meaningful engineering progress throughout development.
+
+Rather than documenting every code change, entries should focus on significant milestones, technical decisions, challenges and lessons learned.
+
+---
+
+## Journal Entry Template
+
+### Date
+
+**Objective**
+
+Describe the primary goal for the session.
+
+---
+
+**Completed**
+
+Summarise the work completed.
+
+---
+
+**Key Decisions**
+
+Record important engineering or product decisions.
+
+---
+
+**Challenges**
+
+Describe any significant technical or design challenges encountered.
+
+---
+
+**Lessons Learned**
+
+Capture observations that may improve future work.
+
+---
+
+**Session Outcome**
+
+**Confidence:** High / Medium / Low
+
+**Build Health:** Excellent / Good / Needs Attention
+
+**Blockers:** None or list active blockers.
+
+---
+
+**Next Steps**
+
+Outline the next planned work.
+
+---
+
+# Journal Entries
+
+---
+
+## 19 July 2026
+
+### Objective
+
+Establish a complete engineering foundation before implementation begins.
+
+---
+
+### Completed
+
+- Defined the product vision.
+- Finalised the MVP scope.
+- Designed the overall architecture.
+- Selected the technology stack.
+- Established engineering principles.
+- Created repository documentation.
+- Planned development workflow.
+- Recorded major engineering decisions.
+- Produced the long-term roadmap.
+
+---
+
+### Key Decisions
+
+- Mobile-first web application.
+- Modular monolith architecture.
+- Server-side OpenAI integration.
+- Human review before report submission.
+- Bird Report selected as the initial workflow.
+
+---
+
+### Challenges
+
+Balancing long-term architectural thinking with the need to keep the Build Week MVP intentionally focused.
+
+---
+
+### Lessons Learned
+
+Investing in planning and documentation before implementation significantly improves engineering clarity.
+
+Well-defined architecture reduces uncertainty during development.
+
+---
+
+### Session Outcome
+
+**Confidence:** High
+
+**Build Health:** Excellent
+
+**Blockers:** None
+
+---
+
+### Next Steps
+
+Begin implementation of the reporting workflow.
+
+---
+
+# Technical Challenges
+
+This section records interesting engineering challenges encountered throughout development.
+
+Examples include:
+
+- Prompt engineering.
+- Structured AI output validation.
+- Image processing.
+- Geolocation.
+- Performance optimisation.
+- Accessibility improvements.
+- Deployment issues.
+- Integration challenges.
+- User experience refinements.
+
+Each challenge should include:
+
+- Problem
+- Investigation
+- Solution
+- Outcome
+
+The objective is to preserve engineering knowledge rather than simply record bugs.
+
+---
+
+# AI Collaboration
+
+One objective of this project is to demonstrate effective collaboration between human engineers and AI tools.
+
+AI is used to assist with:
+
+- Architecture exploration.
+- Documentation.
+- Code generation.
+- Refactoring.
+- UI iteration.
+- Prompt engineering.
+- Testing strategies.
+- Engineering reviews.
+- Technical brainstorming.
+
+Human judgement remains responsible for:
+
+- Product direction.
+- Architectural decisions.
+- Responsible AI.
+- Final implementation decisions.
+- Quality assurance.
+
+AI accelerates engineering but does not replace engineering responsibility.
+
+---
+
+# Engineering Statistics
+
+The following metrics provide a high-level overview of project progress.
+
+| Statistic | Current |
+|------------|--------:|
+| Project Age | Day 1 |
+| Documentation Files | 13 |
+| Architecture Decisions | 10 |
+| Major Milestones Completed | 4 |
+| Git Commits | 0 |
+| Features Completed | 0 |
+| Bugs Resolved | 0 |
+| Screens Produced | 0 |
+| Demo Videos | 0 |
+| AI Collaboration Sessions | 0 |
+
+These values should be updated throughout development.
+
+---
+
+# Screenshots & Demonstrations
+
+As development progresses, this section should include:
+
+- User interface screenshots.
+- Workflow demonstrations.
+- Architecture diagrams.
+- Development progress images.
+- Demo recordings.
+- Before-and-after comparisons.
+
+Visual evidence helps demonstrate how the product matured throughout Build Week.
+
+---
+
+# Lessons Learned
+
+This section captures broader observations that emerge throughout the project.
+
+Topics may include:
+
+- AI-assisted software engineering.
+- Prompt engineering.
+- Product design.
+- User experience.
+- Technical architecture.
+- Development workflow.
+- Build Week experience.
+
+The emphasis should be on learning rather than simply recording success.
+
+---
+
+# Final Retrospective
+
+This section should be completed after Build Week concludes.
+
+Suggested topics include:
+
+- What worked well.
+- What could be improved.
+- Technical achievements.
+- Product insights.
+- Engineering lessons.
+- Future priorities.
+
+The retrospective should provide an honest assessment of the project and identify opportunities for continued improvement.
+
+---
+
+# Looking Back
+
+This document intentionally preserves the project as it unfolded.
+
+Ideas changed.
+
+Assumptions were challenged.
+
+Designs evolved.
+
+Technical decisions were refined.
+
+Rather than rewriting history, this journal records the reality of building software—an iterative process of learning, experimentation and continuous improvement.
+
+Understanding how Spot & Report evolved is as important as understanding the finished product itself.
+
+The journey documented here reflects the engineering philosophy of the project: build thoughtfully, learn continuously and improve deliberately.
+
+---
+
+# Final Principle
+
+Software is more than code.
+
+It is the accumulation of ideas, decisions, experiments, iterations and lessons learned over time.
+
+This Build Log preserves that journey so future contributors can understand not only what Spot & Report became, but how—and why—it evolved.
+
+Every milestone recorded here should leave the project better than it was before.
