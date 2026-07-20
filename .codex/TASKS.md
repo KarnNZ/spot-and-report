@@ -103,52 +103,9 @@ Current implementation efforts should prioritise delivering this end-to-end work
 
 # Active
 
-## Task 1 — Initialise the Application
-
-**Status:** Ready
-
-**Reference**
-
-See `docs/IMPLEMENTATION_PLAN.md` — Phase 1.
-
-### Objective
-
-Create the initial Spot & Report application using the approved technology stack.
-
-### Deliverables
-
-- Initialise Next.js.
-- Configure React.
-- Enable strict TypeScript.
-- Configure Tailwind CSS.
-- Use the App Router.
-- Create the initial `src/` structure.
-- Preserve all existing documentation.
-- Keep the repository clean.
-
-### Validation
-
-The following commands should complete successfully:
-
-```bash
-npm run lint
-npm run typecheck
-npm run build
-```
-
-### Definition of Done
-
-Task completion must satisfy `.codex/DEFINITION_OF_DONE.md`.
-
----
-
-# Next
-
-The following tasks should be completed in order unless priorities change.
-
----
-
 ## Task 2 — Application Foundation
+
+**Status:** Awaiting project owner approval
 
 **Reference**
 
@@ -168,6 +125,12 @@ Expected work includes:
 - feedback components
 - page container
 - progress indicator
+
+---
+
+# Next
+
+The following tasks should be completed in order unless priorities change.
 
 ---
 
@@ -423,6 +386,45 @@ Evaluate:
 # Completed
 
 The following project milestones have already been completed.
+
+## Task 1 — Initialise the Application
+
+**Status:** Completed
+
+**Reference**
+
+`docs/IMPLEMENTATION_PLAN.md` — Phase 1.
+
+### Objective
+
+Create the initial Spot & Report application using the approved technology stack.
+
+### Deliverables
+
+- Initialise Next.js.
+- Configure React.
+- Enable strict TypeScript.
+- Configure Tailwind CSS.
+- Use the App Router.
+- Create the initial `src/` structure.
+- Preserve all existing documentation.
+- Keep the repository clean.
+
+### Validation
+
+The following commands completed successfully:
+
+```bash
+npm run lint
+npm run typecheck
+npm run build
+```
+
+### Definition of Done
+
+Task completion must satisfy `.codex/DEFINITION_OF_DONE.md`.
+
+---
 
 ## Repository Foundation
 

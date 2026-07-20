@@ -72,6 +72,10 @@ Changes requiring migration or affecting compatibility.
 
 ## 🚀 Added
 
+- Initialised the Next.js 16 App Router application with React 19.
+- Added strict TypeScript, Tailwind CSS 4 and ESLint configuration.
+- Added a minimal mobile-first application entry point.
+- Added reproducible npm dependency locking and local validation scripts.
 - Established the Spot & Report repository.
 - Defined the long-term product vision.
 - Created the engineering documentation framework.

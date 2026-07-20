@@ -110,7 +110,7 @@ Progress should be updated as major milestones are completed.
 | Brand established | ✅ Complete |
 | Documentation framework completed | ✅ Complete |
 | Repository created | ✅ Complete |
-| Development environment configured | ⏳ In Progress |
+| Development environment configured | ✅ Complete |
 | Core application implementation | ⏳ In Progress |
 | AI reporting workflow | ⏳ Planned |
 | End-to-end MVP complete | ⏳ Planned |
@@ -180,6 +180,66 @@ Outline the next planned work.
 ---
 
 # Journal Entries
+
+---
+
+## 20 July 2026
+
+### Objective
+
+Initialise the production-quality application baseline without beginning later foundation or reporting-workflow work.
+
+---
+
+### Completed
+
+- Initialised Next.js 16.2.10 with React 19.2.7 and the App Router.
+- Added a strict TypeScript configuration and `src/app/` structure.
+- Configured Tailwind CSS 4.3.3 through PostCSS.
+- Configured ESLint with Next.js Core Web Vitals and TypeScript rules.
+- Added the local development, lint, type-check and production-build scripts.
+- Generated the npm lockfile.
+- Passed linting, strict type checking and the production build.
+
+---
+
+### Key Decisions
+
+- Kept the first implementation increment limited to the runnable framework baseline.
+- Deferred reusable components, design tokens, MVP routes, tests, formatting and workflow state to separately approved commits.
+- Used stable framework releases and avoided React Compiler or additional application dependencies.
+
+---
+
+### Challenges
+
+AVG Web Shield intercepts HTTPS using a Windows-trusted root that is not included in Node.js's bundled certificate authorities. The install retained TLS verification by temporarily providing Node with the matching trusted local root; no certificate or npm security override was added to the repository.
+
+npm also reported a moderate advisory in Next.js's bundled PostCSS dependency. The current automated remediation would force a breaking downgrade to Next.js 9, so the current stable framework version was retained pending an upstream stable fix. The application does not process user-supplied CSS.
+
+---
+
+### Lessons Learned
+
+Environment-specific trust-store differences should be diagnosed explicitly rather than bypassed by disabling TLS verification.
+
+Dependency audit recommendations require engineering review before automated remediation is accepted.
+
+---
+
+### Session Outcome
+
+**Confidence:** High
+
+**Build Health:** Good
+
+**Blockers:** None for project initialisation. The upstream PostCSS advisory remains a disclosed dependency risk.
+
+---
+
+### Next Steps
+
+Await project owner approval before beginning the application-foundation commit.
 
 ---
 
