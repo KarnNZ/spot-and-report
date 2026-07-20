@@ -89,6 +89,7 @@ Changes requiring migration or affecting compatibility.
 - Added an accessible five-step progress indicator across the reporting screens without changing navigation behaviour.
 - Added a pure submission engine with complete-session validation and an adapter-ready report payload.
 - Added simulated report submission and a confirmation screen, completing the end-to-end MVP reporting flow without a backend.
+- Added a reusable Spot & Report wordmark, refined visual identity tokens and clearer application metadata.
 - Established the Spot & Report repository.
 - Defined the long-term product vision.
 - Created the engineering documentation framework.

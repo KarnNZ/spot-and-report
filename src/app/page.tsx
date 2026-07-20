@@ -1,4 +1,5 @@
 import { Button } from "@/shared/ui/button";
+import { BrandMark } from "@/shared/ui/brand/brand-mark";
 import { PageContainer } from "@/shared/ui/page-container";
 import { ScreenHeader } from "@/shared/ui/screen-header";
 
@@ -6,9 +7,9 @@ export default function HomePage() {
   return (
     <PageContainer>
       <div className="my-auto w-full max-w-xl self-center py-4 sm:py-8">
-        <p className="text-primary mb-3 text-sm font-semibold tracking-wide uppercase">
-          Spot &amp; Report
-        </p>
+        <div className="mb-3">
+          <BrandMark />
+        </div>
         <ScreenHeader
           title="Report a sick or dead bird in under 60 seconds"
           description="Take a photo, confirm the location, and answer a few simple questions. We’ll help prepare a clear report."

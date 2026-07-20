@@ -213,6 +213,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Added a reusable report progress indicator to the Safety, Photo, Location, Questions and Review screens.
 - Added a pure report submission engine that validates completed report sessions and builds a canonical submission payload.
 - Added a simulated submission service and confirmation screen, completing the MVP journey from landing page to temporary report reference.
+- Established the Spot & Report visual identity with a shared typographic brand mark, refined semantic colours and application metadata.
 
 ---
 
@@ -235,6 +236,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Kept progress presentational and explicit on each participating page, without changing workflow, navigation or report-session behaviour.
 - Kept submission preparation separate from delivery: validation returns all errors and no network, persistence or UI integration occurs in the engine.
 - Kept the end-to-end submission simulation local: the service reuses engine validation, waits 750 milliseconds and returns temporary confirmation metadata without a network request.
+- Encapsulated the wordmark so future logo artwork can replace it without changing screen composition, navigation or workflow behaviour.
 
 ---
 

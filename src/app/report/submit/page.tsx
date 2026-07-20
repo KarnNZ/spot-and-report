@@ -1,5 +1,6 @@
 import { PageContainer } from "@/shared/ui/page-container";
 import { Button } from "@/shared/ui/button";
+import { BrandMark } from "@/shared/ui/brand/brand-mark";
 
 interface SubmitPageProps {
   searchParams: Promise<{
@@ -23,9 +24,7 @@ export default async function SubmitPage({ searchParams }: SubmitPageProps) {
     <PageContainer>
       <div className="my-auto w-full max-w-xl self-center py-4 text-center sm:py-8">
         <header>
-          <p aria-hidden="true" className="text-3xl">
-            ✅
-          </p>
+          <BrandMark />
           <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
             Thank you
           </h1>

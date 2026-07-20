@@ -4,8 +4,13 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Spot & Report",
-  description: "Prepare a clear report about a sick or dead wild bird.",
+  applicationName: "Spot & Report",
+  title: {
+    default: "Spot & Report",
+    template: "%s | Spot & Report",
+  },
+  description:
+    "Report a sick or dead wild bird quickly and safely with a clear, guided experience.",
 };
 
 export const viewport: Viewport = {
