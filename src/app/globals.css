@@ -9,6 +9,10 @@
   --color-foreground: #17221c;
   --color-foreground-muted: #4b5d53;
   --color-primary: #08634f;
+  --color-primary-hover: #064f40;
+  --color-primary-active: #043f34;
+  --color-primary-foreground: #ffffff;
+  --color-disabled-background: #d8dedb;
   --color-focus: #0a66c2;
   --color-selection: #e3eae6;
 }
