@@ -1,14 +1,17 @@
+import { ReportQuestionsForm } from "@/features/report/questions/report-questions-form";
 import { PageContainer } from "@/shared/ui/page-container";
-import { StepPlaceholder } from "@/shared/ui/step-placeholder";
+import { ScreenHeader } from "@/shared/ui/screen-header";
 
 export default function QuestionsPage() {
   return (
     <PageContainer>
-      <div className="my-auto">
-        <StepPlaceholder
+      <div className="my-auto w-full max-w-xl self-center py-4 sm:py-8">
+        <ScreenHeader
           title="Answer a few questions"
-          description="This step will ask a few simple questions about what you observed."
+          description="Share what you safely observed. You do not need to identify the bird."
         />
+
+        <ReportQuestionsForm />
       </div>
     </PageContainer>
   );

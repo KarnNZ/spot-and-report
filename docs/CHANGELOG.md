@@ -84,6 +84,7 @@ Changes requiring migration or affecting compatibility.
 - Added native camera or file selection, validation, replacement and a local preview to the Photo screen.
 - Added browser location confirmation with accuracy details, accessible failure feedback and a manual fallback.
 - Added a memory-only report session that preserves photo and location data between report screens but resets on refresh.
+- Added four focused report questions with in-memory answer restoration and navigation to the review placeholder.
 - Established the Spot & Report repository.
 - Defined the long-term product vision.
 - Created the engineering documentation framework.

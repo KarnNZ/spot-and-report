@@ -208,6 +208,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Replaced the photo placeholder with native single-image selection, accessible MIME and 15 MB validation, a replaceable local preview and navigation to the single location placeholder.
 - Replaced the location placeholder with browser geolocation, explicit permission and failure feedback, a 200-character manual fallback and navigation to the single questions placeholder.
 - Added an in-memory report session that restores selected photo and location data across client-side report navigation.
+- Replaced the questions placeholder with four focused report questions and extended the in-memory session to restore their answers.
 
 ---
 
@@ -225,6 +226,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Kept geolocation request mechanics inside the focused location client boundary; location values are not submitted or placed in navigation URLs.
 - Relied on secure-context browser geolocation, which requires HTTPS outside the localhost development exception, while keeping manual entry available when permission is denied or location is unavailable, unsupported or times out.
 - Scoped the report session provider to the `/report` route tree and deliberately omitted browser or server persistence, so refreshing or restarting the application clears all report data.
+- Kept the Questions screen to the four approved observation fields and added only the review placeholder required for forward navigation.
 
 ---
 

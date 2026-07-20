@@ -10,6 +10,7 @@ import {
 } from "react";
 
 import type {
+  ObservationType,
   ReportCoordinates,
   ReportSession,
   ReportSessionApi,
@@ -20,6 +21,12 @@ const INITIAL_REPORT_SESSION: ReportSession = {
   location: {
     coordinates: null,
     manualDescription: "",
+  },
+  questions: {
+    observationType: null,
+    birdCount: 1,
+    species: "",
+    notes: "",
   },
 };
 
@@ -78,6 +85,49 @@ export function ReportSessionProvider({
     }));
   }, []);
 
+  const setObservationType = useCallback(
+    (observationType: ObservationType) => {
+      setSession((currentSession) => ({
+        ...currentSession,
+        questions: {
+          ...currentSession.questions,
+          observationType,
+        },
+      }));
+    },
+    [],
+  );
+
+  const setBirdCount = useCallback((birdCount: number) => {
+    setSession((currentSession) => ({
+      ...currentSession,
+      questions: {
+        ...currentSession.questions,
+        birdCount,
+      },
+    }));
+  }, []);
+
+  const setSpecies = useCallback((species: string) => {
+    setSession((currentSession) => ({
+      ...currentSession,
+      questions: {
+        ...currentSession.questions,
+        species,
+      },
+    }));
+  }, []);
+
+  const setNotes = useCallback((notes: string) => {
+    setSession((currentSession) => ({
+      ...currentSession,
+      questions: {
+        ...currentSession.questions,
+        notes,
+      },
+    }));
+  }, []);
+
   const value = useMemo<ReportSessionApi>(
     () => ({
       session,
@@ -86,6 +136,10 @@ export function ReportSessionProvider({
       setCoordinates,
       setManualLocation,
       clearLocation,
+      setObservationType,
+      setBirdCount,
+      setSpecies,
+      setNotes,
     }),
     [
       session,
@@ -94,6 +148,10 @@ export function ReportSessionProvider({
       setCoordinates,
       setManualLocation,
       clearLocation,
+      setObservationType,
+      setBirdCount,
+      setSpecies,
+      setNotes,
     ],
   );
 
