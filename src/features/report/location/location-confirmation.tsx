@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
+import { useReportSession } from "@/features/report/session/use-report-session";
 import { Button } from "@/shared/ui/button";
 
 type LocationRequestStatus =
@@ -13,12 +14,6 @@ type LocationRequestStatus =
   | "position-unavailable"
   | "request-timeout"
   | "unsupported";
-
-interface DeviceCoordinates {
-  latitude: number;
-  longitude: number;
-  accuracy: number;
-}
 
 interface GeolocationFailure {
   status:
@@ -69,16 +64,16 @@ function getGeolocationFailure(
 
 export function LocationConfirmation() {
   const router = useRouter();
+  const { session, setCoordinates, setManualLocation } = useReportSession();
   const locationRequestInProgress = useRef(false);
   const [requestStatus, setRequestStatus] =
     useState<LocationRequestStatus>("idle");
-  const [deviceCoordinates, setDeviceCoordinates] =
-    useState<DeviceCoordinates | null>(null);
-  const [manualLocation, setManualLocation] = useState("");
   const [geolocationFeedback, setGeolocationFeedback] = useState<string | null>(
     null,
   );
 
+  const deviceCoordinates = session.location.coordinates;
+  const manualLocation = session.location.manualDescription;
   const isRequesting = requestStatus === "requesting";
   const isUnsupported = requestStatus === "unsupported";
   const hasManualLocation = manualLocation.trim().length > 0;
@@ -108,7 +103,7 @@ export function LocationConfirmation() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         locationRequestInProgress.current = false;
-        setDeviceCoordinates({
+        setCoordinates({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
           accuracy: position.coords.accuracy,
@@ -223,8 +218,8 @@ export function LocationConfirmation() {
       </div>
 
       <p className="text-foreground-muted mt-6 text-sm leading-6">
-        Your location stays on this screen for now and is not yet submitted or
-        saved.
+        Your location stays in this report session for now and is not yet
+        submitted or saved.
       </p>
 
       <div className="mt-8">

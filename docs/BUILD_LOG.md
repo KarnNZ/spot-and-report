@@ -207,6 +207,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Replaced the safety placeholder with clear public guidance and added the single photo placeholder route required by its primary action.
 - Replaced the photo placeholder with native single-image selection, accessible MIME and 15 MB validation, a replaceable local preview and navigation to the single location placeholder.
 - Replaced the location placeholder with browser geolocation, explicit permission and failure feedback, a 200-character manual fallback and navigation to the single questions placeholder.
+- Added an in-memory report session that restores selected photo and location data across client-side report navigation.
 
 ---
 
@@ -220,9 +221,10 @@ Initialise the production-quality application baseline and begin the approved ap
 - Preserved native button behaviour and kept placeholder screens explicitly free of workflow logic.
 - Used a native GET form for landing-page navigation, avoiding client-side state and additional routing abstractions.
 - Kept the safety screen informational and stateless, with native navigation to the unimplemented photo step.
-- Kept the selected file and preview object URL inside the focused photo-picker client boundary; no upload, persistence or cross-route image transfer occurs yet.
-- Kept coordinates and manual location text inside the focused location client boundary; neither value is submitted, persisted or placed in navigation URLs yet.
+- Kept preview object URLs inside the focused photo-picker client boundary, with no upload or server persistence.
+- Kept geolocation request mechanics inside the focused location client boundary; location values are not submitted or placed in navigation URLs.
 - Relied on secure-context browser geolocation, which requires HTTPS outside the localhost development exception, while keeping manual entry available when permission is denied or location is unavailable, unsupported or times out.
+- Scoped the report session provider to the `/report` route tree and deliberately omitted browser or server persistence, so refreshing or restarting the application clears all report data.
 
 ---
 

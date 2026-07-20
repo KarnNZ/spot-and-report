@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { type ChangeEvent, useEffect, useState } from "react";
 
+import { useReportSession } from "@/features/report/session/use-report-session";
 import { Button } from "@/shared/ui/button";
 
 const MAX_PHOTO_SIZE_BYTES = 15 * 1024 * 1024;
@@ -21,19 +22,25 @@ function getPhotoValidationError(file: File) {
 
 export function PhotoPicker() {
   const router = useRouter();
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const { session, setPhoto } = useReportSession();
+  const selectedFile = session.photo;
   const [previewObjectUrl, setPreviewObjectUrl] = useState<string | null>(null);
   const [validationFeedback, setValidationFeedback] = useState<string | null>(
     null,
   );
 
   useEffect(() => {
-    if (!previewObjectUrl) {
+    if (!selectedFile) {
       return;
     }
 
-    return () => URL.revokeObjectURL(previewObjectUrl);
-  }, [previewObjectUrl]);
+    const objectUrl = URL.createObjectURL(selectedFile);
+    // Restored files can only receive browser object URLs after hydration.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setPreviewObjectUrl(objectUrl);
+
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile]);
 
   function handlePhotoChange(event: ChangeEvent<HTMLInputElement>) {
     const file = event.currentTarget.files?.[0];
@@ -54,8 +61,7 @@ export function PhotoPicker() {
       return;
     }
 
-    setSelectedFile(file);
-    setPreviewObjectUrl(URL.createObjectURL(file));
+    setPhoto(file);
     setValidationFeedback(null);
     event.currentTarget.value = "";
   }
@@ -113,8 +119,8 @@ export function PhotoPicker() {
         id="photo-picker-help"
         className="text-foreground-muted mt-3 text-sm leading-6"
       >
-        Choose one image up to 15 MB. The selected photo stays on this screen
-        for now and is not uploaded or saved.
+        Choose one image up to 15 MB. The selected photo stays in this report
+        session for now and is not uploaded or saved.
       </p>
 
       {validationFeedback ? (
