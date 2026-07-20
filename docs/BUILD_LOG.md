@@ -206,6 +206,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Replaced the foundation placeholder with the real mobile-first landing screen and added the single safety placeholder route required by its primary action.
 - Replaced the safety placeholder with clear public guidance and added the single photo placeholder route required by its primary action.
 - Replaced the photo placeholder with native single-image selection, accessible MIME and 15 MB validation, a replaceable local preview and navigation to the single location placeholder.
+- Replaced the location placeholder with browser geolocation, explicit permission and failure feedback, a 200-character manual fallback and navigation to the single questions placeholder.
 
 ---
 
@@ -220,6 +221,8 @@ Initialise the production-quality application baseline and begin the approved ap
 - Used a native GET form for landing-page navigation, avoiding client-side state and additional routing abstractions.
 - Kept the safety screen informational and stateless, with native navigation to the unimplemented photo step.
 - Kept the selected file and preview object URL inside the focused photo-picker client boundary; no upload, persistence or cross-route image transfer occurs yet.
+- Kept coordinates and manual location text inside the focused location client boundary; neither value is submitted, persisted or placed in navigation URLs yet.
+- Relied on secure-context browser geolocation, which requires HTTPS outside the localhost development exception, while keeping manual entry available when permission is denied or location is unavailable, unsupported or times out.
 
 ---
 

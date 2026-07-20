@@ -1,0 +1,241 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useRef, useState } from "react";
+
+import { Button } from "@/shared/ui/button";
+
+type LocationRequestStatus =
+  | "idle"
+  | "requesting"
+  | "success"
+  | "permission-denied"
+  | "position-unavailable"
+  | "request-timeout"
+  | "unsupported";
+
+interface DeviceCoordinates {
+  latitude: number;
+  longitude: number;
+  accuracy: number;
+}
+
+interface GeolocationFailure {
+  status:
+    | "permission-denied"
+    | "position-unavailable"
+    | "request-timeout";
+  feedback: string;
+}
+
+const GEOLOCATION_OPTIONS: PositionOptions = {
+  enableHighAccuracy: true,
+  timeout: 10_000,
+  maximumAge: 60_000,
+};
+
+const MAX_MANUAL_LOCATION_LENGTH = 200;
+
+function getGeolocationFailure(
+  error: GeolocationPositionError,
+): GeolocationFailure {
+  switch (error.code) {
+    case error.PERMISSION_DENIED:
+      return {
+        status: "permission-denied",
+        feedback:
+          "Location permission was denied. You can describe the location below instead.",
+      };
+    case error.POSITION_UNAVAILABLE:
+      return {
+        status: "position-unavailable",
+        feedback:
+          "Your device could not determine a location. Try again or describe the location below.",
+      };
+    case error.TIMEOUT:
+      return {
+        status: "request-timeout",
+        feedback:
+          "Finding your location took too long. Try again or describe the location below.",
+      };
+    default:
+      return {
+        status: "position-unavailable",
+        feedback:
+          "Your location could not be found. Try again or describe the location below.",
+      };
+  }
+}
+
+export function LocationConfirmation() {
+  const router = useRouter();
+  const locationRequestInProgress = useRef(false);
+  const [requestStatus, setRequestStatus] =
+    useState<LocationRequestStatus>("idle");
+  const [deviceCoordinates, setDeviceCoordinates] =
+    useState<DeviceCoordinates | null>(null);
+  const [manualLocation, setManualLocation] = useState("");
+  const [geolocationFeedback, setGeolocationFeedback] = useState<string | null>(
+    null,
+  );
+
+  const isRequesting = requestStatus === "requesting";
+  const isUnsupported = requestStatus === "unsupported";
+  const hasManualLocation = manualLocation.trim().length > 0;
+  const canContinue = deviceCoordinates !== null || hasManualLocation;
+
+  function handleLocationRequest() {
+    if (locationRequestInProgress.current) {
+      return;
+    }
+
+    if (isRequesting) {
+      return;
+    }
+
+    if (!("geolocation" in navigator)) {
+      setRequestStatus("unsupported");
+      setGeolocationFeedback(
+        "Current location is unavailable in this browser. Describe the location below instead.",
+      );
+      return;
+    }
+
+    locationRequestInProgress.current = true;
+    setRequestStatus("requesting");
+    setGeolocationFeedback("Finding your location…");
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        locationRequestInProgress.current = false;
+        setDeviceCoordinates({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          accuracy: position.coords.accuracy,
+        });
+        setRequestStatus("success");
+        setGeolocationFeedback("Location found.");
+      },
+      (error) => {
+        locationRequestInProgress.current = false;
+        const failure = getGeolocationFailure(error);
+        setRequestStatus(failure.status);
+        setGeolocationFeedback(failure.feedback);
+      },
+      GEOLOCATION_OPTIONS,
+    );
+  }
+
+  function handleContinue() {
+    if (canContinue) {
+      router.push("/report/questions");
+    }
+  }
+
+  return (
+    <div className="mt-8">
+      <section aria-labelledby="device-location-heading">
+        <h2 id="device-location-heading" className="text-lg font-semibold">
+          Use your device location
+        </h2>
+        <button
+          type="button"
+          disabled={isRequesting || isUnsupported}
+          aria-busy={isRequesting}
+          aria-describedby="geolocation-status"
+          className="text-primary border-primary hover:bg-primary hover:text-primary-foreground active:bg-primary-active active:text-primary-foreground disabled:border-disabled-background disabled:bg-disabled-background disabled:text-foreground-muted mt-4 min-h-12 w-full rounded-xl border-2 px-5 py-3 text-base leading-6 font-semibold disabled:cursor-not-allowed"
+          onClick={handleLocationRequest}
+        >
+          {isRequesting ? "Finding your location…" : "Use my current location"}
+        </button>
+
+        <div
+          id="geolocation-status"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          {geolocationFeedback ? (
+            <p className="text-foreground-muted mt-3 text-sm leading-6">
+              {geolocationFeedback}
+            </p>
+          ) : null}
+        </div>
+
+        {deviceCoordinates ? (
+          <div className="border-foreground/15 mt-5 rounded-xl border p-4">
+            <h3 className="font-semibold">Device location found</h3>
+            <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3 text-sm leading-6">
+              <div>
+                <dt className="text-foreground-muted">Latitude</dt>
+                <dd className="font-semibold">
+                  {deviceCoordinates.latitude.toFixed(5)}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-foreground-muted">Longitude</dt>
+                <dd className="font-semibold">
+                  {deviceCoordinates.longitude.toFixed(5)}
+                </dd>
+              </div>
+              <div className="col-span-2">
+                <dt className="text-foreground-muted">Reported accuracy</dt>
+                <dd className="font-semibold">
+                  About {Math.round(deviceCoordinates.accuracy)} metres
+                </dd>
+              </div>
+            </dl>
+            <p className="text-foreground-muted mt-3 text-sm leading-6">
+              These coordinates are a device estimate, not an exact address.
+            </p>
+          </div>
+        ) : null}
+      </section>
+
+      <div className="border-foreground/15 mt-8 border-t pt-8">
+        <label
+          htmlFor="manual-location"
+          className="block text-lg font-semibold"
+        >
+          Or describe the location
+        </label>
+        <p
+          id="manual-location-hint"
+          className="text-foreground-muted mt-1 text-sm leading-6"
+        >
+          For example: beside the northern entrance to Hagley Park
+        </p>
+        <textarea
+          id="manual-location"
+          value={manualLocation}
+          maxLength={MAX_MANUAL_LOCATION_LENGTH}
+          rows={3}
+          aria-describedby="manual-location-hint manual-location-count"
+          className="border-foreground/30 bg-background mt-3 min-h-24 w-full resize-y rounded-xl border px-4 py-3 text-base leading-6"
+          onChange={(event) => setManualLocation(event.currentTarget.value)}
+        />
+        <p
+          id="manual-location-count"
+          className="text-foreground-muted mt-1 text-right text-sm leading-6"
+        >
+          {manualLocation.length}/{MAX_MANUAL_LOCATION_LENGTH} characters
+        </p>
+      </div>
+
+      <p className="text-foreground-muted mt-6 text-sm leading-6">
+        Your location stays on this screen for now and is not yet submitted or
+        saved.
+      </p>
+
+      <div className="mt-8">
+        <Button
+          type="button"
+          disabled={!canContinue}
+          onClick={handleContinue}
+        >
+          Continue
+        </Button>
+      </div>
+    </div>
+  );
+}
