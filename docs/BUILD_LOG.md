@@ -203,6 +203,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Established semantic design tokens and global accessibility styles.
 - Added the shared mobile-first `PageContainer` and `ScreenHeader` components.
 - Added the minimal native `Button` and temporary `StepPlaceholder` components.
+- Replaced the foundation placeholder with the real mobile-first landing screen and added the single safety placeholder route required by its primary action.
 
 ---
 
@@ -214,6 +215,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Defined the visual foundation through Tailwind's CSS-first theme configuration without adding a component library or font dependency.
 - Kept the shared shell APIs fixed to current screen needs and isolated safe-area handling inside the page container.
 - Preserved native button behaviour and kept placeholder screens explicitly free of workflow logic.
+- Used a native GET form for landing-page navigation, avoiding client-side state and additional routing abstractions.
 
 ---
 

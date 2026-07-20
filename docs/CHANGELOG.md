@@ -79,6 +79,7 @@ Changes requiring migration or affecting compatibility.
 - Added semantic design tokens and accessible global focus styling.
 - Added a responsive, safe-area-aware page container and shared screen header.
 - Added a reusable native button and temporary route-step placeholder.
+- Added the mobile-first landing screen and connected its primary action to the placeholder safety step.
 - Established the Spot & Report repository.
 - Defined the long-term product vision.
 - Created the engineering documentation framework.
