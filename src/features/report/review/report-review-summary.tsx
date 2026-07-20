@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import type { ObservationType } from "@/features/report/session/report-session";
 import { useReportSession } from "@/features/report/session/use-report-session";
+import { ReportSubmissionService } from "@/features/report/submission/report-submission-service";
 import { Button } from "@/shared/ui/button";
 
 const OBSERVATION_LABELS: Record<ObservationType, string> = {
@@ -14,10 +15,15 @@ const OBSERVATION_LABELS: Record<ObservationType, string> = {
   multiple: "Multiple birds",
 };
 
+const reportSubmissionService = new ReportSubmissionService();
+
 export function ReportReviewSummary() {
   const router = useRouter();
   const { session } = useReportSession();
+  const submissionInProgress = useRef(false);
   const [previewObjectUrl, setPreviewObjectUrl] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionError, setSubmissionError] = useState<string | null>(null);
   const { photo, location, questions } = session;
   const hasReportData = Boolean(
     photo ||
@@ -62,6 +68,34 @@ export function ReportReviewSummary() {
     : "Not provided";
   const species = questions.species.trim() || "Not provided";
   const notes = questions.notes.trim() || "No additional observations.";
+
+  async function handleSubmit() {
+    if (submissionInProgress.current) {
+      return;
+    }
+
+    submissionInProgress.current = true;
+    setIsSubmitting(true);
+    setSubmissionError(null);
+
+    try {
+      const submission = await reportSubmissionService.submit(session);
+      const searchParams = new URLSearchParams({
+        reference: submission.reference,
+        submittedAt: submission.submittedAt.toISOString(),
+      });
+
+      router.push(`/report/submit?${searchParams.toString()}`);
+    } catch (error) {
+      submissionInProgress.current = false;
+      setIsSubmitting(false);
+      setSubmissionError(
+        error instanceof Error
+          ? error.message
+          : "The report could not be submitted.",
+      );
+    }
+  }
 
   return (
     <div className="mt-8">
@@ -167,9 +201,18 @@ export function ReportReviewSummary() {
       </div>
 
       <div className="mt-8 space-y-3">
-        <Button onClick={() => router.push("/report/submit")}>
-          Submit report
+        <Button
+          disabled={isSubmitting}
+          aria-busy={isSubmitting}
+          onClick={handleSubmit}
+        >
+          {isSubmitting ? "Submitting..." : "Submit report"}
         </Button>
+        {submissionError ? (
+          <p role="alert" className="text-sm font-semibold leading-6">
+            {submissionError}
+          </p>
+        ) : null}
         <Link
           href="/report/questions"
           className="text-primary hover:text-primary-hover active:text-primary-active flex min-h-12 w-full items-center justify-center rounded-xl px-5 py-3 text-center font-semibold underline-offset-4 hover:underline"

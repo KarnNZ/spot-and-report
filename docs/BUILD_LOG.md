@@ -212,6 +212,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Replaced the review placeholder with a read-only summary of the collected report and added clear empty-session recovery.
 - Added a reusable report progress indicator to the Safety, Photo, Location, Questions and Review screens.
 - Added a pure report submission engine that validates completed report sessions and builds a canonical submission payload.
+- Added a simulated submission service and confirmation screen, completing the MVP journey from landing page to temporary report reference.
 
 ---
 
@@ -233,6 +234,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Kept submission separate from review by routing the primary action only to a submit placeholder, without adding APIs or persistence.
 - Kept progress presentational and explicit on each participating page, without changing workflow, navigation or report-session behaviour.
 - Kept submission preparation separate from delivery: validation returns all errors and no network, persistence or UI integration occurs in the engine.
+- Kept the end-to-end submission simulation local: the service reuses engine validation, waits 750 milliseconds and returns temporary confirmation metadata without a network request.
 
 ---
 
