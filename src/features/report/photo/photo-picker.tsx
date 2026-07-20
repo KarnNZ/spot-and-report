@@ -101,24 +101,53 @@ export function PhotoPicker() {
         ) : null}
 
         <div className={selectedFile ? "mt-4" : undefined}>
-          <input
-            id="report-photo"
-            type="file"
-            accept="image/*"
-            capture="environment"
-            aria-describedby={inputDescription}
-            aria-invalid={validationFeedback ? true : undefined}
-            className="peer sr-only"
-            onChange={handlePhotoChange}
-          />
-          <label
-            htmlFor="report-photo"
-            className="text-primary border-primary hover:bg-primary hover:text-primary-foreground active:bg-primary-active active:text-primary-foreground peer-focus-visible:outline-focus flex min-h-12 w-full cursor-pointer items-center justify-center rounded-xl border-2 px-6 py-3.5 text-center text-base leading-6 font-semibold peer-focus-visible:outline-[3px] peer-focus-visible:outline-offset-[3px]"
+          <div>
+            <input
+              id="report-camera-photo"
+              type="file"
+              accept="image/*"
+              capture="environment"
+              aria-describedby={inputDescription}
+              aria-invalid={validationFeedback ? true : undefined}
+              className="peer sr-only"
+              onChange={handlePhotoChange}
+            />
+            <label
+              htmlFor="report-camera-photo"
+              className="bg-primary text-primary-foreground hover:bg-primary-hover active:bg-primary-active peer-focus-visible:outline-focus flex min-h-12 w-full cursor-pointer items-center justify-center rounded-xl px-6 py-3.5 text-center text-base leading-6 font-semibold peer-focus-visible:outline-[3px] peer-focus-visible:outline-offset-[3px]"
+            >
+              {selectedFile ? "Take a different photo" : "Take Photo"}
+            </label>
+          </div>
+
+          <div
+            aria-hidden="true"
+            className="text-foreground-muted my-4 flex items-center gap-3 text-xs font-semibold uppercase"
           >
-            {selectedFile
-              ? "Choose a different photo"
-              : "Take or choose photo"}
-          </label>
+            <span className="border-foreground/15 h-px flex-1 border-t" />
+            <span>or</span>
+            <span className="border-foreground/15 h-px flex-1 border-t" />
+          </div>
+
+          <div>
+            <input
+              id="report-upload-photo"
+              type="file"
+              accept="image/*"
+              aria-describedby={inputDescription}
+              aria-invalid={validationFeedback ? true : undefined}
+              className="peer sr-only"
+              onChange={handlePhotoChange}
+            />
+            <label
+              htmlFor="report-upload-photo"
+              className="text-primary border-primary hover:bg-primary hover:text-primary-foreground active:bg-primary-active active:text-primary-foreground peer-focus-visible:outline-focus flex min-h-12 w-full cursor-pointer items-center justify-center rounded-xl border-2 px-6 py-3.5 text-center text-base leading-6 font-semibold peer-focus-visible:outline-[3px] peer-focus-visible:outline-offset-[3px]"
+            >
+              {selectedFile
+                ? "Choose a different image"
+                : "Upload Existing Photo"}
+            </label>
+          </div>
         </div>
 
         <p

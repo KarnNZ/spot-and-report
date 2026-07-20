@@ -217,6 +217,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Refined the shared button, page container, screen header, placeholder, brand mark and report progress presentation for a more consistent mobile-first interface.
 - Applied screen-level polish across the complete reporting journey, improving content grouping, form presentation, report scanning and confirmation hierarchy.
 - Added deterministic Back navigation throughout the active report steps and aligned submission validation with the existing manual location fallback.
+- Replaced the combined photo action with separate camera and existing-image choices after real-device testing exposed unreliable forced-camera behaviour.
 
 ---
 
@@ -243,6 +244,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Limited shared UI refinement to visual rhythm, typography and control treatment; public APIs and workflow behaviour remain unchanged.
 - Reused existing tokens and direct feature styling for screen polish, preserving every route, validation rule, report-session update and simulated-submission behaviour.
 - Kept confirmation as the terminal report screen and accepted either device coordinates or a trimmed manual description as a valid submission location, without changing backend behaviour or adding workflow steps.
+- Retained the rear-camera hint only for Take Photo while allowing Upload Existing Photo to use the browser's normal image sources; both actions share validation, session, preview and submission behaviour.
 
 ---
 
