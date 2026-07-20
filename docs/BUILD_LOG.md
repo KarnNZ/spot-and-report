@@ -218,6 +218,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Applied screen-level polish across the complete reporting journey, improving content grouping, form presentation, report scanning and confirmation hierarchy.
 - Added deterministic Back navigation throughout the active report steps and aligned submission validation with the existing manual location fallback.
 - Replaced the combined photo action with separate camera and existing-image choices after real-device testing exposed unreliable forced-camera behaviour.
+- Replaced the temporary text brand mark with the final Spot & Report logo served from `public/branding` and verified it across its mobile placements.
 
 ---
 
@@ -245,6 +246,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Reused existing tokens and direct feature styling for screen polish, preserving every route, validation rule, report-session update and simulated-submission behaviour.
 - Kept confirmation as the terminal report screen and accepted either device coordinates or a trimmed manual description as a valid submission location, without changing backend behaviour or adding workflow steps.
 - Retained the rear-camera hint only for Take Photo while allowing Upload Existing Photo to use the browser's normal image sources; both actions share validation, session, preview and submission behaviour.
+- Preserved the prop-free `BrandMark` API while using the final logo's intrinsic dimensions and responsive CSS sizing, requiring no consuming-screen or workflow changes.
 
 ---
 

@@ -1,13 +1,16 @@
+import Image from "next/image";
+
 export function BrandMark() {
   return (
-    <span className="inline-flex items-center gap-2 whitespace-nowrap">
-      <span
-        aria-hidden="true"
-        className="bg-foreground block h-2 w-2 rounded-full"
+    <span className="inline-flex items-center">
+      <Image
+        src="/branding/spot-and-report-logo.png"
+        alt="Spot & Report"
+        width={1228}
+        height={136}
+        priority
+        className="h-8 w-auto max-w-full"
       />
-      <span className="text-sm leading-5 font-semibold tracking-tight">
-        Spot &amp; Report
-      </span>
     </span>
   );
 }
