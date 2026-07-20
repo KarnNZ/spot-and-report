@@ -1,3 +1,4 @@
+import { ReportProgress } from "@/features/report/progress/report-progress";
 import { Button } from "@/shared/ui/button";
 import { PageContainer } from "@/shared/ui/page-container";
 import { ScreenHeader } from "@/shared/ui/screen-header";
@@ -6,6 +7,8 @@ export default function SafetyPage() {
   return (
     <PageContainer>
       <div className="my-auto w-full max-w-xl self-center py-4 sm:py-8">
+        <ReportProgress currentStep="safety" />
+
         <ScreenHeader
           title="Stay safe first"
           description="Avoid touching or moving the bird. If possible, keep children and pets away from the area while you complete your report."
