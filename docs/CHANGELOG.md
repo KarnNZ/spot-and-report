@@ -76,6 +76,7 @@ Changes requiring migration or affecting compatibility.
 - Added strict TypeScript, Tailwind CSS 4 and ESLint configuration.
 - Added a minimal mobile-first application entry point.
 - Added reproducible npm dependency locking and local validation scripts.
+- Added semantic design tokens and accessible global focus styling.
 - Established the Spot & Report repository.
 - Defined the long-term product vision.
 - Created the engineering documentation framework.

@@ -105,7 +105,7 @@ Current implementation efforts should prioritise delivering this end-to-end work
 
 ## Task 2 — Application Foundation
 
-**Status:** Awaiting project owner approval
+**Status:** In progress
 
 **Reference**
 

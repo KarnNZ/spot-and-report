@@ -1,20 +1,58 @@
 @import "tailwindcss";
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+@theme {
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+
+  --color-background: #f4f7f5;
+  --color-foreground: #17221c;
+  --color-foreground-muted: #4b5d53;
+  --color-primary: #08634f;
+  --color-focus: #0a66c2;
+  --color-selection: #e3eae6;
 }
 
-html {
-  min-width: 320px;
-  background: #f7f7f5;
-}
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
 
-body {
-  min-height: 100vh;
-  margin: 0;
-  color: #202522;
-  background: #f7f7f5;
-  font-family: Arial, Helvetica, sans-serif;
+  html {
+    min-width: 320px;
+    color-scheme: light;
+    background-color: var(--color-background);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    margin: 0;
+    overflow-wrap: break-word;
+    color: var(--color-foreground);
+    background-color: var(--color-background);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    color: var(--color-foreground);
+    background-color: var(--color-selection);
+  }
 }

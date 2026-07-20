@@ -187,7 +187,7 @@ Outline the next planned work.
 
 ### Objective
 
-Initialise the production-quality application baseline without beginning later foundation or reporting-workflow work.
+Initialise the production-quality application baseline and begin the approved application foundation in small, reviewable slices.
 
 ---
 
@@ -200,14 +200,16 @@ Initialise the production-quality application baseline without beginning later f
 - Added the local development, lint, type-check and production-build scripts.
 - Generated the npm lockfile.
 - Passed linting, strict type checking and the production build.
+- Established semantic design tokens and global accessibility styles.
 
 ---
 
 ### Key Decisions
 
 - Kept the first implementation increment limited to the runnable framework baseline.
-- Deferred reusable components, design tokens, MVP routes, tests, formatting and workflow state to separately approved commits.
+- Deferred reusable components, MVP routes, tests, formatting and workflow state to separately approved commits.
 - Used stable framework releases and avoided React Compiler or additional application dependencies.
+- Defined the visual foundation through Tailwind's CSS-first theme configuration without adding a component library or font dependency.
 
 ---
 
@@ -239,7 +241,7 @@ Dependency audit recommendations require engineering review before automated rem
 
 ### Next Steps
 
-Await project owner approval before beginning the application-foundation commit.
+Await project owner approval before implementing the next Task 2 slice.
 
 ---
 
