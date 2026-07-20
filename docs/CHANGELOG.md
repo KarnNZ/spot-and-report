@@ -87,6 +87,7 @@ Changes requiring migration or affecting compatibility.
 - Added four focused report questions with in-memory answer restoration and navigation to the review placeholder.
 - Added a read-only report summary with local photo preview, complete collected details and expired-session handling.
 - Added an accessible five-step progress indicator across the reporting screens without changing navigation behaviour.
+- Added a pure submission engine with complete-session validation and an adapter-ready report payload.
 - Established the Spot & Report repository.
 - Defined the long-term product vision.
 - Created the engineering documentation framework.

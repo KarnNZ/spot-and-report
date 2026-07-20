@@ -211,6 +211,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Replaced the questions placeholder with four focused report questions and extended the in-memory session to restore their answers.
 - Replaced the review placeholder with a read-only summary of the collected report and added clear empty-session recovery.
 - Added a reusable report progress indicator to the Safety, Photo, Location, Questions and Review screens.
+- Added a pure report submission engine that validates completed report sessions and builds a canonical submission payload.
 
 ---
 
@@ -231,6 +232,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Kept the Questions screen to the four approved observation fields and added only the review placeholder required for forward navigation.
 - Kept submission separate from review by routing the primary action only to a submit placeholder, without adding APIs or persistence.
 - Kept progress presentational and explicit on each participating page, without changing workflow, navigation or report-session behaviour.
+- Kept submission preparation separate from delivery: validation returns all errors and no network, persistence or UI integration occurs in the engine.
 
 ---
 
