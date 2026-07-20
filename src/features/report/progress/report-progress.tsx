@@ -28,17 +28,17 @@ export function ReportProgress({ currentStep }: ReportProgressProps) {
 
   return (
     <section aria-label="Report progress" className="mb-8">
-      <p className="text-foreground-muted text-sm leading-6">
+      <p className="text-foreground-muted text-xs leading-5 font-medium tracking-wide">
         Step {stepNumber} of {REPORT_STEPS.length}
       </p>
-      <p className="mt-1 font-semibold">{stepLabel}</p>
+      <p className="mt-0.5 text-sm leading-5 font-semibold">{stepLabel}</p>
       <div
         role="progressbar"
         aria-valuemin={1}
         aria-valuemax={REPORT_STEPS.length}
         aria-valuenow={stepNumber}
         aria-valuetext={progressText}
-        className="bg-foreground/10 mt-3 h-2 overflow-hidden rounded-full"
+        className="bg-foreground/10 mt-3 h-1.5 overflow-hidden rounded-full"
       >
         <div
           aria-hidden="true"
