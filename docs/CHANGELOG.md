@@ -81,6 +81,7 @@ Changes requiring migration or affecting compatibility.
 - Added a reusable native button and temporary route-step placeholder.
 - Added the mobile-first landing screen and connected its primary action to the placeholder safety step.
 - Added the real safety guidance screen and connected its primary action to the placeholder photo step.
+- Added native camera or file selection, validation, replacement and a current-screen-only preview to the Photo screen.
 - Established the Spot & Report repository.
 - Defined the long-term product vision.
 - Created the engineering documentation framework.

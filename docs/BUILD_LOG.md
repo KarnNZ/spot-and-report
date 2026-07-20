@@ -205,6 +205,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Added the minimal native `Button` and temporary `StepPlaceholder` components.
 - Replaced the foundation placeholder with the real mobile-first landing screen and added the single safety placeholder route required by its primary action.
 - Replaced the safety placeholder with clear public guidance and added the single photo placeholder route required by its primary action.
+- Replaced the photo placeholder with native single-image selection, accessible MIME and 15 MB validation, a replaceable local preview and navigation to the single location placeholder.
 
 ---
 
@@ -218,6 +219,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Preserved native button behaviour and kept placeholder screens explicitly free of workflow logic.
 - Used a native GET form for landing-page navigation, avoiding client-side state and additional routing abstractions.
 - Kept the safety screen informational and stateless, with native navigation to the unimplemented photo step.
+- Kept the selected file and preview object URL inside the focused photo-picker client boundary; no upload, persistence or cross-route image transfer occurs yet.
 
 ---
 
