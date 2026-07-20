@@ -201,6 +201,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Generated the npm lockfile.
 - Passed linting, strict type checking and the production build.
 - Established semantic design tokens and global accessibility styles.
+- Added the shared mobile-first `PageContainer` and `ScreenHeader` components.
 
 ---
 
@@ -210,6 +211,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Deferred reusable components, MVP routes, tests, formatting and workflow state to separately approved commits.
 - Used stable framework releases and avoided React Compiler or additional application dependencies.
 - Defined the visual foundation through Tailwind's CSS-first theme configuration without adding a component library or font dependency.
+- Kept the shared shell APIs fixed to current screen needs and isolated safe-area handling inside the page container.
 
 ---
 

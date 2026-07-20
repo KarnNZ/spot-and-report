@@ -77,6 +77,7 @@ Changes requiring migration or affecting compatibility.
 - Added a minimal mobile-first application entry point.
 - Added reproducible npm dependency locking and local validation scripts.
 - Added semantic design tokens and accessible global focus styling.
+- Added a responsive, safe-area-aware page container and shared screen header.
 - Established the Spot & Report repository.
 - Defined the long-term product vision.
 - Created the engineering documentation framework.
