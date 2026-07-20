@@ -42,14 +42,14 @@ export function ReportQuestionsForm() {
   }
 
   return (
-    <form className="mt-8 space-y-8" onSubmit={handleSubmit}>
-      <fieldset>
+    <form className="mt-8 space-y-4" onSubmit={handleSubmit}>
+      <fieldset className="border-foreground/15 rounded-2xl border p-5">
         <legend className="text-lg font-semibold">What did you observe?</legend>
         <div className="mt-3 space-y-3">
           {OBSERVATION_OPTIONS.map((option) => (
             <label
               key={option.value}
-              className="border-foreground/30 bg-background has-checked:border-primary has-checked:bg-selection flex min-h-12 cursor-pointer items-center gap-3 rounded-xl border px-4 py-3"
+              className="border-foreground/30 bg-background hover:border-primary/60 has-checked:border-primary has-checked:bg-selection flex min-h-12 cursor-pointer items-center gap-3 rounded-xl border px-4 py-3"
             >
               <input
                 type="radio"
@@ -66,7 +66,7 @@ export function ReportQuestionsForm() {
         </div>
       </fieldset>
 
-      <div>
+      <div className="border-foreground/15 rounded-2xl border p-5">
         <label htmlFor="bird-count" className="block text-lg font-semibold">
           Approximately how many birds?
         </label>
@@ -79,7 +79,7 @@ export function ReportQuestionsForm() {
           step={1}
           required
           value={birdCount === 0 ? "" : birdCount}
-          className="border-foreground/30 bg-background mt-3 min-h-12 w-full rounded-xl border px-4 py-3 text-base leading-6"
+          className="border-foreground/30 bg-background focus:border-primary focus:outline-focus mt-3 min-h-12 w-full rounded-xl border px-4 py-3 text-base leading-6 focus:outline-[3px] focus:outline-offset-[3px]"
           onChange={(event) => {
             const nextBirdCount = event.currentTarget.valueAsNumber;
             setBirdCount(Number.isNaN(nextBirdCount) ? 0 : nextBirdCount);
@@ -87,7 +87,7 @@ export function ReportQuestionsForm() {
         />
       </div>
 
-      <div>
+      <div className="border-foreground/15 rounded-2xl border p-5">
         <label htmlFor="bird-species" className="block text-lg font-semibold">
           Do you know the species?{" "}
           <span className="text-foreground-muted text-sm font-normal">
@@ -100,13 +100,13 @@ export function ReportQuestionsForm() {
           value={species}
           maxLength={MAX_SPECIES_LENGTH}
           placeholder="For example: duck, gull, swan"
-          className="border-foreground/30 bg-background mt-3 min-h-12 w-full rounded-xl border px-4 py-3 text-base leading-6"
+          className="border-foreground/30 bg-background placeholder:text-foreground-muted/70 focus:border-primary focus:outline-focus mt-3 min-h-12 w-full rounded-xl border px-4 py-3 text-base leading-6 focus:outline-[3px] focus:outline-offset-[3px]"
           onChange={(event) => setSpecies(event.currentTarget.value)}
           onBlur={(event) => setSpecies(event.currentTarget.value.trim())}
         />
       </div>
 
-      <div>
+      <div className="border-foreground/15 rounded-2xl border p-5">
         <label
           htmlFor="observation-notes"
           className="block text-lg font-semibold"
@@ -122,15 +122,17 @@ export function ReportQuestionsForm() {
           maxLength={MAX_NOTES_LENGTH}
           rows={4}
           placeholder="For example: difficulty walking, unusual behaviour, visible injuries"
-          className="border-foreground/30 bg-background mt-3 min-h-28 w-full resize-y rounded-xl border px-4 py-3 text-base leading-6"
+          className="border-foreground/30 bg-background placeholder:text-foreground-muted/70 focus:border-primary focus:outline-focus mt-3 min-h-28 w-full resize-y rounded-xl border px-4 py-3 text-base leading-6 focus:outline-[3px] focus:outline-offset-[3px]"
           onChange={(event) => setNotes(event.currentTarget.value)}
           onBlur={(event) => setNotes(event.currentTarget.value.trim())}
         />
       </div>
 
-      <Button type="submit" disabled={!canContinue}>
-        Continue
-      </Button>
+      <div className="pt-4">
+        <Button type="submit" disabled={!canContinue}>
+          Continue
+        </Button>
+      </div>
     </form>
   );
 }

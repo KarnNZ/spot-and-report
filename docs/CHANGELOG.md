@@ -91,6 +91,7 @@ Changes requiring migration or affecting compatibility.
 - Added simulated report submission and a confirmation screen, completing the end-to-end MVP reporting flow without a backend.
 - Added a reusable Spot & Report wordmark, refined visual identity tokens and clearer application metadata.
 - Improved shared component consistency, typography, touch comfort and visual hierarchy without changing application behaviour.
+- Polished the full reporting experience with clearer guidance surfaces, consistent forms, scannable summaries and stronger completion hierarchy.
 - Established the Spot & Report repository.
 - Defined the long-term product vision.
 - Created the engineering documentation framework.

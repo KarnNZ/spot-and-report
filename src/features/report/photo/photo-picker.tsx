@@ -78,62 +78,68 @@ export function PhotoPicker() {
 
   return (
     <div className="mt-8">
-      {selectedFile && previewObjectUrl ? (
-        <figure>
-          <div className="border-foreground/15 flex min-h-48 items-center justify-center overflow-hidden rounded-xl border p-2">
-            {/* Blob URLs are local-only and cannot use Next.js image optimization. */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={previewObjectUrl}
-              alt="Preview of your selected report photo."
-              className="block h-auto max-h-80 w-auto max-w-full object-contain"
-            />
-          </div>
-          <figcaption className="mt-3 text-sm leading-6">
-            <span className="font-semibold">Selected photo:</span>{" "}
-            <span className="text-foreground-muted">{selectedFile.name}</span>
-          </figcaption>
-        </figure>
-      ) : null}
+      <div className="border-foreground/15 rounded-2xl border p-4 sm:p-5">
+        {selectedFile && previewObjectUrl ? (
+          <figure>
+            <div className="border-foreground/15 bg-foreground/[0.03] flex min-h-56 items-center justify-center overflow-hidden rounded-xl border p-3">
+              {/* Blob URLs are local-only and cannot use Next.js image optimization. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={previewObjectUrl}
+                alt="Preview of your selected report photo."
+                className="block h-auto max-h-80 w-auto max-w-full object-contain"
+              />
+            </div>
+            <figcaption className="mt-3 text-sm leading-6">
+              <span className="font-semibold">Selected photo:</span>{" "}
+              <span className="text-foreground-muted">
+                {selectedFile.name}
+              </span>
+            </figcaption>
+          </figure>
+        ) : null}
 
-      <div className={selectedFile ? "mt-4" : undefined}>
-        <input
-          id="report-photo"
-          type="file"
-          accept="image/*"
-          capture="environment"
-          aria-describedby={inputDescription}
-          aria-invalid={validationFeedback ? true : undefined}
-          className="peer sr-only"
-          onChange={handlePhotoChange}
-        />
-        <label
-          htmlFor="report-photo"
-          className="text-primary border-primary hover:bg-primary hover:text-primary-foreground active:bg-primary-active active:text-primary-foreground peer-focus-visible:outline-focus flex min-h-12 w-full cursor-pointer items-center justify-center rounded-xl border-2 px-5 py-3 text-center text-base leading-6 font-semibold peer-focus-visible:outline-[3px] peer-focus-visible:outline-offset-[3px]"
+        <div className={selectedFile ? "mt-4" : undefined}>
+          <input
+            id="report-photo"
+            type="file"
+            accept="image/*"
+            capture="environment"
+            aria-describedby={inputDescription}
+            aria-invalid={validationFeedback ? true : undefined}
+            className="peer sr-only"
+            onChange={handlePhotoChange}
+          />
+          <label
+            htmlFor="report-photo"
+            className="text-primary border-primary hover:bg-primary hover:text-primary-foreground active:bg-primary-active active:text-primary-foreground peer-focus-visible:outline-focus flex min-h-12 w-full cursor-pointer items-center justify-center rounded-xl border-2 px-6 py-3.5 text-center text-base leading-6 font-semibold peer-focus-visible:outline-[3px] peer-focus-visible:outline-offset-[3px]"
+          >
+            {selectedFile
+              ? "Choose a different photo"
+              : "Take or choose photo"}
+          </label>
+        </div>
+
+        <p
+          id="photo-picker-help"
+          className="text-foreground-muted mt-3 text-sm leading-6"
         >
-          {selectedFile ? "Choose a different photo" : "Take or choose photo"}
-        </label>
+          Choose one image up to 15 MB. The selected photo stays in this report
+          session for now and is not uploaded or saved.
+        </p>
+
+        {validationFeedback ? (
+          <p
+            id="photo-picker-error"
+            role="alert"
+            className="mt-3 text-sm font-semibold leading-6"
+          >
+            {validationFeedback}
+          </p>
+        ) : null}
       </div>
 
-      <p
-        id="photo-picker-help"
-        className="text-foreground-muted mt-3 text-sm leading-6"
-      >
-        Choose one image up to 15 MB. The selected photo stays in this report
-        session for now and is not uploaded or saved.
-      </p>
-
-      {validationFeedback ? (
-        <p
-          id="photo-picker-error"
-          role="alert"
-          className="mt-3 text-sm font-semibold leading-6"
-        >
-          {validationFeedback}
-        </p>
-      ) : null}
-
-      <div className="mt-8">
+      <div className="mt-6">
         <Button
           type="button"
           disabled={!selectedFile}

@@ -129,7 +129,10 @@ export function LocationConfirmation() {
 
   return (
     <div className="mt-8">
-      <section aria-labelledby="device-location-heading">
+      <section
+        aria-labelledby="device-location-heading"
+        className="border-foreground/15 rounded-2xl border p-5"
+      >
         <h2 id="device-location-heading" className="text-lg font-semibold">
           Use your device location
         </h2>
@@ -138,7 +141,7 @@ export function LocationConfirmation() {
           disabled={isRequesting || isUnsupported}
           aria-busy={isRequesting}
           aria-describedby="geolocation-status"
-          className="text-primary border-primary hover:bg-primary hover:text-primary-foreground active:bg-primary-active active:text-primary-foreground disabled:border-disabled-background disabled:bg-disabled-background disabled:text-foreground-muted mt-4 min-h-12 w-full rounded-xl border-2 px-5 py-3 text-base leading-6 font-semibold disabled:cursor-not-allowed"
+          className="text-primary border-primary hover:bg-primary hover:text-primary-foreground active:bg-primary-active active:text-primary-foreground focus-visible:outline-focus disabled:border-disabled-background disabled:bg-disabled-background disabled:text-foreground-muted mt-4 min-h-12 w-full cursor-pointer rounded-xl border-2 px-6 py-3.5 text-base leading-6 font-semibold focus-visible:outline-[3px] focus-visible:outline-offset-[3px] disabled:cursor-not-allowed"
           onClick={handleLocationRequest}
         >
           {isRequesting ? "Finding your location…" : "Use my current location"}
@@ -158,7 +161,7 @@ export function LocationConfirmation() {
         </div>
 
         {deviceCoordinates ? (
-          <div className="border-foreground/15 mt-5 rounded-xl border p-4">
+          <div className="border-foreground/15 bg-selection/40 mt-5 rounded-xl border p-4">
             <h3 className="font-semibold">Device location found</h3>
             <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3 text-sm leading-6">
               <div>
@@ -187,7 +190,7 @@ export function LocationConfirmation() {
         ) : null}
       </section>
 
-      <div className="border-foreground/15 mt-8 border-t pt-8">
+      <div className="border-foreground/15 mt-4 rounded-2xl border p-5">
         <label
           htmlFor="manual-location"
           className="block text-lg font-semibold"
@@ -206,7 +209,7 @@ export function LocationConfirmation() {
           maxLength={MAX_MANUAL_LOCATION_LENGTH}
           rows={3}
           aria-describedby="manual-location-hint manual-location-count"
-          className="border-foreground/30 bg-background mt-3 min-h-24 w-full resize-y rounded-xl border px-4 py-3 text-base leading-6"
+          className="border-foreground/30 bg-background focus:border-primary focus:outline-focus mt-3 min-h-24 w-full resize-y rounded-xl border px-4 py-3 text-base leading-6 focus:outline-[3px] focus:outline-offset-[3px]"
           onChange={(event) => setManualLocation(event.currentTarget.value)}
         />
         <p
@@ -217,12 +220,12 @@ export function LocationConfirmation() {
         </p>
       </div>
 
-      <p className="text-foreground-muted mt-6 text-sm leading-6">
+      <p className="text-foreground-muted border-foreground/15 bg-selection/40 mt-4 rounded-xl border px-4 py-3 text-sm leading-6">
         Your location stays in this report session for now and is not yet
         submitted or saved.
       </p>
 
-      <div className="mt-8">
+      <div className="mt-6">
         <Button
           type="button"
           disabled={!canContinue}

@@ -16,7 +16,7 @@ export default function PhotoPage() {
 
         <aside
           aria-label="Safety reminder"
-          className="border-foreground/15 mt-6 border-l-2 pl-4"
+          className="border-foreground/15 bg-selection/40 mt-6 rounded-xl border px-4 py-3"
         >
           <p className="text-foreground-muted text-sm leading-6">
             Do not move closer or touch the bird to get a better photo.

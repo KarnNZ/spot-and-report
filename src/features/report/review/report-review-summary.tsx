@@ -49,7 +49,10 @@ export function ReportReviewSummary() {
 
   if (!hasReportData) {
     return (
-      <section aria-labelledby="expired-report-heading" className="mt-8">
+      <section
+        aria-labelledby="expired-report-heading"
+        className="border-foreground/15 bg-selection/40 mt-8 rounded-2xl border p-5"
+      >
         <h2 id="expired-report-heading" className="text-xl font-semibold">
           Your report has expired.
         </h2>
@@ -99,17 +102,20 @@ export function ReportReviewSummary() {
 
   return (
     <div className="mt-8">
-      <div className="space-y-4">
+      <div className="space-y-3">
         <section
           aria-labelledby="review-photo-heading"
-          className="border-foreground/15 rounded-xl border p-4"
+          className="border-foreground/15 bg-foreground/[0.02] rounded-2xl border p-5"
         >
-          <h2 id="review-photo-heading" className="text-lg font-semibold">
+          <h2
+            id="review-photo-heading"
+            className="text-foreground-muted text-sm leading-6 font-semibold"
+          >
             Photo
           </h2>
           {photo ? (
             previewObjectUrl ? (
-              <div className="mt-4 flex min-h-48 items-center justify-center overflow-hidden rounded-lg">
+              <div className="border-foreground/15 bg-background mt-3 flex min-h-48 items-center justify-center overflow-hidden rounded-xl border p-2">
                 {/* Blob URLs are local-only and cannot use Next.js image optimization. */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -130,28 +136,37 @@ export function ReportReviewSummary() {
 
         <section
           aria-labelledby="review-location-heading"
-          className="border-foreground/15 rounded-xl border p-4"
+          className="border-foreground/15 bg-foreground/[0.02] rounded-2xl border p-5"
         >
-          <h2 id="review-location-heading" className="text-lg font-semibold">
+          <h2
+            id="review-location-heading"
+            className="text-foreground-muted text-sm leading-6 font-semibold"
+          >
             Location
           </h2>
           {location.coordinates ? (
-            <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3 text-sm leading-6">
+            <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3">
               <div>
-                <dt className="text-foreground-muted">Latitude</dt>
-                <dd className="font-semibold">
+                <dt className="text-foreground-muted text-xs leading-5">
+                  Latitude
+                </dt>
+                <dd className="mt-0.5 font-semibold">
                   {location.coordinates.latitude.toFixed(5)}
                 </dd>
               </div>
               <div>
-                <dt className="text-foreground-muted">Longitude</dt>
-                <dd className="font-semibold">
+                <dt className="text-foreground-muted text-xs leading-5">
+                  Longitude
+                </dt>
+                <dd className="mt-0.5 font-semibold">
                   {location.coordinates.longitude.toFixed(5)}
                 </dd>
               </div>
               <div className="col-span-2">
-                <dt className="text-foreground-muted">Accuracy</dt>
-                <dd className="font-semibold">
+                <dt className="text-foreground-muted text-xs leading-5">
+                  Accuracy
+                </dt>
+                <dd className="mt-0.5 font-semibold">
                   About {Math.round(location.coordinates.accuracy)} metres
                 </dd>
               </div>
@@ -163,37 +178,47 @@ export function ReportReviewSummary() {
           )}
           {location.manualDescription.trim() ? (
             <div className="border-foreground/15 mt-4 border-t pt-4">
-              <h3 className="text-foreground-muted text-sm">Description</h3>
-              <p className="mt-1 leading-7">{location.manualDescription}</p>
+              <h3 className="text-foreground-muted text-xs leading-5">
+                Description
+              </h3>
+              <p className="mt-0.5 leading-7">{location.manualDescription}</p>
             </div>
           ) : null}
         </section>
 
         <section
           aria-labelledby="review-observation-heading"
-          className="border-foreground/15 rounded-xl border p-4"
+          className="border-foreground/15 bg-foreground/[0.02] rounded-2xl border p-5"
         >
           <h2
             id="review-observation-heading"
-            className="text-lg font-semibold"
+            className="text-foreground-muted text-sm leading-6 font-semibold"
           >
             Observation
           </h2>
-          <p className="mt-3 leading-7">{observationLabel}</p>
+          <p className="mt-2 text-lg leading-7 font-semibold">
+            {observationLabel}
+          </p>
           <p className="mt-2 leading-7">
-            <span className="font-semibold">Birds observed:</span>{" "}
+            <span className="text-foreground-muted text-sm">
+              Birds observed:
+            </span>{" "}
             {questions.birdCount}
           </p>
           <p className="mt-2 leading-7">
-            <span className="font-semibold">Species:</span> {species}
+            <span className="text-foreground-muted text-sm">Species:</span>{" "}
+            {species}
           </p>
         </section>
 
         <section
           aria-labelledby="review-notes-heading"
-          className="border-foreground/15 rounded-xl border p-4"
+          className="border-foreground/15 bg-foreground/[0.02] rounded-2xl border p-5"
         >
-          <h2 id="review-notes-heading" className="text-lg font-semibold">
+          <h2
+            id="review-notes-heading"
+            className="text-foreground-muted text-sm leading-6 font-semibold"
+          >
             Notes
           </h2>
           <p className="mt-3 whitespace-pre-wrap leading-7">{notes}</p>
