@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type ChangeEvent, useEffect, useState } from "react";
 
@@ -139,7 +140,7 @@ export function PhotoPicker() {
         ) : null}
       </div>
 
-      <div className="mt-6">
+      <div className="mt-6 space-y-3">
         <Button
           type="button"
           disabled={!selectedFile}
@@ -147,6 +148,12 @@ export function PhotoPicker() {
         >
           Continue
         </Button>
+        <Link
+          href="/report/safety"
+          className="text-primary hover:text-primary-hover active:text-primary-active flex min-h-12 w-full items-center justify-center rounded-xl px-5 py-3 text-center font-semibold underline-offset-4 hover:underline"
+        >
+          Back
+        </Link>
       </div>
     </div>
   );

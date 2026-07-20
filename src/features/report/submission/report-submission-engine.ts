@@ -1,4 +1,7 @@
-import type { ReportSession } from "@/features/report/session/report-session";
+import {
+  hasReportLocation,
+  type ReportSession,
+} from "@/features/report/session/report-session";
 import type {
   ReportSubmissionPayload,
   SubmissionResult,
@@ -9,13 +12,14 @@ export class ReportSubmissionEngine {
     const errors: string[] = [];
     const { photo, location, questions } = session;
     const { coordinates } = location;
+    const hasLocation = hasReportLocation(location);
 
     if (!photo) {
       errors.push("A photo is required.");
     }
 
-    if (!coordinates) {
-      errors.push("Device coordinates are required.");
+    if (!hasLocation) {
+      errors.push("A location is required.");
     }
 
     if (!questions.observationType) {
@@ -33,7 +37,7 @@ export class ReportSubmissionEngine {
     if (
       errors.length > 0 ||
       !photo ||
-      !coordinates ||
+      !hasLocation ||
       !questions.observationType
     ) {
       return {
@@ -52,9 +56,13 @@ export class ReportSubmissionEngine {
       notes: notes || null,
       photo,
       location: {
-        latitude: coordinates.latitude,
-        longitude: coordinates.longitude,
-        accuracy: coordinates.accuracy,
+        coordinates: coordinates
+          ? {
+              latitude: coordinates.latitude,
+              longitude: coordinates.longitude,
+              accuracy: coordinates.accuracy,
+            }
+          : null,
         manualDescription: manualDescription || null,
       },
     };

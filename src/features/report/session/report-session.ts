@@ -9,6 +9,13 @@ export interface ReportLocation {
   manualDescription: string;
 }
 
+export function hasReportLocation(location: ReportLocation): boolean {
+  return (
+    location.coordinates !== null ||
+    location.manualDescription.trim().length > 0
+  );
+}
+
 export type ObservationType = "dead" | "sick" | "multiple";
 
 export interface ReportQuestions {

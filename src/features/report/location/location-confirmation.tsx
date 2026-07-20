@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
+import { hasReportLocation } from "@/features/report/session/report-session";
 import { useReportSession } from "@/features/report/session/use-report-session";
 import { Button } from "@/shared/ui/button";
 
@@ -76,8 +78,7 @@ export function LocationConfirmation() {
   const manualLocation = session.location.manualDescription;
   const isRequesting = requestStatus === "requesting";
   const isUnsupported = requestStatus === "unsupported";
-  const hasManualLocation = manualLocation.trim().length > 0;
-  const canContinue = deviceCoordinates !== null || hasManualLocation;
+  const canContinue = hasReportLocation(session.location);
 
   function handleLocationRequest() {
     if (locationRequestInProgress.current) {
@@ -225,7 +226,7 @@ export function LocationConfirmation() {
         submitted or saved.
       </p>
 
-      <div className="mt-6">
+      <div className="mt-6 space-y-3">
         <Button
           type="button"
           disabled={!canContinue}
@@ -233,6 +234,12 @@ export function LocationConfirmation() {
         >
           Continue
         </Button>
+        <Link
+          href="/report/photo"
+          className="text-primary hover:text-primary-hover active:text-primary-active flex min-h-12 w-full items-center justify-center rounded-xl px-5 py-3 text-center font-semibold underline-offset-4 hover:underline"
+        >
+          Back
+        </Link>
       </div>
     </div>
   );

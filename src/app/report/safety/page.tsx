@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { ReportProgress } from "@/features/report/progress/report-progress";
 import { Button } from "@/shared/ui/button";
 import { PageContainer } from "@/shared/ui/page-container";
@@ -23,9 +25,17 @@ export default function SafetyPage() {
           </ul>
         </div>
 
-        <form action="/report/photo" method="get" className="mt-6">
-          <Button type="submit">Continue</Button>
-        </form>
+        <div className="mt-6 space-y-3">
+          <form action="/report/photo" method="get">
+            <Button type="submit">Continue</Button>
+          </form>
+          <Link
+            href="/"
+            className="text-primary hover:text-primary-hover active:text-primary-active flex min-h-12 w-full items-center justify-center rounded-xl px-5 py-3 text-center font-semibold underline-offset-4 hover:underline"
+          >
+            Back
+          </Link>
+        </div>
       </div>
     </PageContainer>
   );

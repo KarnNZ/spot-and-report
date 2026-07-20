@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
 
@@ -128,10 +129,16 @@ export function ReportQuestionsForm() {
         />
       </div>
 
-      <div className="pt-4">
+      <div className="space-y-3 pt-4">
         <Button type="submit" disabled={!canContinue}>
           Continue
         </Button>
+        <Link
+          href="/report/location"
+          className="text-primary hover:text-primary-hover active:text-primary-active flex min-h-12 w-full items-center justify-center rounded-xl px-5 py-3 text-center font-semibold underline-offset-4 hover:underline"
+        >
+          Back
+        </Link>
       </div>
     </form>
   );

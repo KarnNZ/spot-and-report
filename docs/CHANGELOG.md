@@ -92,6 +92,7 @@ Changes requiring migration or affecting compatibility.
 - Added a reusable Spot & Report wordmark, refined visual identity tokens and clearer application metadata.
 - Improved shared component consistency, typography, touch comfort and visual hierarchy without changing application behaviour.
 - Polished the full reporting experience with clearer guidance surfaces, consistent forms, scannable summaries and stronger completion hierarchy.
+- Added explicit Back navigation to active report steps and fixed submission validation so manual location descriptions work without device coordinates.
 - Established the Spot & Report repository.
 - Defined the long-term product vision.
 - Created the engineering documentation framework.

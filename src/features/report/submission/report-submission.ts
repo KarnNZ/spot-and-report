@@ -1,4 +1,7 @@
-import type { ObservationType } from "@/features/report/session/report-session";
+import type {
+  ObservationType,
+  ReportCoordinates,
+} from "@/features/report/session/report-session";
 
 export interface ReportSubmissionPayload {
   observationType: ObservationType;
@@ -7,9 +10,7 @@ export interface ReportSubmissionPayload {
   notes: string | null;
   photo: File;
   location: {
-    latitude: number;
-    longitude: number;
-    accuracy: number;
+    coordinates: ReportCoordinates | null;
     manualDescription: string | null;
   };
 }
