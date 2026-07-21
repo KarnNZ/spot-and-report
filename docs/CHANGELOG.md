@@ -134,6 +134,8 @@ Changes requiring migration or affecting compatibility.
 
 - Improved submission failure diagnostics and now distinguish non-JSON platform interception from application API failures without exposing report data or credentials.
 - Added safe on-screen submission-stage details for diagnosing device-specific failures without exposing report content, coordinates, images or credentials.
+- Reduced large final photo payloads in the browser before multipart submission to improve reliability on iPhone Safari while preserving the server-only Supabase upload boundary.
+- Routed final multipart report delivery through the browser's native upload request path after real-UI testing isolated a pre-response failure in `fetch()`.
 - Removed duplicated content between documentation files.
 - Reduced overlap by assigning each document a single responsibility.
 - Improved consistency of terminology across the repository.

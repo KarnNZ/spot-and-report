@@ -191,6 +191,11 @@ Outline the next planned work.
 - Added safe diagnostic classifications for unexpected client, Storage, database and cleanup failures without logging report content, credentials, URLs or provider messages.
 - Reproduced final submission with approved AI image analysis and a maximum-size 4 MiB photo against the canonical production endpoint; both persisted successfully and their controlled test data was removed.
 - Added an expandable, non-sensitive client diagnostic to failed Review submissions showing request stage, HTTP metadata, safe error classification, photo MIME type/size and whether approved AI observations were included.
+- Reproduced the same client transport failure through the complete production UI in a desktop browser with a 59 KB PNG, proving payload size and iPhone Private Browsing were not the sole cause.
+- Tested the material difference from successful scripted requests: the UI retained a picker-originated `File` across client-side route transitions. Final submission now reads that file into a fresh in-memory `Blob` before constructing multipart data, avoiding reliance on the picker-backed object during delivery.
+- Confirmed through the built application that a fresh Blob still failed at the browser `fetch()` transport boundary before the route received a request. Replaced only the final multipart delivery transport with native `XMLHttpRequest`, preserving the existing FormData contract, validation and server-only persistence architecture.
+- Added dependency-free client-side photo preparation before final submission. Photos over 1 MiB are resized to a maximum 2048-pixel edge and encoded as JPEG toward a 1 MiB transport target, while the existing 4 MB selection and server limits remain defensive ceilings.
+- Avoided automatic network retries because a missing response cannot prove that the server did not receive the original request, and retrying could create a duplicate report.
 
 ## 21 July 2026
 

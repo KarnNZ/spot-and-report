@@ -13,6 +13,7 @@ import {
 import { MAX_REPORT_PHOTO_SIZE_BYTES } from "./report-submission.ts";
 import { parseReportSubmissionFormData } from "./report-submission-validation.ts";
 import { getSafeErrorDiagnostic } from "../../../server/diagnostics/safe-error-diagnostic.ts";
+import { prepareReportPhotoForSubmission } from "./report-photo-preparation.ts";
 
 const REPORT_ID = "7ee06b9e-1111-4222-8333-123456789abc";
 const SUBMITTED_AT = "2026-07-21T02:03:04.000Z";
@@ -380,18 +381,24 @@ test("generated storage path excludes original name and location", async () => {
 
 test("repeated client submission shares one pending request", async () => {
   let resolveRequest;
+  let markRequestStarted;
   let requestCount = 0;
   const request = new Promise((resolve) => {
     resolveRequest = resolve;
   });
+  const requestStarted = new Promise((resolve) => {
+    markRequestStarted = resolve;
+  });
   const service = new ReportSubmissionService(async () => {
     requestCount += 1;
+    markRequestStarted();
     return request;
   });
 
   const firstSubmission = service.submit(createSession());
   const secondSubmission = service.submit(createSession());
   assert.equal(firstSubmission, secondSubmission);
+  await requestStarted;
   assert.equal(requestCount, 1);
 
   resolveRequest(
@@ -474,12 +481,32 @@ test("approved image analysis is serialized once without undefined fields", asyn
 
   assert.ok(submittedFormData instanceof FormData);
   assert.equal(submittedFormData.getAll("imageAnalysis").length, 1);
+  assert.deepEqual(Array.from(submittedFormData.keys()), [
+    "photo",
+    "incidentType",
+    "birdCount",
+    "reporterSpecies",
+    "reporterNotes",
+    "manualLocationDescription",
+    "aiSummary",
+    "imageAnalysis",
+    "latitude",
+    "longitude",
+    "locationAccuracyMeters",
+  ]);
+  assert.equal(submittedFormData.getAll("photo").length, 1);
   assert.deepEqual(
     JSON.parse(submittedFormData.get("imageAnalysis")),
     APPROVED_IMAGE_ANALYSIS,
   );
   assert.equal(
     Array.from(submittedFormData.values()).includes("undefined"),
+    false,
+  );
+  assert.equal(
+    Array.from(submittedFormData.values()).some(
+      (value) => typeof value === "string" && value.startsWith("data:"),
+    ),
     false,
   );
   assert.deepEqual(diagnostics.at(-1), {
@@ -492,6 +519,59 @@ test("approved image analysis is serialized once without undefined fields", asyn
     photoSizeBytes: 12,
     includesApprovedImageAnalysis: true,
   });
+});
+
+test("large photos use the prepared payload before multipart submission", async () => {
+  const originalPhoto = createPhoto({ size: 2_955_333 });
+  const preparedPhoto = new Blob([new Uint8Array(900_000)], {
+    type: "image/jpeg",
+  });
+  const diagnostics = [];
+  let submittedPhoto;
+  const service = new ReportSubmissionService(
+    async (_input, init) => {
+      submittedPhoto = init.body.get("photo");
+      return Response.json(
+        {
+          ok: true,
+          report: {
+            reference: "REP-COMPRESSED-PHOTO",
+            submittedAt: SUBMITTED_AT,
+            status: "submitted",
+          },
+        },
+        { status: 201 },
+      );
+    },
+    async (photo) => {
+      assert.equal(photo, originalPhoto);
+      return { data: preparedPhoto, filename: "report-photo.jpg" };
+    },
+  );
+
+  await service.submit(
+    { ...createSession(), photo: originalPhoto },
+    (diagnostic) => diagnostics.push(diagnostic),
+  );
+
+  assert.ok(submittedPhoto instanceof File);
+  assert.equal(submittedPhoto.name, "report-photo.jpg");
+  assert.equal(submittedPhoto.type, "image/jpeg");
+  assert.equal(submittedPhoto.size, 900_000);
+  assert.equal(diagnostics.at(-1).photoSizeBytes, 900_000);
+});
+
+test("picker files are materialized as fresh multipart blobs", async () => {
+  const originalPhoto = createPhoto({
+    name: "picked image.png",
+    type: "image/png",
+  });
+  const preparedPhoto = await prepareReportPhotoForSubmission(originalPhoto);
+
+  assert.notEqual(preparedPhoto.data, originalPhoto);
+  assert.equal(preparedPhoto.data.type, "image/png");
+  assert.equal(preparedPhoto.data.size, originalPhoto.size);
+  assert.equal(preparedPhoto.filename, "report-photo.png");
 });
 
 test("safe diagnostics omit messages and retain error classifications", () => {

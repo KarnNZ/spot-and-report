@@ -6,14 +6,55 @@ import type {
   SubmitReportErrorCode,
   SubmitReportResult,
 } from "./report-submission.ts";
+import {
+  prepareReportPhotoForSubmission,
+  type PreparedReportPhoto,
+} from "./report-photo-preparation.ts";
 
 type ReportSubmissionFetch = (
   input: RequestInfo | URL,
   init?: RequestInit,
 ) => Promise<Response>;
 
+type ReportPhotoPreparer = (photo: File) => Promise<PreparedReportPhoto>;
+
+function sendReportWithXmlHttpRequest(
+  input: RequestInfo | URL,
+  init: RequestInit = {},
+): Promise<Response> {
+  return new Promise((resolve, reject) => {
+    const body = init.body;
+
+    if (body !== undefined && body !== null && !(body instanceof FormData)) {
+      reject(new TypeError("Report request body must be multipart form data."));
+      return;
+    }
+
+    const request = new XMLHttpRequest();
+    request.open(init.method ?? "GET", String(input));
+
+    request.onload = () => {
+      resolve(
+        new Response(request.responseText, {
+          status: request.status,
+          statusText: request.statusText,
+          headers: {
+            "content-type":
+              request.getResponseHeader("content-type") ?? "",
+          },
+        }),
+      );
+    };
+    request.onerror = () => reject(new TypeError("Network request failed."));
+    request.onabort = () => reject(new DOMException("Aborted", "AbortError"));
+
+    request.send(body ?? null);
+  });
+}
+
 export type SubmissionDiagnosticStage =
   | "validation"
+  | "photo-preparation"
   | "request"
   | "network-error"
   | "response"
@@ -45,9 +86,13 @@ export class ReportSubmissionError extends Error {
 
 export function createReportSubmissionFormData(
   payload: ReportSubmissionPayload,
+  preparedPhoto: PreparedReportPhoto = {
+    data: payload.photo,
+    filename: payload.photo.name || "report-photo.jpg",
+  },
 ): FormData {
   const formData = new FormData();
-  formData.append("photo", payload.photo);
+  formData.append("photo", preparedPhoto.data, preparedPhoto.filename);
   formData.append("incidentType", payload.observationType);
   formData.append("birdCount", String(payload.birdCount));
   formData.append("reporterSpecies", payload.species ?? "");
@@ -141,10 +186,15 @@ function parseSubmitReportResult(value: unknown): SubmitReportResult | null {
 export class ReportSubmissionService {
   private readonly submissionEngine = new ReportSubmissionEngine();
   private readonly fetchReport: ReportSubmissionFetch;
+  private readonly preparePhoto: ReportPhotoPreparer;
   private submissionInProgress: Promise<StoredReportConfirmation> | null = null;
 
-  constructor(fetchReport: ReportSubmissionFetch = fetch) {
+  constructor(
+    fetchReport: ReportSubmissionFetch = sendReportWithXmlHttpRequest,
+    preparePhoto: ReportPhotoPreparer = prepareReportPhotoForSubmission,
+  ) {
     this.fetchReport = fetchReport;
+    this.preparePhoto = preparePhoto;
   }
 
   submit(
@@ -193,10 +243,35 @@ export class ReportSubmissionService {
     onDiagnostic?: SubmissionDiagnosticListener,
   ): Promise<StoredReportConfirmation> {
     let response: Response;
-    const baseDiagnostic = {
-      requestAttempted: true,
+    let preparedPhoto: PreparedReportPhoto = {
+      data: payload.photo,
+      filename: payload.photo.name || "report-photo.jpg",
+    };
+
+    onDiagnostic?.({
+      stage: "photo-preparation",
+      requestAttempted: false,
+      httpStatus: null,
+      responseContentType: null,
+      errorCode: null,
       photoMimeType: payload.photo.type.toLowerCase() || "missing",
       photoSizeBytes: payload.photo.size,
+      includesApprovedImageAnalysis: payload.imageAnalysis !== null,
+    });
+
+    try {
+      preparedPhoto = await this.preparePhoto(payload.photo);
+    } catch (error) {
+      console.warn("Report photo preparation was unavailable.", {
+        category: "submission-photo-preparation",
+        errorName: error instanceof Error ? error.name : "UnknownError",
+      });
+    }
+
+    const baseDiagnostic = {
+      requestAttempted: true,
+      photoMimeType: preparedPhoto.data.type.toLowerCase() || "missing",
+      photoSizeBytes: preparedPhoto.data.size,
       includesApprovedImageAnalysis: payload.imageAnalysis !== null,
     };
 
@@ -211,7 +286,7 @@ export class ReportSubmissionService {
     try {
       response = await this.fetchReport("/api/report/submit", {
         method: "POST",
-        body: createReportSubmissionFormData(payload),
+        body: createReportSubmissionFormData(payload, preparedPhoto),
       });
     } catch (error) {
       onDiagnostic?.({
