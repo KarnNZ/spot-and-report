@@ -58,7 +58,7 @@ People frequently need to:
 
 That friction means many incidents are never reported.
 
-Spot & Report removes that friction by guiding people through a simple reporting workflow that captures the information they already have before responsibly using AI to prepare a high-quality report ready for human review.
+Spot & Report prepares and securely stores a structured incident report after human review. Delivery to external agencies is intentionally outside the current MVP.
 
 Technology should remove complexity—not create it.
 
@@ -273,16 +273,54 @@ Keeping each document focused makes the repository easier to navigate, maintain 
 
 ---
 
-# 🚀 Quick Start
+# GPT-5.6 Integration
+
+Spot & Report uses GPT-5.6 as a core part of the reporting workflow:
+
+- **AI image observations:** GPT-5.6 examines an uploaded wildlife photo and returns structured, confidence-labelled observations about visible bird type, count, apparent condition, visible concerns and surroundings.
+- **AI report preparation:** GPT-5.6 transforms the reporter's structured answers into a clear, neutral incident summary.
+- **Human control:** AI output is optional, reviewable and editable. Nothing is submitted until the reporter approves it.
+
+The AI is deliberately evidence-bound: it assists with observation and communication but does not diagnose disease or replace expert assessment.
+
+---
+
+# Built with Codex
+
+Codex was used throughout the 3.5-day build as an engineering collaborator rather than a one-shot code generator.
+
+Codex accelerated:
+
+- implementation of the multi-step reporting workflow
+- server-side GPT-5.6 integration
+- structured output and validation design
+- Supabase migrations and private Storage integration
+- submission-path debugging
+- responsive UI refinement
+- automated tests, linting, type checking and production builds
+- architecture, build-log and decision documentation
+
+The project owner retained responsibility for the product concept, scope, user experience, architecture approval, responsible-AI boundaries and final acceptance of every implementation slice.
+
+Work was delivered through small, reviewable commits, with validation performed before approval and deployment.
+
+---
+
+# Quick Start
+
+## Requirements
+
+- Node.js 20.9 or later
+- An OpenAI API key
+- A Supabase project
+
+## Installation
 
 ```bash
 git clone https://github.com/KarnNZ/spot-and-report.git
-
 cd spot-and-report
-
 npm install
-
-npm run dev
+cp .env.example .env.local
 ```
 
 ---
