@@ -12,6 +12,30 @@ type ReportSubmissionFetch = (
   init?: RequestInit,
 ) => Promise<Response>;
 
+export type SubmissionDiagnosticStage =
+  | "validation"
+  | "request"
+  | "network-error"
+  | "response"
+  | "response-parse"
+  | "server-error"
+  | "complete";
+
+export interface SubmissionDiagnostic {
+  stage: SubmissionDiagnosticStage;
+  requestAttempted: boolean;
+  httpStatus: number | null;
+  responseContentType: string | null;
+  errorCode: string | null;
+  photoMimeType: string;
+  photoSizeBytes: number;
+  includesApprovedImageAnalysis: boolean;
+}
+
+type SubmissionDiagnosticListener = (
+  diagnostic: SubmissionDiagnostic,
+) => void;
+
 export class ReportSubmissionError extends Error {
   constructor(message: string) {
     super(message);
@@ -123,7 +147,10 @@ export class ReportSubmissionService {
     this.fetchReport = fetchReport;
   }
 
-  submit(session: ReportSession): Promise<StoredReportConfirmation> {
+  submit(
+    session: ReportSession,
+    onDiagnostic?: SubmissionDiagnosticListener,
+  ): Promise<StoredReportConfirmation> {
     if (this.submissionInProgress) {
       return this.submissionInProgress;
     }
@@ -131,12 +158,23 @@ export class ReportSubmissionService {
     const result = this.submissionEngine.build(session);
 
     if (!result.success) {
+      onDiagnostic?.({
+        stage: "validation",
+        requestAttempted: false,
+        httpStatus: null,
+        responseContentType: null,
+        errorCode: "CLIENT_VALIDATION_FAILED",
+        photoMimeType: session.photo?.type.toLowerCase() || "missing",
+        photoSizeBytes: session.photo?.size ?? 0,
+        includesApprovedImageAnalysis:
+          session.approvedImageAnalysis !== null,
+      });
       return Promise.reject(
         new ReportSubmissionError("Check the report details and try again."),
       );
     }
 
-    const submission = this.submitPayload(result.payload);
+    const submission = this.submitPayload(result.payload, onDiagnostic);
     this.submissionInProgress = submission;
 
     const clearPendingSubmission = () => {
@@ -152,8 +190,23 @@ export class ReportSubmissionService {
 
   private async submitPayload(
     payload: ReportSubmissionPayload,
+    onDiagnostic?: SubmissionDiagnosticListener,
   ): Promise<StoredReportConfirmation> {
     let response: Response;
+    const baseDiagnostic = {
+      requestAttempted: true,
+      photoMimeType: payload.photo.type.toLowerCase() || "missing",
+      photoSizeBytes: payload.photo.size,
+      includesApprovedImageAnalysis: payload.imageAnalysis !== null,
+    };
+
+    onDiagnostic?.({
+      ...baseDiagnostic,
+      stage: "request",
+      httpStatus: null,
+      responseContentType: null,
+      errorCode: null,
+    });
 
     try {
       response = await this.fetchReport("/api/report/submit", {
@@ -161,6 +214,13 @@ export class ReportSubmissionService {
         body: createReportSubmissionFormData(payload),
       });
     } catch (error) {
+      onDiagnostic?.({
+        ...baseDiagnostic,
+        stage: "network-error",
+        httpStatus: null,
+        responseContentType: null,
+        errorCode: error instanceof Error ? error.name : "UnknownError",
+      });
       console.error("Report submission request failed.", {
         category: "submission-network",
         errorName: error instanceof Error ? error.name : "UnknownError",
@@ -172,12 +232,27 @@ export class ReportSubmissionService {
 
     const contentType = response.headers.get("content-type")?.toLowerCase();
 
+    onDiagnostic?.({
+      ...baseDiagnostic,
+      stage: "response",
+      httpStatus: response.status,
+      responseContentType: contentType?.slice(0, 64) ?? null,
+      errorCode: null,
+    });
+
     if (!contentType?.includes("application/json")) {
       console.error("Report submission returned an unexpected response.", {
         category: "submission-response",
         status: response.status,
         contentType: contentType?.slice(0, 64) ?? "missing",
         redirected: response.redirected,
+      });
+      onDiagnostic?.({
+        ...baseDiagnostic,
+        stage: "response-parse",
+        httpStatus: response.status,
+        responseContentType: contentType?.slice(0, 64) ?? null,
+        errorCode: "NON_JSON_RESPONSE",
       });
       throw new ReportSubmissionError(
         "Report submission is unavailable at this web address. Open the public Spot & Report site and try again.",
@@ -189,6 +264,13 @@ export class ReportSubmissionService {
     try {
       responseBody = await response.json();
     } catch {
+      onDiagnostic?.({
+        ...baseDiagnostic,
+        stage: "response-parse",
+        httpStatus: response.status,
+        responseContentType: contentType.slice(0, 64),
+        errorCode: "INVALID_JSON_RESPONSE",
+      });
       throw new ReportSubmissionError(
         "We couldn't submit your report. Your information is still on this device, so please try again.",
       );
@@ -197,12 +279,27 @@ export class ReportSubmissionService {
     const result = parseSubmitReportResult(responseBody);
 
     if (!result || !result.ok || !response.ok) {
+      onDiagnostic?.({
+        ...baseDiagnostic,
+        stage: "server-error",
+        httpStatus: response.status,
+        responseContentType: contentType.slice(0, 64),
+        errorCode: result && !result.ok ? result.error.code : "INVALID_RESPONSE",
+      });
       throw new ReportSubmissionError(
         result && !result.ok
           ? result.error.message
           : "We couldn't submit your report. Your information is still on this device, so please try again.",
       );
     }
+
+    onDiagnostic?.({
+      ...baseDiagnostic,
+      stage: "complete",
+      httpStatus: response.status,
+      responseContentType: contentType.slice(0, 64),
+      errorCode: null,
+    });
 
     return result.report;
   }
@@ -212,8 +309,9 @@ export async function completeReportSubmission(
   session: ReportSession,
   clearReport: () => void,
   service: ReportSubmissionService,
+  onDiagnostic?: SubmissionDiagnosticListener,
 ): Promise<StoredReportConfirmation> {
-  const report = await service.submit(session);
+  const report = await service.submit(session, onDiagnostic);
   clearReport();
   return report;
 }

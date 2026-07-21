@@ -13,6 +13,7 @@ import { useReportSession } from "@/features/report/session/use-report-session";
 import {
   completeReportSubmission,
   ReportSubmissionService,
+  type SubmissionDiagnostic,
 } from "@/features/report/submission/report-submission-service";
 import { Button } from "@/shared/ui/button";
 
@@ -31,6 +32,8 @@ export function ReportReviewSummary() {
   const [previewObjectUrl, setPreviewObjectUrl] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionError, setSubmissionError] = useState<string | null>(null);
+  const [submissionDiagnostic, setSubmissionDiagnostic] =
+    useState<SubmissionDiagnostic | null>(null);
   const { photo, location, questions } = session;
   const hasReportData = Boolean(
     photo ||
@@ -88,12 +91,14 @@ export function ReportReviewSummary() {
     submissionInProgress.current = true;
     setIsSubmitting(true);
     setSubmissionError(null);
+    setSubmissionDiagnostic(null);
 
     try {
       const submission = await completeReportSubmission(
         session,
         clearReport,
         reportSubmissionService,
+        setSubmissionDiagnostic,
       );
       const searchParams = new URLSearchParams({
         reference: submission.reference,
@@ -290,9 +295,44 @@ export function ReportReviewSummary() {
           {isSubmitting ? "Submitting..." : "Submit report"}
         </Button>
         {submissionError ? (
-          <p role="alert" className="text-sm font-semibold leading-6">
-            {submissionError}
-          </p>
+          <div role="alert" className="space-y-3">
+            <p className="text-sm font-semibold leading-6">
+              {submissionError}
+            </p>
+            {submissionDiagnostic ? (
+              <details className="border-foreground/15 bg-selection/30 rounded-xl border p-4 text-sm">
+                <summary className="min-h-12 cursor-pointer content-center font-semibold">
+                  Submission diagnostic
+                </summary>
+                <dl className="mt-3 grid grid-cols-[auto_1fr] gap-x-3 gap-y-2 break-all">
+                  <dt className="text-foreground-muted">Stage</dt>
+                  <dd>{submissionDiagnostic.stage}</dd>
+                  <dt className="text-foreground-muted">Request attempted</dt>
+                  <dd>
+                    {submissionDiagnostic.requestAttempted ? "Yes" : "No"}
+                  </dd>
+                  <dt className="text-foreground-muted">HTTP status</dt>
+                  <dd>{submissionDiagnostic.httpStatus ?? "Not received"}</dd>
+                  <dt className="text-foreground-muted">Response type</dt>
+                  <dd>
+                    {submissionDiagnostic.responseContentType ?? "Not received"}
+                  </dd>
+                  <dt className="text-foreground-muted">Error code</dt>
+                  <dd>{submissionDiagnostic.errorCode ?? "Not received"}</dd>
+                  <dt className="text-foreground-muted">Photo type</dt>
+                  <dd>{submissionDiagnostic.photoMimeType}</dd>
+                  <dt className="text-foreground-muted">Photo size</dt>
+                  <dd>{submissionDiagnostic.photoSizeBytes} bytes</dd>
+                  <dt className="text-foreground-muted">AI observations</dt>
+                  <dd>
+                    {submissionDiagnostic.includesApprovedImageAnalysis
+                      ? "Included"
+                      : "Not included"}
+                  </dd>
+                </dl>
+              </details>
+            ) : null}
+          </div>
         ) : null}
         <Link
           href="/report/summary"

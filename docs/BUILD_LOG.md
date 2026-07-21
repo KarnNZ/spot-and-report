@@ -189,6 +189,8 @@ Outline the next planned work.
 - Verified successful submissions through both the local route backed by production Supabase and the canonical public Vercel domain.
 - Identified that unique Vercel deployment URLs are protected by Vercel SSO and return a non-JSON redirect before the API route, while `spot-and-report.vercel.app` remains the public production entry point.
 - Added safe diagnostic classifications for unexpected client, Storage, database and cleanup failures without logging report content, credentials, URLs or provider messages.
+- Reproduced final submission with approved AI image analysis and a maximum-size 4 MiB photo against the canonical production endpoint; both persisted successfully and their controlled test data was removed.
+- Added an expandable, non-sensitive client diagnostic to failed Review submissions showing request stage, HTTP metadata, safe error classification, photo MIME type/size and whether approved AI observations were included.
 
 ## 21 July 2026
 

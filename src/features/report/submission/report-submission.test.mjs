@@ -448,6 +448,52 @@ test("non-JSON submission responses identify an unavailable web address", async 
   );
 });
 
+test("approved image analysis is serialized once without undefined fields", async () => {
+  const diagnostics = [];
+  let submittedFormData;
+  const session = {
+    ...createSession(),
+    approvedImageAnalysis: APPROVED_IMAGE_ANALYSIS,
+  };
+  const service = new ReportSubmissionService(async (_input, init) => {
+    submittedFormData = init.body;
+    return Response.json(
+      {
+        ok: true,
+        report: {
+          reference: "REP-APPROVED-ANALYSIS",
+          submittedAt: SUBMITTED_AT,
+          status: "submitted",
+        },
+      },
+      { status: 201 },
+    );
+  });
+
+  await service.submit(session, (diagnostic) => diagnostics.push(diagnostic));
+
+  assert.ok(submittedFormData instanceof FormData);
+  assert.equal(submittedFormData.getAll("imageAnalysis").length, 1);
+  assert.deepEqual(
+    JSON.parse(submittedFormData.get("imageAnalysis")),
+    APPROVED_IMAGE_ANALYSIS,
+  );
+  assert.equal(
+    Array.from(submittedFormData.values()).includes("undefined"),
+    false,
+  );
+  assert.deepEqual(diagnostics.at(-1), {
+    stage: "complete",
+    requestAttempted: true,
+    httpStatus: 201,
+    responseContentType: "application/json",
+    errorCode: null,
+    photoMimeType: "image/jpeg",
+    photoSizeBytes: 12,
+    includesApprovedImageAnalysis: true,
+  });
+});
+
 test("safe diagnostics omit messages and retain error classifications", () => {
   const certificateError = Object.assign(new Error("sensitive provider text"), {
     code: "UNABLE_TO_VERIFY_LEAF_SIGNATURE",
