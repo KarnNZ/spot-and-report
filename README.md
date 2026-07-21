@@ -17,11 +17,9 @@ The Build Week MVP focuses on reporting **sick or dead wild birds**, while layin
 
 ---
 
-# 📱 Hero Image
+# 📸 Screenshots
 
-> *(Replace this section with the final mobile application mock-up or hero image.)*
-
-A full-width screenshot of the completed application should be displayed here.
+![Spot & Report Screenshots](assets/screenshots/screenshots.png)
 
 ---
 
