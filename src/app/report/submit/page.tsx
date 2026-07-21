@@ -2,6 +2,7 @@ import { PageContainer } from "@/shared/ui/page-container";
 import { Button } from "@/shared/ui/button";
 import { BrandHeader } from "@/shared/ui/brand/brand-header";
 import { MadLabzAttribution } from "@/shared/ui/madlabz-attribution";
+import { ReportReference } from "@/features/report/submission/report-reference";
 
 interface SubmitPageProps {
   searchParams: Promise<{
@@ -36,14 +37,7 @@ export default async function SubmitPage({ searchParams }: SubmitPageProps) {
         </header>
 
         <dl className="border-foreground/15 bg-selection/50 mt-8 rounded-2xl border p-5 text-left">
-          <div>
-            <dt className="text-foreground-muted text-sm leading-6">
-              Report reference
-            </dt>
-            <dd className="mt-1 text-lg leading-7 font-semibold tracking-wide break-all">
-              {reference || "Unavailable"}
-            </dd>
-          </div>
+          <ReportReference reference={reference} />
           <div className="border-foreground/15 mt-4 border-t pt-4">
             <dt className="text-foreground-muted text-sm leading-6">Status</dt>
             <dd className="mt-1 font-semibold">
