@@ -143,6 +143,10 @@ export function ReportSessionProvider({
     }));
   }, []);
 
+  const clearReport = useCallback(() => {
+    setSession(INITIAL_REPORT_SESSION);
+  }, []);
+
   const value = useMemo<ReportSessionApi>(
     () => ({
       session,
@@ -156,6 +160,7 @@ export function ReportSessionProvider({
       setSpecies,
       setNotes,
       setSummary,
+      clearReport,
     }),
     [
       session,
@@ -169,6 +174,7 @@ export function ReportSessionProvider({
       setSpecies,
       setNotes,
       setSummary,
+      clearReport,
     ],
   );
 

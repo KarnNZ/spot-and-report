@@ -6,7 +6,10 @@ import { useEffect, useRef, useState } from "react";
 
 import type { ObservationType } from "@/features/report/session/report-session";
 import { useReportSession } from "@/features/report/session/use-report-session";
-import { ReportSubmissionService } from "@/features/report/submission/report-submission-service";
+import {
+  completeReportSubmission,
+  ReportSubmissionService,
+} from "@/features/report/submission/report-submission-service";
 import { Button } from "@/shared/ui/button";
 
 const OBSERVATION_LABELS: Record<ObservationType, string> = {
@@ -19,7 +22,7 @@ const reportSubmissionService = new ReportSubmissionService();
 
 export function ReportReviewSummary() {
   const router = useRouter();
-  const { session } = useReportSession();
+  const { session, clearReport } = useReportSession();
   const submissionInProgress = useRef(false);
   const [previewObjectUrl, setPreviewObjectUrl] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -83,10 +86,15 @@ export function ReportReviewSummary() {
     setSubmissionError(null);
 
     try {
-      const submission = await reportSubmissionService.submit(session);
+      const submission = await completeReportSubmission(
+        session,
+        clearReport,
+        reportSubmissionService,
+      );
       const searchParams = new URLSearchParams({
         reference: submission.reference,
-        submittedAt: submission.submittedAt.toISOString(),
+        submittedAt: submission.submittedAt,
+        status: submission.status,
       });
 
       router.push(`/report/submit?${searchParams.toString()}`);

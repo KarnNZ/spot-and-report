@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 
 import { hasReportLocation } from "@/features/report/session/report-session";
 import { useReportSession } from "@/features/report/session/use-report-session";
+import { MAX_MANUAL_LOCATION_LENGTH } from "@/features/report/submission/report-submission";
 import { Button } from "@/shared/ui/button";
 
 type LocationRequestStatus =
@@ -30,8 +31,6 @@ const GEOLOCATION_OPTIONS: PositionOptions = {
   timeout: 10_000,
   maximumAge: 60_000,
 };
-
-const MAX_MANUAL_LOCATION_LENGTH = 200;
 
 function getGeolocationFailure(
   error: GeolocationPositionError,
@@ -222,8 +221,8 @@ export function LocationConfirmation() {
       </div>
 
       <p className="text-foreground-muted border-foreground/15 bg-selection/40 mt-4 rounded-xl border px-4 py-3 text-sm leading-6">
-        Your location stays in this report session for now and is not yet
-        submitted or saved.
+        Your location stays in this report session until you submit. It is not
+        saved before then.
       </p>
 
       <div className="mt-6 space-y-3">

@@ -12,7 +12,7 @@
 
 **Owner:** Project Owner
 
-**Last Updated:** 19 July 2026
+**Last Updated:** 21 July 2026
 
 ---
 
@@ -113,6 +113,7 @@ Using a consistent format makes decisions easier to understand and review.
 | ADR-010 | Documentation as a First-Class Deliverable | Accepted |
 | ADR-011 | AI Assists Rather Than Decides | Accepted |
 | ADR-012 | Public Reporting Without Authentication | Accepted |
+| ADR-013 | Server-Only Supabase Persistence | Accepted |
 
 ---
 
@@ -697,6 +698,65 @@ Review if:
 
 ---
 
+# ADR-013 — Server-Only Supabase Persistence
+
+**Status:** Accepted
+
+### Context
+
+The MVP must record completed reports and evidence photos reliably without exposing privileged storage or database access to an unauthenticated browser. The Vercel deployment boundary also limits Function request bodies to 4.5 MB.
+
+### Decision
+
+Persist reports in Supabase Postgres and photos in a private Supabase Storage bucket through a trusted Next.js server boundary.
+
+The browser sends multipart form data only to Spot & Report. The server performs authoritative validation before using the Supabase service role. Reports use row-level security with no anonymous public policies, and Storage objects use server-generated paths.
+
+Apply a 4 MB photo limit consistently at the browser, server, database and bucket boundaries. This leaves room for multipart overhead below Vercel's 4.5 MB request-body limit while preserving server-mediated uploads.
+
+If photo upload succeeds and database insertion fails, attempt compensating object cleanup and never return a successful submission result.
+
+### Alternatives Considered
+
+- Direct browser-to-Supabase uploads.
+- Public Storage objects.
+- A separate backend service.
+- Continuing simulated persistence.
+- Raising the photo limit and bypassing the Vercel Function boundary.
+
+### Consequences
+
+**Benefits**
+
+- Privileged credentials remain server-only.
+- Runtime validation protects the persistence boundary.
+- Photos are private by default.
+- Reports receive durable identifiers and confirmation metadata.
+- The modular submission layer remains compatible with future destination adapters.
+
+**Trade-offs**
+
+- Multipart requests must remain below the deployment request-body limit.
+- Submission depends on Supabase availability.
+- Upload and database insertion require compensating cleanup rather than a cross-service transaction.
+- Stored reports are not yet delivered to an external agency.
+
+### Review Trigger
+
+Review if:
+
+- Photo requirements exceed the server request-body limit.
+- Direct-to-storage uploads can be introduced without weakening the approved trust model.
+- Agency delivery, retention automation or authenticated administration becomes approved scope.
+
+### Related Documents
+
+- ARCHITECTURE.md
+- TECH_STACK.md
+- SUPABASE_SETUP.md
+
+---
+
 # Future Decisions
 
 Not every engineering decision has been made.
@@ -719,8 +779,6 @@ Future Architecture Decision Records may include the following areas.
 
 ## Infrastructure
 
-- Persistence strategy.
-- File storage.
 - Caching.
 - Monitoring.
 - Observability.

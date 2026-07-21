@@ -9,12 +9,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "node --experimental-strip-types --test src/features/report/summary/report-summary.test.mjs",
+    "test": "node --experimental-strip-types --test src/features/report/summary/report-summary.test.mjs src/features/report/submission/report-submission.test.mjs",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.108.2",
     "next": "16.2.10",
     "openai": "^6.45.0",
     "react": "19.2.7",

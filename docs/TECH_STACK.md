@@ -12,7 +12,7 @@
 
 **Owner:** Project Owner
 
-**Last Updated:** 19 July 2026
+**Last Updated:** 21 July 2026
 
 ---
 
@@ -135,6 +135,9 @@ A dependency should be introduced only when it provides clear value over a small
 | Runtime validation | Zod |
 | Browser capabilities | Media Capture, File and Geolocation APIs |
 | Server operations | Next.js server-side handlers |
+| Database | Supabase Postgres |
+| Object storage | Private Supabase Storage bucket |
+| Persistence integration | Official Supabase JavaScript/TypeScript SDK |
 | Testing | Vitest, React Testing Library and Playwright |
 | Code quality | ESLint and Prettier |
 | Package management | npm |
@@ -142,7 +145,7 @@ A dependency should be introduced only when it provides clear value over a small
 | Hosting | Vercel |
 | Continuous integration | GitHub Actions |
 | Monitoring | Lightweight application logging and deployment monitoring |
-| Submission destination | To be confirmed before implementation lock |
+| Submission destination | Supabase persistence; external-agency delivery deferred |
 
 The final repository must remain the source of truth.
 
@@ -571,58 +574,35 @@ A dedicated external image pipeline is not required unless the implementation de
 
 # Report Submission
 
-Spot & Report prepares a canonical report before delivery.
+Spot & Report validates a canonical report before recording it through a trusted server boundary.
 
 The submission implementation should consist of:
 
 ```text
 Canonical Report
       ↓
-Submission Service
+Next.js Submission Boundary
       ↓
-Destination Adapter
+Private Supabase Storage + Postgres
       ↓
-Configured Destination
+Persistent Confirmation
 ```
 
-The final Build Week submission destination must be selected and recorded before the stack is locked.
+The browser sends one multipart request to the application. The server repeats all authoritative validation, uploads the photo to a private bucket, inserts the report record and returns only safe confirmation metadata. The Supabase service-role credential exists only in server code.
 
-Potential MVP implementations include:
+The application accepts photos up to 4 MB. Vercel Functions impose a 4.5 MB request-body limit, and the lower application limit leaves room for multipart encoding overhead without changing to direct browser uploads.
 
-- a controlled demonstration endpoint,
-- email delivery,
-- a structured webhook,
-- a downloadable report,
-- or another approved destination.
-
-The final choice must support a genuine end-to-end demonstration.
-
-It should not falsely imply direct government integration where none exists.
+Persistence records the report inside Spot & Report. It does not falsely imply delivery to a government or other external agency; destination adapters remain deferred.
 
 ---
 
 # Data Storage
 
-The Build Week MVP should store only the information required to complete and demonstrate the reporting journey.
+Supabase Postgres stores the validated report fields and immutable confirmation metadata. Supabase Storage stores the selected evidence photo in the private `report-photos` bucket under a server-generated object path.
 
-A persistent database should not be introduced unless the chosen submission flow or reliability requirements clearly require one.
+Row-level security is enabled and no anonymous access policies are created. The application server uses the service role after validating each request. Original filenames are retained only as bounded metadata and never determine object paths.
 
-Possible storage needs include:
-
-- temporary image references,
-- submission records,
-- idempotency identifiers,
-- and minimal diagnostic metadata.
-
-Before adding a database, the implementation should establish:
-
-- what data must be stored,
-- why it must be stored,
-- how long it is retained,
-- who can access it,
-- and how it is deleted.
-
-The absence of user accounts significantly reduces MVP persistence requirements.
+If the photo upload succeeds but the database insert fails, the submission service attempts compensating object cleanup and never reports success. Retention and external-agency delivery policies remain future operational decisions.
 
 ---
 

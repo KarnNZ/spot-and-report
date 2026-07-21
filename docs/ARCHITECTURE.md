@@ -12,7 +12,7 @@
 
 **Owner:** Project Owner
 
-**Last Updated:** 19 July 2026
+**Last Updated:** 21 July 2026
 
 ---
 
@@ -562,7 +562,7 @@ This applies equally to browser APIs, AI services and submission destinations.
 
 # Submission Architecture
 
-Spot & Report deliberately separates report preparation from report delivery.
+Spot & Report deliberately separates report preparation, internal persistence and future external delivery.
 
 Before submission, every workflow produces a single canonical report.
 
@@ -576,19 +576,22 @@ Canonical Report
 Submission Service
       │
       ▼
-Destination Adapter
+Server Validation Boundary
       │
       ▼
-Receiving Organisation
+Private Photo Storage + Report Database
+      │
+      ▼
+Persistent Confirmation
 ```
 
-The submission service never depends directly on one external reporting system.
+The browser sends the completed report as multipart form data to the Next.js application. The server rebuilds and validates the canonical payload, uses the protected Supabase service role, and returns only safe confirmation fields after both the photo and report record are stored.
 
-Instead, adapters translate the canonical report into the format required by each destination.
+The private Storage bucket and RLS-enabled reports table are not accessible through anonymous public policies. If report insertion fails after upload, the persistence layer attempts compensating photo cleanup and does not return success.
 
-For the Build Week MVP, only a single submission destination is required.
+This boundary records a report inside Spot & Report. It does not claim delivery to a receiving organisation. Future destination adapters can consume persisted canonical reports without changing the reporting workflow.
 
-Future integrations should extend the adapter layer rather than modifying the reporting workflow.
+Photos are limited to 4 MB at the browser, server, database and bucket boundaries so the multipart request remains below Vercel's 4.5 MB Function request-body limit.
 
 ---
 
@@ -627,15 +630,16 @@ This structure keeps the codebase easy to understand while avoiding unnecessary 
 
 As implementation progresses, architectural responsibilities should map directly to implementation.
 
-| Architecture Responsibility | Planned Implementation |
+| Architecture Responsibility | Implementation |
 |-----------------------------|------------------------|
-| Bird Report Workflow | `src/features/bird-report/` |
-| Reporting Core | `src/core/reporting/` |
-| OpenAI Orchestration | `src/core/ai/` |
-| Location Services | `src/core/location/` |
-| Submission Services | `src/core/submission/` |
-| OpenAI Integration | `src/integrations/ai/` |
-| Submission Adapter | `src/integrations/submission/` |
+| Bird Report Workflow | `src/features/report/` |
+| Report Session | `src/features/report/session/` |
+| OpenAI Summary | `src/features/report/summary/` |
+| Location Services | `src/features/report/location/` |
+| Submission Domain and Persistence | `src/features/report/submission/` |
+| Trusted Submission Boundary | `src/app/api/report/submit/` and `src/server/report/` |
+| Supabase Administration | `src/server/supabase/` |
+| Database and Storage Configuration | `supabase/migrations/` |
 
 This table should be updated whenever significant architectural changes occur.
 

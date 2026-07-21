@@ -12,7 +12,7 @@
 
 **Owner:** Project Owner
 
-**Last Updated:** 19 July 2026
+**Last Updated:** 21 July 2026
 
 ---
 
@@ -180,6 +180,44 @@ Outline the next planned work.
 ---
 
 # Journal Entries
+
+---
+
+## 21 July 2026
+
+### Objective
+
+Replace the simulated report completion with secure, server-only Supabase persistence while preserving the existing reporting journey.
+
+---
+
+### Completed
+
+- Added a private Supabase Storage bucket and a row-level-security-enabled Postgres reports table through a versioned migration.
+- Added a trusted Next.js submission boundary that validates multipart report data before using the Supabase service role.
+- Persisted the selected photo under a server-generated path and stored the canonical report, final edited summary and safe confirmation metadata.
+- Added compensating photo cleanup when database persistence fails after upload.
+- Replaced simulated submission references with persistent UUID-backed report references returned by the server.
+- Added focused submission validation, persistence failure and duplicate-request tests.
+- Added environment and Supabase setup documentation without committing credentials.
+
+---
+
+### Key Decisions
+
+- Kept all privileged Supabase access on the server; browsers never receive the service-role key or upload directly to Storage.
+- Kept the `report-photos` bucket private, enabled RLS on report records and added no anonymous public-access policies.
+- Limited photos to 4 MB consistently in client validation, server validation, database constraints and Storage bucket configuration. Vercel Functions reject request bodies larger than 4.5 MB, so the application limit leaves practical multipart-form overhead while preserving the approved server-proxy upload model.
+- Returned only the report reference, submission timestamp and status to the browser after persistence succeeds.
+- Kept agency delivery explicitly deferred; a stored report is not represented as delivered to an external organisation.
+
+---
+
+### Validation
+
+- Added deterministic tests for valid and invalid reports, both supported location modes, upload and insert failures, cleanup failures, safe object naming and request deduplication.
+- Validated formatting, linting, strict type checking and the production build.
+- Reviewed the browser bundle and tracked files for privileged credentials and public Storage access paths.
 
 ---
 

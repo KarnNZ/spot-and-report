@@ -5,17 +5,24 @@ import { useRouter } from "next/navigation";
 import { type ChangeEvent, useEffect, useState } from "react";
 
 import { useReportSession } from "@/features/report/session/use-report-session";
+import {
+  MAX_REPORT_PHOTO_SIZE_BYTES,
+  REPORT_PHOTO_MIME_TYPES,
+  isReportPhotoMimeType,
+} from "@/features/report/submission/report-submission";
 import { Button } from "@/shared/ui/button";
 
-const MAX_PHOTO_SIZE_BYTES = 15 * 1024 * 1024;
-
 function getPhotoValidationError(file: File) {
-  if (!file.type.startsWith("image/")) {
-    return "Choose an image file.";
+  if (file.size === 0) {
+    return "Choose a photo that is not empty.";
   }
 
-  if (file.size > MAX_PHOTO_SIZE_BYTES) {
-    return "Choose an image smaller than 15 MB.";
+  if (!isReportPhotoMimeType(file.type.toLowerCase())) {
+    return "Choose a JPEG, PNG, WebP, HEIC or HEIF image.";
+  }
+
+  if (file.size > MAX_REPORT_PHOTO_SIZE_BYTES) {
+    return "Choose an image no larger than 4 MB.";
   }
 
   return null;
@@ -105,7 +112,7 @@ export function PhotoPicker() {
             <input
               id="report-camera-photo"
               type="file"
-              accept="image/*"
+              accept={REPORT_PHOTO_MIME_TYPES.join(",")}
               capture="environment"
               aria-describedby={inputDescription}
               aria-invalid={validationFeedback ? true : undefined}
@@ -133,7 +140,7 @@ export function PhotoPicker() {
             <input
               id="report-upload-photo"
               type="file"
-              accept="image/*"
+              accept={REPORT_PHOTO_MIME_TYPES.join(",")}
               aria-describedby={inputDescription}
               aria-invalid={validationFeedback ? true : undefined}
               className="peer sr-only"
@@ -154,8 +161,8 @@ export function PhotoPicker() {
           id="photo-picker-help"
           className="text-foreground-muted mt-3 text-sm leading-6"
         >
-          Choose one image up to 15 MB. The selected photo stays in this report
-          session for now and is not uploaded or saved.
+          Choose one JPEG, PNG, WebP, HEIC or HEIF image up to 4 MB. It is
+          securely stored only when you submit the report.
         </p>
 
         {validationFeedback ? (

@@ -12,7 +12,7 @@
 
 **Owner:** Project Owner
 
-**Last Updated:** 19 July 2026
+**Last Updated:** 21 July 2026
 
 ---
 
@@ -99,6 +99,9 @@ Changes requiring migration or affecting compatibility.
 - Added subtle shared MadLabz attribution to Landing and Confirmation, linking to a concise informational About page without affecting the report workflow.
 - Added an editable AI-assisted report summary between Questions and Review, with a responsible-AI disclaimer, server-only OpenAI access, and safeguards against medical diagnosis or invented evidence.
 - Added a shared brand header and report page layout so logo sizing, alignment, safe-area spacing, progress and heading hierarchy remain consistent across the complete journey without changing report behaviour.
+- Added secure server-only report persistence using Supabase Postgres and a private Storage bucket.
+- Added authoritative multipart validation, compensating upload cleanup and persistent report confirmation references.
+- Added focused submission tests covering validation, persistence failures, cleanup and duplicate requests.
 - Established the Spot & Report repository.
 - Defined the long-term product vision.
 - Created the engineering documentation framework.
@@ -119,6 +122,8 @@ Changes requiring migration or affecting compatibility.
 ## 🛠 Changed
 
 - Redesigned the README as the primary repository entry point.
+- Replaced simulated report completion with real persistence while keeping external-agency delivery explicitly deferred.
+- Standardised the accepted photo limit at 4 MB across the browser, server, database and Storage bucket to remain within Vercel's 4.5 MB Function request-body limit.
 - Adopted a documentation-first engineering approach before implementation.
 - Established consistent formatting across the complete documentation suite.
 - Separated product documentation from engineering documentation.

@@ -158,10 +158,14 @@ The MVP is built using a modern, production-ready web stack.
 - 📘 TypeScript
 - 🎨 Tailwind CSS
 - 🤖 OpenAI API
+- 🗄️ Supabase Postgres and private Storage
 - ✅ Zod
 - 🌐 Modern Browser APIs
 
 See **docs/TECH_STACK.md** for the complete technology rationale.
+
+Supabase environment, migration and private-bucket setup is documented in
+**docs/SUPABASE_SETUP.md**.
 
 ---
 

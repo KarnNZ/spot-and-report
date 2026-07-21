@@ -44,4 +44,5 @@ export interface ReportSessionApi {
   setSpecies: (species: string) => void;
   setNotes: (notes: string) => void;
   setSummary: (summary: string) => void;
+  clearReport: () => void;
 }

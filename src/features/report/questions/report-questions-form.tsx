@@ -6,6 +6,10 @@ import type { FormEvent } from "react";
 
 import type { ObservationType } from "@/features/report/session/report-session";
 import { useReportSession } from "@/features/report/session/use-report-session";
+import {
+  MAX_REPORT_NOTES_LENGTH,
+  MAX_REPORT_SPECIES_LENGTH,
+} from "@/features/report/submission/report-submission";
 import { Button } from "@/shared/ui/button";
 
 const OBSERVATION_OPTIONS: ReadonlyArray<{
@@ -16,9 +20,6 @@ const OBSERVATION_OPTIONS: ReadonlyArray<{
   { label: "Sick or injured bird", value: "sick" },
   { label: "Multiple birds", value: "multiple" },
 ];
-
-const MAX_SPECIES_LENGTH = 100;
-const MAX_NOTES_LENGTH = 500;
 
 export function ReportQuestionsForm() {
   const router = useRouter();
@@ -99,7 +100,7 @@ export function ReportQuestionsForm() {
           id="bird-species"
           type="text"
           value={species}
-          maxLength={MAX_SPECIES_LENGTH}
+          maxLength={MAX_REPORT_SPECIES_LENGTH}
           placeholder="For example: duck, gull, swan"
           className="border-foreground/30 bg-background placeholder:text-foreground-muted/70 focus:border-primary focus:outline-focus mt-3 min-h-12 w-full rounded-xl border px-4 py-3 text-base leading-6 focus:outline-[3px] focus:outline-offset-[3px]"
           onChange={(event) => setSpecies(event.currentTarget.value)}
@@ -120,7 +121,7 @@ export function ReportQuestionsForm() {
         <textarea
           id="observation-notes"
           value={notes}
-          maxLength={MAX_NOTES_LENGTH}
+          maxLength={MAX_REPORT_NOTES_LENGTH}
           rows={4}
           placeholder="For example: difficulty walking, unusual behaviour, visible injuries"
           className="border-foreground/30 bg-background placeholder:text-foreground-muted/70 focus:border-primary focus:outline-focus mt-3 min-h-28 w-full resize-y rounded-xl border px-4 py-3 text-base leading-6 focus:outline-[3px] focus:outline-offset-[3px]"

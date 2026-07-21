@@ -1,44 +1,197 @@
-import type { ReportSession } from "@/features/report/session/report-session";
-import { ReportSubmissionEngine } from "@/features/report/submission/report-submission-engine";
+import type { ReportSession } from "../session/report-session.ts";
+import { ReportSubmissionEngine } from "./report-submission-engine.ts";
+import type {
+  ReportSubmissionPayload,
+  StoredReportConfirmation,
+  SubmitReportErrorCode,
+  SubmitReportResult,
+} from "./report-submission.ts";
 
-export interface SuccessfulSubmission {
-  reference: string;
-  submittedAt: Date;
+type ReportSubmissionFetch = (
+  input: RequestInfo | URL,
+  init?: RequestInit,
+) => Promise<Response>;
+
+export class ReportSubmissionError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "ReportSubmissionError";
+  }
 }
 
-const SIMULATED_SUBMISSION_DELAY_MS = 750;
+export function createReportSubmissionFormData(
+  payload: ReportSubmissionPayload,
+): FormData {
+  const formData = new FormData();
+  formData.append("photo", payload.photo);
+  formData.append("incidentType", payload.observationType);
+  formData.append("birdCount", String(payload.birdCount));
+  formData.append("reporterSpecies", payload.species ?? "");
+  formData.append("reporterNotes", payload.notes ?? "");
+  formData.append(
+    "manualLocationDescription",
+    payload.location.manualDescription ?? "",
+  );
+  formData.append("aiSummary", payload.summary);
 
-function createTemporaryReference(submittedAt: Date): string {
-  const date = submittedAt.toISOString().slice(0, 10).replaceAll("-", "");
-  const randomBytes = crypto.getRandomValues(new Uint8Array(3));
-  const suffix = Array.from(randomBytes, (byte) =>
-    byte.toString(16).padStart(2, "0"),
-  )
-    .join("")
-    .toUpperCase();
+  if (payload.location.coordinates) {
+    formData.append("latitude", String(payload.location.coordinates.latitude));
+    formData.append(
+      "longitude",
+      String(payload.location.coordinates.longitude),
+    );
+    formData.append(
+      "locationAccuracyMeters",
+      String(payload.location.coordinates.accuracy),
+    );
+  }
 
-  return `REP-${date}-${suffix}`;
+  return formData;
+}
+
+function parseSubmitReportResult(value: unknown): SubmitReportResult | null {
+  if (!value || typeof value !== "object") {
+    return null;
+  }
+
+  const result = value as Record<string, unknown>;
+
+  if (result.ok === true) {
+    if (!result.report || typeof result.report !== "object") {
+      return null;
+    }
+
+    const report = result.report as Record<string, unknown>;
+
+    if (
+      typeof report.reference !== "string" ||
+      typeof report.submittedAt !== "string" ||
+      report.status !== "submitted"
+    ) {
+      return null;
+    }
+
+    return {
+      ok: true,
+      report: {
+        reference: report.reference,
+        submittedAt: report.submittedAt,
+        status: "submitted",
+      },
+    };
+  }
+
+  if (result.ok !== false || !result.error || typeof result.error !== "object") {
+    return null;
+  }
+
+  const error = result.error as Record<string, unknown>;
+  const validCodes: ReadonlyArray<SubmitReportErrorCode> = [
+    "INVALID_REPORT",
+    "PHOTO_UPLOAD_FAILED",
+    "REPORT_SAVE_FAILED",
+    "BACKEND_NOT_CONFIGURED",
+  ];
+
+  if (
+    typeof error.code !== "string" ||
+    !validCodes.includes(error.code as SubmitReportErrorCode) ||
+    typeof error.message !== "string"
+  ) {
+    return null;
+  }
+
+  return {
+    ok: false,
+    error: {
+      code: error.code as SubmitReportErrorCode,
+      message: error.message,
+    },
+  };
 }
 
 export class ReportSubmissionService {
   private readonly submissionEngine = new ReportSubmissionEngine();
+  private readonly fetchReport: ReportSubmissionFetch;
+  private submissionInProgress: Promise<StoredReportConfirmation> | null = null;
 
-  async submit(session: ReportSession): Promise<SuccessfulSubmission> {
+  constructor(fetchReport: ReportSubmissionFetch = fetch) {
+    this.fetchReport = fetchReport;
+  }
+
+  submit(session: ReportSession): Promise<StoredReportConfirmation> {
+    if (this.submissionInProgress) {
+      return this.submissionInProgress;
+    }
+
     const result = this.submissionEngine.build(session);
 
     if (!result.success) {
-      throw new Error(`Report validation failed: ${result.errors.join(" ")}`);
+      return Promise.reject(
+        new ReportSubmissionError("Check the report details and try again."),
+      );
     }
 
-    await new Promise((resolve) =>
-      setTimeout(resolve, SIMULATED_SUBMISSION_DELAY_MS),
-    );
+    const submission = this.submitPayload(result.payload);
+    this.submissionInProgress = submission;
 
-    const submittedAt = new Date();
-
-    return {
-      reference: createTemporaryReference(submittedAt),
-      submittedAt,
+    const clearPendingSubmission = () => {
+      if (this.submissionInProgress === submission) {
+        this.submissionInProgress = null;
+      }
     };
+
+    void submission.then(clearPendingSubmission, clearPendingSubmission);
+
+    return submission;
   }
+
+  private async submitPayload(
+    payload: ReportSubmissionPayload,
+  ): Promise<StoredReportConfirmation> {
+    let response: Response;
+
+    try {
+      response = await this.fetchReport("/api/report/submit", {
+        method: "POST",
+        body: createReportSubmissionFormData(payload),
+      });
+    } catch {
+      throw new ReportSubmissionError(
+        "We couldn't submit your report. Your information is still on this device, so please try again.",
+      );
+    }
+
+    let responseBody: unknown;
+
+    try {
+      responseBody = await response.json();
+    } catch {
+      throw new ReportSubmissionError(
+        "We couldn't submit your report. Your information is still on this device, so please try again.",
+      );
+    }
+
+    const result = parseSubmitReportResult(responseBody);
+
+    if (!result || !result.ok || !response.ok) {
+      throw new ReportSubmissionError(
+        result && !result.ok
+          ? result.error.message
+          : "We couldn't submit your report. Your information is still on this device, so please try again.",
+      );
+    }
+
+    return result.report;
+  }
+}
+
+export async function completeReportSubmission(
+  session: ReportSession,
+  clearReport: () => void,
+  service: ReportSubmissionService,
+): Promise<StoredReportConfirmation> {
+  const report = await service.submit(session);
+  clearReport();
+  return report;
 }
