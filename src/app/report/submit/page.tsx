@@ -1,6 +1,6 @@
 import { PageContainer } from "@/shared/ui/page-container";
 import { Button } from "@/shared/ui/button";
-import { BrandMark } from "@/shared/ui/brand/brand-mark";
+import { BrandHeader } from "@/shared/ui/brand/brand-header";
 import { MadLabzAttribution } from "@/shared/ui/madlabz-attribution";
 
 interface SubmitPageProps {
@@ -23,10 +23,10 @@ export default async function SubmitPage({ searchParams }: SubmitPageProps) {
 
   return (
     <PageContainer>
-      <div className="my-auto w-full max-w-xl self-center py-4 text-center sm:py-8">
+      <div className="w-full max-w-xl self-center py-4 text-center sm:py-8">
         <header className="mx-auto max-w-md">
-          <BrandMark />
-          <h1 className="mt-6 text-3xl leading-tight font-semibold tracking-tight sm:text-4xl">
+          <BrandHeader />
+          <h1 className="text-3xl leading-tight font-semibold tracking-tight sm:text-4xl">
             Thank you
           </h1>
           <p className="text-foreground-muted mt-3 text-lg leading-8">

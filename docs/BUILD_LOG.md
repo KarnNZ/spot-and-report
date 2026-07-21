@@ -222,6 +222,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Added the shared Spot & Report brand mark to every active reporting step without changing report behaviour.
 - Added understated MadLabz attribution to the landing and confirmation screens with a simple informational About page.
 - Added a server-generated AI report summary step that remains fully editable before review and submission.
+- Standardised logo alignment, responsive sizing and safe-area spacing through a shared `BrandHeader`, and consolidated every active report step into a shared `ReportPageLayout` without changing workflow behaviour.
 
 ---
 
@@ -252,6 +253,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Preserved the prop-free `BrandMark` API while using the final logo's intrinsic dimensions and responsive CSS sizing, requiring no consuming-screen or workflow changes.
 - Kept attribution outside the active reporting steps and reused one shared presentation so the workflow remains distraction-free.
 - Kept OpenAI credentials and requests server-side, sent only normalized report evidence without photos or precise coordinates, and required human review of every generated summary.
+- Kept brand presentation independent from page content: `BrandHeader` owns logo placement while `ReportPageLayout` owns the repeated report-step hierarchy, including progress and screen headings.
 
 ---
 

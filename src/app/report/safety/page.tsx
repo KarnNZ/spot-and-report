@@ -1,19 +1,15 @@
 import Link from "next/link";
 
-import { ReportStepPage } from "@/features/report/layout/report-step-page";
-import { ReportProgress } from "@/features/report/progress/report-progress";
+import { ReportPageLayout } from "@/features/report/layout/report-page-layout";
 import { Button } from "@/shared/ui/button";
-import { ScreenHeader } from "@/shared/ui/screen-header";
 
 export default function SafetyPage() {
   return (
-    <ReportStepPage>
-      <ReportProgress currentStep="safety" />
-
-      <ScreenHeader
-        title="Stay safe first"
-        description="Avoid touching or moving the bird. If possible, keep children and pets away from the area while you complete your report."
-      />
+    <ReportPageLayout
+      currentStep="safety"
+      title="Stay safe first"
+      description="Avoid touching or moving the bird. If possible, keep children and pets away from the area while you complete your report."
+    >
 
       <div className="border-foreground/15 bg-selection/40 mt-8 rounded-2xl border p-5">
         <ul className="list-disc space-y-3 pl-5 text-base leading-7 marker:text-primary">
@@ -35,6 +31,6 @@ export default function SafetyPage() {
           Back
         </Link>
       </div>
-    </ReportStepPage>
+    </ReportPageLayout>
   );
 }

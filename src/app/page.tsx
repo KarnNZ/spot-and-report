@@ -1,5 +1,5 @@
 import { Button } from "@/shared/ui/button";
-import { BrandMark } from "@/shared/ui/brand/brand-mark";
+import { BrandHeader } from "@/shared/ui/brand/brand-header";
 import { MadLabzAttribution } from "@/shared/ui/madlabz-attribution";
 import { PageContainer } from "@/shared/ui/page-container";
 import { ScreenHeader } from "@/shared/ui/screen-header";
@@ -7,10 +7,8 @@ import { ScreenHeader } from "@/shared/ui/screen-header";
 export default function HomePage() {
   return (
     <PageContainer>
-      <div className="my-auto w-full max-w-xl self-center py-4 sm:py-8">
-        <div className="mb-6">
-          <BrandMark />
-        </div>
+      <div className="w-full max-w-xl self-center py-4 sm:py-8">
+        <BrandHeader />
         <div className="max-w-lg">
           <ScreenHeader
             title="Report a sick or dead bird in under 60 seconds"

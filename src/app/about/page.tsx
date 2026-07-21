@@ -1,16 +1,14 @@
 import Link from "next/link";
 
-import { BrandMark } from "@/shared/ui/brand/brand-mark";
+import { BrandHeader } from "@/shared/ui/brand/brand-header";
 import { PageContainer } from "@/shared/ui/page-container";
 import { ScreenHeader } from "@/shared/ui/screen-header";
 
 export default function AboutPage() {
   return (
     <PageContainer>
-      <div className="my-auto w-full max-w-xl self-center py-4 sm:py-8">
-        <div className="mb-6">
-          <BrandMark />
-        </div>
+      <div className="w-full max-w-xl self-center py-4 sm:py-8">
+        <BrandHeader />
 
         <ScreenHeader
           title="About Spot & Report"
