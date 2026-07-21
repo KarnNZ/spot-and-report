@@ -160,9 +160,27 @@ export class ReportSubmissionService {
         method: "POST",
         body: createReportSubmissionFormData(payload),
       });
-    } catch {
+    } catch (error) {
+      console.error("Report submission request failed.", {
+        category: "submission-network",
+        errorName: error instanceof Error ? error.name : "UnknownError",
+      });
       throw new ReportSubmissionError(
         "We couldn't submit your report. Your information is still on this device, so please try again.",
+      );
+    }
+
+    const contentType = response.headers.get("content-type")?.toLowerCase();
+
+    if (!contentType?.includes("application/json")) {
+      console.error("Report submission returned an unexpected response.", {
+        category: "submission-response",
+        status: response.status,
+        contentType: contentType?.slice(0, 64) ?? "missing",
+        redirected: response.redirected,
+      });
+      throw new ReportSubmissionError(
+        "Report submission is unavailable at this web address. Open the public Spot & Report site and try again.",
       );
     }
 

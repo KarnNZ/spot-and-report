@@ -132,6 +132,7 @@ Changes requiring migration or affecting compatibility.
 
 ## 🐛 Fixed
 
+- Improved submission failure diagnostics and now distinguish non-JSON platform interception from application API failures without exposing report data or credentials.
 - Removed duplicated content between documentation files.
 - Reduced overlap by assigning each document a single responsibility.
 - Improved consistency of terminology across the repository.

@@ -6,6 +6,7 @@ import type {
 } from "@/features/report/submission/report-submission";
 import { submitReport } from "@/server/report/submit-report";
 import { SupabaseConfigurationError } from "@/server/supabase/admin";
+import { getSafeErrorDiagnostic } from "@/server/diagnostics/safe-error-diagnostic";
 
 export const runtime = "nodejs";
 
@@ -63,6 +64,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     console.error("Unexpected report persistence failure.", {
       category: "unexpected",
       operation: "submit",
+      ...getSafeErrorDiagnostic(error),
     });
     const unexpectedFailure: SubmitReportResult = {
       ok: false,

@@ -12,7 +12,7 @@
 
 **Owner:** Project Owner
 
-**Last Updated:** 21 July 2026
+**Last Updated:** 22 July 2026
 
 ---
 
@@ -182,6 +182,13 @@ Outline the next planned work.
 # Journal Entries
 
 ---
+
+## 22 July 2026
+
+- Audited the complete production submission path from the Review action through validation, multipart serialization, private Storage upload, database insertion, cleanup and confirmation parsing.
+- Verified successful submissions through both the local route backed by production Supabase and the canonical public Vercel domain.
+- Identified that unique Vercel deployment URLs are protected by Vercel SSO and return a non-JSON redirect before the API route, while `spot-and-report.vercel.app` remains the public production entry point.
+- Added safe diagnostic classifications for unexpected client, Storage, database and cleanup failures without logging report content, credentials, URLs or provider messages.
 
 ## 21 July 2026
 

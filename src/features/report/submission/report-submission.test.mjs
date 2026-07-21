@@ -12,6 +12,7 @@ import {
 } from "./report-submission-service.ts";
 import { MAX_REPORT_PHOTO_SIZE_BYTES } from "./report-submission.ts";
 import { parseReportSubmissionFormData } from "./report-submission-validation.ts";
+import { getSafeErrorDiagnostic } from "../../../server/diagnostics/safe-error-diagnostic.ts";
 
 const REPORT_ID = "7ee06b9e-1111-4222-8333-123456789abc";
 const SUBMITTED_AT = "2026-07-21T02:03:04.000Z";
@@ -430,6 +431,45 @@ test("failed submission preserves the current report session", async () => {
     }, service),
   );
   assert.equal(clearCount, 0);
+});
+
+test("non-JSON submission responses identify an unavailable web address", async (t) => {
+  t.mock.method(console, "error", () => {});
+  const service = new ReportSubmissionService(async () =>
+    new Response("Redirecting...", {
+      status: 302,
+      headers: { "Content-Type": "text/plain" },
+    }),
+  );
+
+  await assert.rejects(
+    service.submit(createSession()),
+    /unavailable at this web address/,
+  );
+});
+
+test("safe diagnostics omit messages and retain error classifications", () => {
+  const certificateError = Object.assign(new Error("sensitive provider text"), {
+    code: "UNABLE_TO_VERIFY_LEAF_SIGNATURE",
+  });
+  const transportError = Object.assign(new TypeError("fetch failed"), {
+    cause: certificateError,
+  });
+  const storageError = Object.assign(new Error("fetch failed"), {
+    name: "StorageUnknownError",
+    originalError: transportError,
+  });
+
+  const diagnostic = getSafeErrorDiagnostic(storageError);
+
+  assert.deepEqual(diagnostic, {
+    errorName: "StorageUnknownError",
+    errorCode: undefined,
+    statusCode: undefined,
+    underlyingErrorName: "TypeError",
+    underlyingErrorCode: "UNABLE_TO_VERIFY_LEAF_SIGNATURE",
+  });
+  assert.equal("message" in diagnostic, false);
 });
 
 test("successful submission clears the draft and uses backend values", async () => {

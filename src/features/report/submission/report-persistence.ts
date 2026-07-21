@@ -38,7 +38,11 @@ export interface ReportPersistenceRecord {
 export interface ReportPersistenceFailure {
   ok: false;
   reason: "missing-bucket" | "operation-failed";
+  errorName?: string;
   errorCode?: string;
+  statusCode?: string;
+  underlyingErrorName?: string;
+  underlyingErrorCode?: string;
 }
 
 export interface ReportPersistenceSuccess {
@@ -70,7 +74,21 @@ export interface ReportPersistenceDiagnostic {
   category: "photo-upload" | "report-insert" | "photo-cleanup";
   operation: "upload" | "insert" | "remove";
   reportId: string;
+  errorName?: string;
   errorCode?: string;
+  statusCode?: string;
+  underlyingErrorName?: string;
+  underlyingErrorCode?: string;
+}
+
+function getFailureDiagnostic(failure: ReportPersistenceFailure) {
+  return {
+    errorName: failure.errorName,
+    errorCode: failure.errorCode,
+    statusCode: failure.statusCode,
+    underlyingErrorName: failure.underlyingErrorName,
+    underlyingErrorCode: failure.underlyingErrorCode,
+  };
 }
 
 interface PersistReportOptions {
@@ -148,7 +166,7 @@ export async function persistReport(
       category: "photo-upload",
       operation: "upload",
       reportId,
-      errorCode: uploadResult.errorCode,
+      ...getFailureDiagnostic(uploadResult),
     });
 
     return {
@@ -196,7 +214,7 @@ export async function persistReport(
       category: "report-insert",
       operation: "insert",
       reportId,
-      errorCode: insertResult.errorCode,
+      ...getFailureDiagnostic(insertResult),
     });
 
     const cleanupResult = await gateway.removePhoto({
@@ -209,7 +227,7 @@ export async function persistReport(
         category: "photo-cleanup",
         operation: "remove",
         reportId,
-        errorCode: cleanupResult.errorCode,
+        ...getFailureDiagnostic(cleanupResult),
       });
     }
 

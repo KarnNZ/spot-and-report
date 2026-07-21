@@ -13,17 +13,7 @@ import type {
   SubmitReportResult,
 } from "@/features/report/submission/report-submission";
 import { createSupabaseAdminClient } from "@/server/supabase/admin";
-
-function getSafeErrorCode(error: unknown): string | undefined {
-  if (!error || typeof error !== "object") {
-    return undefined;
-  }
-
-  const errorRecord = error as Record<string, unknown>;
-  return typeof errorRecord.code === "string"
-    ? errorRecord.code.slice(0, 64)
-    : undefined;
-}
+import { getSafeErrorDiagnostic } from "@/server/diagnostics/safe-error-diagnostic";
 
 function isMissingBucketError(error: unknown): boolean {
   if (!error || typeof error !== "object") {
@@ -107,7 +97,7 @@ function createSupabasePersistenceGateway(
           reason: isMissingBucketError(error)
             ? "missing-bucket"
             : "operation-failed",
-          errorCode: getSafeErrorCode(error),
+          ...getSafeErrorDiagnostic(error),
         };
       }
 
@@ -125,7 +115,7 @@ function createSupabasePersistenceGateway(
         return {
           ok: false,
           reason: "operation-failed",
-          errorCode: getSafeErrorCode(error),
+          ...getSafeErrorDiagnostic(error),
         };
       }
 
@@ -149,7 +139,7 @@ function createSupabasePersistenceGateway(
         return {
           ok: false,
           reason: "operation-failed",
-          errorCode: getSafeErrorCode(error),
+          ...getSafeErrorDiagnostic(error),
         };
       }
 
