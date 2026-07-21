@@ -6,6 +6,7 @@ import type {
   ReportSubmissionPayload,
   SubmissionResult,
 } from "@/features/report/submission/report-submission";
+import { MAX_REPORT_SUMMARY_LENGTH } from "@/features/report/summary/report-summary";
 
 export class ReportSubmissionEngine {
   build(session: ReportSession): SubmissionResult {
@@ -34,11 +35,23 @@ export class ReportSubmissionEngine {
       errors.push("Bird count must be a whole number between 1 and 999.");
     }
 
+    const summary = session.summary.trim();
+
+    if (!summary) {
+      errors.push("A report summary is required.");
+    } else if (summary.length > MAX_REPORT_SUMMARY_LENGTH) {
+      errors.push(
+        `Report summary must be ${MAX_REPORT_SUMMARY_LENGTH} characters or fewer.`,
+      );
+    }
+
     if (
       errors.length > 0 ||
       !photo ||
       !hasLocation ||
-      !questions.observationType
+      !questions.observationType ||
+      !summary ||
+      summary.length > MAX_REPORT_SUMMARY_LENGTH
     ) {
       return {
         success: false,
@@ -54,6 +67,7 @@ export class ReportSubmissionEngine {
       birdCount: questions.birdCount,
       species: species || null,
       notes: notes || null,
+      summary,
       photo,
       location: {
         coordinates: coordinates

@@ -31,7 +31,8 @@ export function ReportReviewSummary() {
     location.manualDescription.trim() ||
     questions.observationType ||
     questions.species.trim() ||
-    questions.notes.trim(),
+    questions.notes.trim() ||
+    session.summary.trim(),
   );
 
   useEffect(() => {
@@ -103,6 +104,21 @@ export function ReportReviewSummary() {
   return (
     <div className="mt-8">
       <div className="space-y-3">
+        <section
+          aria-labelledby="review-summary-heading"
+          className="border-foreground/15 bg-selection/40 rounded-2xl border p-5"
+        >
+          <h2
+            id="review-summary-heading"
+            className="text-foreground-muted text-sm leading-6 font-semibold"
+          >
+            Report summary
+          </h2>
+          <p className="mt-3 whitespace-pre-wrap leading-7">
+            {session.summary.trim() || "No report summary provided."}
+          </p>
+        </section>
+
         <section
           aria-labelledby="review-photo-heading"
           className="border-foreground/15 bg-foreground/[0.02] rounded-2xl border p-5"
@@ -239,7 +255,7 @@ export function ReportReviewSummary() {
           </p>
         ) : null}
         <Link
-          href="/report/questions"
+          href="/report/summary"
           className="text-primary hover:text-primary-hover active:text-primary-active flex min-h-12 w-full items-center justify-center rounded-xl px-5 py-3 text-center font-semibold underline-offset-4 hover:underline"
         >
           Back

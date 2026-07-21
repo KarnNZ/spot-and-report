@@ -29,6 +29,7 @@ export interface ReportSession {
   photo: File | null;
   location: ReportLocation;
   questions: ReportQuestions;
+  summary: string;
 }
 
 export interface ReportSessionApi {
@@ -42,4 +43,5 @@ export interface ReportSessionApi {
   setBirdCount: (birdCount: number) => void;
   setSpecies: (species: string) => void;
   setNotes: (notes: string) => void;
+  setSummary: (summary: string) => void;
 }

@@ -221,6 +221,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Replaced the temporary text brand mark with the final Spot & Report logo served from `public/branding` and verified it across its mobile placements.
 - Added the shared Spot & Report brand mark to every active reporting step without changing report behaviour.
 - Added understated MadLabz attribution to the landing and confirmation screens with a simple informational About page.
+- Added a server-generated AI report summary step that remains fully editable before review and submission.
 
 ---
 
@@ -250,6 +251,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Retained the rear-camera hint only for Take Photo while allowing Upload Existing Photo to use the browser's normal image sources; both actions share validation, session, preview and submission behaviour.
 - Preserved the prop-free `BrandMark` API while using the final logo's intrinsic dimensions and responsive CSS sizing, requiring no consuming-screen or workflow changes.
 - Kept attribution outside the active reporting steps and reused one shared presentation so the workflow remains distraction-free.
+- Kept OpenAI credentials and requests server-side, sent only normalized report evidence without photos or precise coordinates, and required human review of every generated summary.
 
 ---
 
@@ -258,6 +260,8 @@ Initialise the production-quality application baseline and begin the approved ap
 AVG Web Shield intercepts HTTPS using a Windows-trusted root that is not included in Node.js's bundled certificate authorities. The install retained TLS verification by temporarily providing Node with the matching trusted local root; no certificate or npm security override was added to the repository.
 
 Testing note: Camera capture was verified successfully on iPhone Safari over HTTPS. The black camera preview occurred only when the app was opened inside the Google app's embedded browser, indicating a browser-specific limitation rather than an application defect.
+
+AI summaries use neutral, evidence-bound instructions and validation that rejects explicit diagnostic certainty. Users can edit or replace the generated text, and the final user-approved wording is included in the submission payload. Local live generation requires a server-only `OPENAI_API_KEY`; no browser-exposed OpenAI environment variable is used.
 
 npm also reported a moderate advisory in Next.js's bundled PostCSS dependency. The current automated remediation would force a breaking downgrade to Next.js 9, so the current stable framework version was retained pending an upstream stable fix. The application does not process user-supplied CSS.
 

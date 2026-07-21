@@ -3,6 +3,7 @@ export type ReportStep =
   | "photo"
   | "location"
   | "questions"
+  | "summary"
   | "review";
 
 export interface ReportProgressProps {
@@ -17,6 +18,7 @@ const REPORT_STEPS: ReadonlyArray<{
   { id: "photo", label: "Photo" },
   { id: "location", label: "Location" },
   { id: "questions", label: "Questions" },
+  { id: "summary", label: "AI Summary" },
   { id: "review", label: "Review" },
 ];
 

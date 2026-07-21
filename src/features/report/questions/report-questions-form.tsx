@@ -38,7 +38,7 @@ export function ReportQuestionsForm() {
     event.preventDefault();
 
     if (canContinue) {
-      router.push("/report/review");
+      router.push("/report/summary");
     }
   }
 

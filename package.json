@@ -9,12 +9,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test": "node --experimental-strip-types --test src/features/report/summary/report-summary.test.mjs",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "next": "16.2.10",
+    "openai": "^6.45.0",
     "react": "19.2.7",
     "react-dom": "19.2.7"
   },

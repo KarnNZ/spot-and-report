@@ -28,6 +28,7 @@ const INITIAL_REPORT_SESSION: ReportSession = {
     species: "",
     notes: "",
   },
+  summary: "",
 };
 
 const ReportSessionContext = createContext<ReportSessionApi | null>(null);
@@ -62,6 +63,7 @@ export function ReportSessionProvider({
         ...currentSession.location,
         coordinates,
       },
+      summary: "",
     }));
   }, []);
 
@@ -72,6 +74,7 @@ export function ReportSessionProvider({
         ...currentSession.location,
         manualDescription,
       },
+      summary: "",
     }));
   }, []);
 
@@ -82,6 +85,7 @@ export function ReportSessionProvider({
         coordinates: null,
         manualDescription: "",
       },
+      summary: "",
     }));
   }, []);
 
@@ -93,6 +97,7 @@ export function ReportSessionProvider({
           ...currentSession.questions,
           observationType,
         },
+        summary: "",
       }));
     },
     [],
@@ -105,6 +110,7 @@ export function ReportSessionProvider({
         ...currentSession.questions,
         birdCount,
       },
+      summary: "",
     }));
   }, []);
 
@@ -115,6 +121,7 @@ export function ReportSessionProvider({
         ...currentSession.questions,
         species,
       },
+      summary: "",
     }));
   }, []);
 
@@ -125,6 +132,14 @@ export function ReportSessionProvider({
         ...currentSession.questions,
         notes,
       },
+      summary: "",
+    }));
+  }, []);
+
+  const setSummary = useCallback((summary: string) => {
+    setSession((currentSession) => ({
+      ...currentSession,
+      summary,
     }));
   }, []);
 
@@ -140,6 +155,7 @@ export function ReportSessionProvider({
       setBirdCount,
       setSpecies,
       setNotes,
+      setSummary,
     }),
     [
       session,
@@ -152,6 +168,7 @@ export function ReportSessionProvider({
       setBirdCount,
       setSpecies,
       setNotes,
+      setSummary,
     ],
   );
 

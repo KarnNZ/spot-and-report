@@ -97,6 +97,7 @@ Changes requiring migration or affecting compatibility.
 - Replaced the temporary typographic brand mark with the final shared Spot & Report logo from `public/branding`, preserving the existing component API and application behaviour.
 - Reused the shared Spot & Report brand mark across Safety, Photo, Location, Questions and Review for consistent report-flow branding with no behaviour changes.
 - Added subtle shared MadLabz attribution to Landing and Confirmation, linking to a concise informational About page without affecting the report workflow.
+- Added an editable AI-assisted report summary between Questions and Review, with a responsible-AI disclaimer, server-only OpenAI access, and safeguards against medical diagnosis or invented evidence.
 - Established the Spot & Report repository.
 - Defined the long-term product vision.
 - Created the engineering documentation framework.

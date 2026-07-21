@@ -8,6 +8,7 @@ export interface ReportSubmissionPayload {
   birdCount: number;
   species: string | null;
   notes: string | null;
+  summary: string;
   photo: File;
   location: {
     coordinates: ReportCoordinates | null;
