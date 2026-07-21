@@ -96,6 +96,7 @@ Changes requiring migration or affecting compatibility.
 - Split photo selection into explicit Take Photo and Upload Existing Photo actions, preserving the same validation, preview and reporting flow while providing a reliable gallery fallback.
 - Replaced the temporary typographic brand mark with the final shared Spot & Report logo from `public/branding`, preserving the existing component API and application behaviour.
 - Reused the shared Spot & Report brand mark across Safety, Photo, Location, Questions and Review for consistent report-flow branding with no behaviour changes.
+- Added subtle shared MadLabz attribution to Landing and Confirmation, linking to a concise informational About page without affecting the report workflow.
 - Established the Spot & Report repository.
 - Defined the long-term product vision.
 - Created the engineering documentation framework.

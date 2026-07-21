@@ -1,6 +1,7 @@
 import { PageContainer } from "@/shared/ui/page-container";
 import { Button } from "@/shared/ui/button";
 import { BrandMark } from "@/shared/ui/brand/brand-mark";
+import { MadLabzAttribution } from "@/shared/ui/madlabz-attribution";
 
 interface SubmitPageProps {
   searchParams: Promise<{
@@ -60,6 +61,10 @@ export default async function SubmitPage({ searchParams }: SubmitPageProps) {
         <form action="/" method="get" className="mt-8">
           <Button type="submit">Start another report</Button>
         </form>
+
+        <div className="mt-6">
+          <MadLabzAttribution />
+        </div>
       </div>
     </PageContainer>
   );

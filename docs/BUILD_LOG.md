@@ -220,6 +220,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Replaced the combined photo action with separate camera and existing-image choices after real-device testing exposed unreliable forced-camera behaviour.
 - Replaced the temporary text brand mark with the final Spot & Report logo served from `public/branding` and verified it across its mobile placements.
 - Added the shared Spot & Report brand mark to every active reporting step without changing report behaviour.
+- Added understated MadLabz attribution to the landing and confirmation screens with a simple informational About page.
 
 ---
 
@@ -248,6 +249,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Kept confirmation as the terminal report screen and accepted either device coordinates or a trimmed manual description as a valid submission location, without changing backend behaviour or adding workflow steps.
 - Retained the rear-camera hint only for Take Photo while allowing Upload Existing Photo to use the browser's normal image sources; both actions share validation, session, preview and submission behaviour.
 - Preserved the prop-free `BrandMark` API while using the final logo's intrinsic dimensions and responsive CSS sizing, requiring no consuming-screen or workflow changes.
+- Kept attribution outside the active reporting steps and reused one shared presentation so the workflow remains distraction-free.
 
 ---
 

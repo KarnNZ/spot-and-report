@@ -1,5 +1,6 @@
 import { Button } from "@/shared/ui/button";
 import { BrandMark } from "@/shared/ui/brand/brand-mark";
+import { MadLabzAttribution } from "@/shared/ui/madlabz-attribution";
 import { PageContainer } from "@/shared/ui/page-container";
 import { ScreenHeader } from "@/shared/ui/screen-header";
 
@@ -38,6 +39,10 @@ export default function HomePage() {
               Do not touch or move the bird.
             </p>
           </section>
+        </div>
+
+        <div className="mt-6">
+          <MadLabzAttribution />
         </div>
       </div>
     </PageContainer>
