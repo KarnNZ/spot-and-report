@@ -102,6 +102,8 @@ Changes requiring migration or affecting compatibility.
 - Added secure server-only report persistence using Supabase Postgres and a private Storage bucket.
 - Added authoritative multipart validation, compensating upload cleanup and persistent report confirmation references.
 - Added focused submission tests covering validation, persistence failures, cleanup and duplicate requests.
+- Added optional AI-assisted photo observations with strict structured output, explicit reporter approval and non-blocking failure handling.
+- Added Review and Supabase persistence support for approved image observations while keeping reporter answers separate.
 - Established the Spot & Report repository.
 - Defined the long-term product vision.
 - Created the engineering documentation framework.

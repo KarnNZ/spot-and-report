@@ -9,6 +9,11 @@ import {
   type ReportSubmissionPayload,
 } from "./report-submission.ts";
 import { MAX_REPORT_SUMMARY_LENGTH } from "../summary/report-summary.ts";
+import {
+  MAX_REPORT_IMAGE_ANALYSIS_JSON_LENGTH,
+  parseApprovedImageAnalysis,
+  type ApprovedImageAnalysis,
+} from "../image-analysis/report-image-analysis.ts";
 
 export interface ReportSubmissionValidationFailure {
   success: false;
@@ -71,6 +76,38 @@ export function parseReportSubmissionFormData(
     "manualLocationDescription",
   ).trim();
   const summary = readTextField(formData, "aiSummary").trim();
+  const imageAnalysisValue = formData.getAll("imageAnalysis");
+  const serializedImageAnalysis =
+    imageAnalysisValue.length === 1 && typeof imageAnalysisValue[0] === "string"
+      ? imageAnalysisValue[0]
+      : "";
+  let imageAnalysis: ApprovedImageAnalysis | null = null;
+
+  if (
+    imageAnalysisValue.length > 1 ||
+    (imageAnalysisValue.length === 1 &&
+      typeof imageAnalysisValue[0] !== "string")
+  ) {
+    errors.push("Image analysis is invalid.");
+  } else if (serializedImageAnalysis) {
+    if (
+      serializedImageAnalysis.length > MAX_REPORT_IMAGE_ANALYSIS_JSON_LENGTH
+    ) {
+      errors.push("Image analysis is invalid.");
+    } else {
+      try {
+        imageAnalysis = parseApprovedImageAnalysis(
+          JSON.parse(serializedImageAnalysis),
+        );
+      } catch {
+        imageAnalysis = null;
+      }
+
+      if (!imageAnalysis) {
+        errors.push("Image analysis is invalid.");
+      }
+    }
+  }
   const latitude = parseOptionalNumber(readTextField(formData, "latitude"));
   const longitude = parseOptionalNumber(readTextField(formData, "longitude"));
   const accuracy = parseOptionalNumber(
@@ -181,6 +218,7 @@ export function parseReportSubmissionFormData(
       species: species || null,
       notes: notes || null,
       summary,
+      imageAnalysis,
       photo,
       location: {
         coordinates,

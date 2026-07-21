@@ -2,6 +2,7 @@ import type {
   ObservationType,
   ReportCoordinates,
 } from "@/features/report/session/report-session";
+import type { ApprovedImageAnalysis } from "@/features/report/image-analysis/report-image-analysis";
 
 export interface ReportSubmissionPayload {
   observationType: ObservationType;
@@ -9,6 +10,7 @@ export interface ReportSubmissionPayload {
   species: string | null;
   notes: string | null;
   summary: string;
+  imageAnalysis: ApprovedImageAnalysis | null;
   photo: File;
   location: {
     coordinates: ReportCoordinates | null;

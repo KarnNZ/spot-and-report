@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { type ChangeEvent, useEffect, useState } from "react";
 
 import { useReportSession } from "@/features/report/session/use-report-session";
+import { PhotoAnalysisPanel } from "@/features/report/image-analysis/photo-analysis-panel";
 import {
   MAX_REPORT_PHOTO_SIZE_BYTES,
   REPORT_PHOTO_MIME_TYPES,
@@ -175,6 +176,14 @@ export function PhotoPicker() {
           </p>
         ) : null}
       </div>
+
+      {selectedFile && previewObjectUrl ? (
+        <PhotoAnalysisPanel
+          key={previewObjectUrl}
+          photo={selectedFile}
+          onContinue={handleContinue}
+        />
+      ) : null}
 
       <div className="mt-6 space-y-3">
         <Button

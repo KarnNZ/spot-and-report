@@ -14,6 +14,7 @@ import {
   isReportPhotoMimeType,
 } from "./report-submission.ts";
 import { MAX_REPORT_SUMMARY_LENGTH } from "../summary/report-summary.ts";
+import { parseApprovedImageAnalysis } from "../image-analysis/report-image-analysis.ts";
 
 export class ReportSubmissionEngine {
   build(session: ReportSession): SubmissionResult {
@@ -56,6 +57,13 @@ export class ReportSubmissionEngine {
     const species = questions.species.trim();
     const notes = questions.notes.trim();
     const manualDescription = location.manualDescription.trim();
+    const imageAnalysis = session.approvedImageAnalysis
+      ? parseApprovedImageAnalysis(session.approvedImageAnalysis)
+      : null;
+
+    if (session.approvedImageAnalysis && !imageAnalysis) {
+      errors.push("Image analysis is invalid.");
+    }
 
     if (species.length > MAX_REPORT_SPECIES_LENGTH) {
       errors.push(
@@ -125,6 +133,7 @@ export class ReportSubmissionEngine {
       species: species || null,
       notes: notes || null,
       summary,
+      imageAnalysis,
       photo,
       location: {
         coordinates: coordinates

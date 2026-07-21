@@ -15,9 +15,17 @@ import type {
   ReportSession,
   ReportSessionApi,
 } from "@/features/report/session/report-session";
+import {
+  withApprovedImageAnalysis,
+  withReportPhoto,
+  withoutApprovedImageAnalysis,
+  withoutReportPhoto,
+} from "@/features/report/session/report-session";
+import type { ApprovedImageAnalysis } from "@/features/report/image-analysis/report-image-analysis";
 
 const INITIAL_REPORT_SESSION: ReportSession = {
   photo: null,
+  approvedImageAnalysis: null,
   location: {
     coordinates: null,
     manualDescription: "",
@@ -43,17 +51,24 @@ export function ReportSessionProvider({
   const [session, setSession] = useState<ReportSession>(INITIAL_REPORT_SESSION);
 
   const setPhoto = useCallback((photo: File) => {
-    setSession((currentSession) => ({
-      ...currentSession,
-      photo,
-    }));
+    setSession((currentSession) => withReportPhoto(currentSession, photo));
   }, []);
 
   const clearPhoto = useCallback(() => {
-    setSession((currentSession) => ({
-      ...currentSession,
-      photo: null,
-    }));
+    setSession(withoutReportPhoto);
+  }, []);
+
+  const approveImageAnalysis = useCallback(
+    (approvedImageAnalysis: ApprovedImageAnalysis) => {
+      setSession((currentSession) =>
+        withApprovedImageAnalysis(currentSession, approvedImageAnalysis),
+      );
+    },
+    [],
+  );
+
+  const clearImageAnalysis = useCallback(() => {
+    setSession(withoutApprovedImageAnalysis);
   }, []);
 
   const setCoordinates = useCallback((coordinates: ReportCoordinates) => {
@@ -152,6 +167,8 @@ export function ReportSessionProvider({
       session,
       setPhoto,
       clearPhoto,
+      approveImageAnalysis,
+      clearImageAnalysis,
       setCoordinates,
       setManualLocation,
       clearLocation,
@@ -166,6 +183,8 @@ export function ReportSessionProvider({
       session,
       setPhoto,
       clearPhoto,
+      approveImageAnalysis,
+      clearImageAnalysis,
       setCoordinates,
       setManualLocation,
       clearLocation,

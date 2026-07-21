@@ -7,6 +7,7 @@ import {
   parseReportSubmissionFormData,
 } from "./report-submission-validation.ts";
 import { isReportPhotoMimeType } from "./report-submission.ts";
+import type { ReportImageAnalysis } from "../image-analysis/report-image-analysis.ts";
 
 export const REPORT_PHOTO_BUCKET = "report-photos";
 
@@ -22,6 +23,10 @@ export interface ReportPersistenceRecord {
   locationAccuracyMeters: number | null;
   manualLocationDescription: string | null;
   aiSummary: string;
+  imageAnalysis: ReportImageAnalysis | null;
+  imageAnalysisModel: string | null;
+  imageAnalysisGeneratedAt: string | null;
+  imageAnalysisApprovedAt: string | null;
   photoBucket: typeof REPORT_PHOTO_BUCKET;
   photoPath: string;
   photoOriginalName: string | null;
@@ -174,6 +179,10 @@ export async function persistReport(
     locationAccuracyMeters: coordinates?.accuracy ?? null,
     manualLocationDescription: payload.location.manualDescription,
     aiSummary: payload.summary,
+    imageAnalysis: payload.imageAnalysis?.analysis ?? null,
+    imageAnalysisModel: payload.imageAnalysis?.model ?? null,
+    imageAnalysisGeneratedAt: payload.imageAnalysis?.generatedAt ?? null,
+    imageAnalysisApprovedAt: payload.imageAnalysis?.approvedAt ?? null,
     photoBucket: REPORT_PHOTO_BUCKET,
     photoPath: storagePath,
     photoOriginalName: normalizeOriginalFilename(payload.photo.name),

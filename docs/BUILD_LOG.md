@@ -221,6 +221,19 @@ Replace the simulated report completion with secure, server-only Supabase persis
 
 ---
 
+### AI-Assisted Image Observations
+
+- Added an explicit Photo-step action that sends only the selected image and minimal bird-report context to a server-side OpenAI Responses API endpoint.
+- Added a strict five-category observation schema covering possible bird type, visible count, apparent condition, visible concerns and environment, with categorical confidence for every field.
+- Required explicit reporter approval before observations enter Report Session, Review or submission; discard and photo replacement remove stale observations.
+- Kept analysis optional and non-blocking, with controlled missing-configuration, unsupported-format, rate-limit and provider-failure states.
+- Added a separate Supabase migration for nullable approved-analysis fields and preserved submission without analysis.
+- Used `gpt-5.6-terra` as the balanced default vision model, configurable through the server-only `OPENAI_VISION_MODEL` variable.
+- Kept HEIC and HEIF valid for reporting but excluded them from OpenAI analysis because current supported vision inputs are JPEG, PNG and WebP; no conversion dependency was introduced.
+- Added focused mocked-provider, schema, endpoint, approval, replacement and submission tests.
+
+---
+
 ## 20 July 2026
 
 ### Objective

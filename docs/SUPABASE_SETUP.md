@@ -12,9 +12,11 @@ to this repository.
 
 ## 2. Apply the migration
 
-Apply [`supabase/migrations/202607210001_create_reports.sql`](../supabase/migrations/202607210001_create_reports.sql)
-through the Supabase SQL Editor, or link the project with the Supabase CLI and
-run `supabase db push`.
+Apply the migrations in filename order through the Supabase SQL Editor, or
+link the project with the Supabase CLI and run `supabase db push`:
+
+1. [`202607210001_create_reports.sql`](../supabase/migrations/202607210001_create_reports.sql)
+2. [`202607210002_add_image_analysis.sql`](../supabase/migrations/202607210002_add_image_analysis.sql)
 
 The migration:
 
@@ -22,6 +24,8 @@ The migration:
 - enables Row Level Security without anonymous or authenticated policies;
 - creates or updates the private `report-photos` bucket;
 - limits the bucket to JPEG, PNG, WebP, HEIC and HEIF images up to 4 MB.
+- adds nullable structured fields for reporter-approved image observations and
+  their model, generation time and approval time.
 
 After applying it, confirm that `report-photos` is marked private and that no
 anonymous policies grant access to either `public.reports` or objects in this
@@ -67,10 +71,13 @@ Complete one report in the deployed application, then:
    restricted SQL query.
 2. Confirm its `status` is `submitted` and its final edited `ai_summary` is
    stored.
-3. Confirm its `photo_path` points to one object in the private
+3. When image observations were approved, confirm `image_analysis` and its
+   associated model and timestamps are stored. When they were skipped or
+   discarded, confirm those columns remain null.
+4. Confirm its `photo_path` points to one object in the private
    `report-photos` bucket.
-4. Confirm the bucket does not expose a public URL for that object.
-5. Refresh the confirmation route and confirm the displayed reference does not
+5. Confirm the bucket does not expose a public URL for that object.
+6. Refresh the confirmation route and confirm the displayed reference does not
    change.
 
 Do not publish screenshots containing report notes, coordinates, summaries,

@@ -59,6 +59,7 @@ Building one exceptional workflow creates a strong foundation for future inciden
 
 - 📱 Mobile-first user experience
 - 📷 Camera and photo upload support
+- 🔎 Optional, reviewable AI-assisted image observations
 - 📍 Automatic location capture
 - 🤖 Responsible AI-assisted report preparation
 - 📝 Structured incident summaries
@@ -166,6 +167,9 @@ See **docs/TECH_STACK.md** for the complete technology rationale.
 
 Supabase environment, migration and private-bucket setup is documented in
 **docs/SUPABASE_SETUP.md**.
+
+The image-analysis safety boundary and approval flow are documented in
+**docs/AI_IMAGE_ANALYSIS.md**.
 
 ---
 

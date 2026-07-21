@@ -9,7 +9,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "node --experimental-strip-types --test src/features/report/summary/report-summary.test.mjs src/features/report/submission/report-submission.test.mjs",
+    "test": "node --experimental-strip-types --test src/features/report/image-analysis/report-image-analysis.test.mjs src/features/report/summary/report-summary.test.mjs src/features/report/submission/report-submission.test.mjs",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit"

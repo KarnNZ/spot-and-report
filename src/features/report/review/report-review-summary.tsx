@@ -4,6 +4,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
+import {
+  REPORT_IMAGE_ANALYSIS_DISCLAIMER,
+} from "@/features/report/image-analysis/report-image-analysis";
+import { ReportImageAnalysisResults } from "@/features/report/image-analysis/report-image-analysis-results";
 import type { ObservationType } from "@/features/report/session/report-session";
 import { useReportSession } from "@/features/report/session/use-report-session";
 import {
@@ -126,6 +130,34 @@ export function ReportReviewSummary() {
             {session.summary.trim() || "No report summary provided."}
           </p>
         </section>
+
+        {session.approvedImageAnalysis ? (
+          <section
+            aria-labelledby="review-image-analysis-heading"
+            className="border-foreground/15 bg-selection/30 rounded-2xl border p-5"
+          >
+            <div className="flex items-start justify-between gap-4">
+              <h2
+                id="review-image-analysis-heading"
+                className="text-foreground-muted text-sm leading-6 font-semibold"
+              >
+                AI-assisted image observations
+              </h2>
+              <Link
+                href="/report/photo"
+                className="text-primary hover:text-primary-hover focus-visible:outline-focus -my-3 flex min-h-12 items-center rounded-lg px-2 text-sm font-semibold underline-offset-4 hover:underline focus-visible:outline-[3px] focus-visible:outline-offset-2"
+              >
+                Edit
+              </Link>
+            </div>
+            <ReportImageAnalysisResults
+              analysis={session.approvedImageAnalysis.analysis}
+            />
+            <p className="text-foreground-muted mt-4 text-sm leading-6">
+              {REPORT_IMAGE_ANALYSIS_DISCLAIMER}
+            </p>
+          </section>
+        ) : null}
 
         <section
           aria-labelledby="review-photo-heading"

@@ -34,6 +34,10 @@ export function createReportSubmissionFormData(
   );
   formData.append("aiSummary", payload.summary);
 
+  if (payload.imageAnalysis) {
+    formData.append("imageAnalysis", JSON.stringify(payload.imageAnalysis));
+  }
+
   if (payload.location.coordinates) {
     formData.append("latitude", String(payload.location.coordinates.latitude));
     formData.append(

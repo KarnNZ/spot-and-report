@@ -7,6 +7,7 @@ import {
 } from "./report-persistence.ts";
 import {
   completeReportSubmission,
+  createReportSubmissionFormData,
   ReportSubmissionService,
 } from "./report-submission-service.ts";
 import { MAX_REPORT_PHOTO_SIZE_BYTES } from "./report-submission.ts";
@@ -14,6 +15,23 @@ import { parseReportSubmissionFormData } from "./report-submission-validation.ts
 
 const REPORT_ID = "7ee06b9e-1111-4222-8333-123456789abc";
 const SUBMITTED_AT = "2026-07-21T02:03:04.000Z";
+const APPROVED_IMAGE_ANALYSIS = {
+  analysis: {
+    schemaVersion: "1.0",
+    possibleBirdType: { value: "Possible gull", confidence: "medium" },
+    estimatedVisibleBirdCount: { value: 1, confidence: "high" },
+    apparentCondition: { value: "unclear", confidence: "low" },
+    visibleConcerns: {
+      value: ["Image does not allow assessment"],
+      confidence: "low",
+    },
+    environment: { value: "Park", confidence: "medium" },
+  },
+  model: "gpt-5.6-terra",
+  schemaVersion: "1.0",
+  generatedAt: "2026-07-21T02:00:00.000Z",
+  approvedAt: "2026-07-21T02:01:00.000Z",
+};
 
 function createPhoto({
   name = "bird photo.jpg",
@@ -34,6 +52,7 @@ function createValidFormData({
   accuracy = "12.5",
   manualLocation = "",
   summary = "One deceased bird was observed at the reported location.",
+  imageAnalysis = null,
 } = {}) {
   const formData = new FormData();
   formData.append("photo", photo);
@@ -43,6 +62,9 @@ function createValidFormData({
   formData.append("reporterNotes", notes);
   formData.append("manualLocationDescription", manualLocation);
   formData.append("aiSummary", summary);
+  if (imageAnalysis !== null) {
+    formData.append("imageAnalysis", JSON.stringify(imageAnalysis));
+  }
 
   if (latitude !== null) formData.append("latitude", latitude);
   if (longitude !== null) formData.append("longitude", longitude);
@@ -54,6 +76,7 @@ function createValidFormData({
 function createSession() {
   return {
     photo: createPhoto(),
+    approvedImageAnalysis: null,
     location: {
       coordinates: {
         latitude: -43.5321,
@@ -204,6 +227,26 @@ test("rejects a missing summary", () => {
   assert.ok(result.errors.includes("A report summary is required."));
 });
 
+test("accepts and normalizes an approved image analysis", () => {
+  const result = parseReportSubmissionFormData(
+    createValidFormData({ imageAnalysis: APPROVED_IMAGE_ANALYSIS }),
+  );
+
+  assert.equal(result.success, true);
+  assert.deepEqual(result.payload.imageAnalysis, APPROVED_IMAGE_ANALYSIS);
+});
+
+test("rejects invalid or extended image analysis data", () => {
+  const result = parseReportSubmissionFormData(
+    createValidFormData({
+      imageAnalysis: { ...APPROVED_IMAGE_ANALYSIS, unexpected: true },
+    }),
+  );
+
+  assert.equal(result.success, false);
+  assert.ok(result.errors.includes("Image analysis is invalid."));
+});
+
 test("uploads the photo before inserting one report", async () => {
   const { gateway, calls, confirmation } = createGateway();
   const result = await persistReport(
@@ -218,11 +261,36 @@ test("uploads the photo before inserting one report", async () => {
   assert.equal(calls.removals.length, 0);
   assert.equal(calls.uploads[0].bucket, REPORT_PHOTO_BUCKET);
   assert.equal(calls.inserts[0].photoPath, calls.uploads[0].path);
+  assert.equal(calls.inserts[0].imageAnalysis, null);
   assert.deepEqual(Object.keys(result.report).sort(), [
     "reference",
     "status",
     "submittedAt",
   ]);
+});
+
+test("stores only approved image-analysis fields", async () => {
+  const { gateway, calls } = createGateway();
+  const result = await persistReport(
+    createValidFormData({ imageAnalysis: APPROVED_IMAGE_ANALYSIS }),
+    gateway,
+    deterministicOptions,
+  );
+
+  assert.equal(result.ok, true);
+  assert.deepEqual(calls.inserts[0].imageAnalysis, APPROVED_IMAGE_ANALYSIS.analysis);
+  assert.equal(calls.inserts[0].imageAnalysisModel, APPROVED_IMAGE_ANALYSIS.model);
+  assert.equal(
+    calls.inserts[0].imageAnalysisApprovedAt,
+    APPROVED_IMAGE_ANALYSIS.approvedAt,
+  );
+});
+
+test("does not submit discarded image analysis", () => {
+  const engineResult = parseReportSubmissionFormData(createValidFormData());
+  assert.equal(engineResult.success, true);
+  const formData = createReportSubmissionFormData(engineResult.payload);
+  assert.equal(formData.has("imageAnalysis"), false);
 });
 
 test("upload failure prevents database insertion", async () => {
