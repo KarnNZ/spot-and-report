@@ -1,21 +1,19 @@
+import { ReportStepPage } from "@/features/report/layout/report-step-page";
 import { LocationConfirmation } from "@/features/report/location/location-confirmation";
 import { ReportProgress } from "@/features/report/progress/report-progress";
-import { PageContainer } from "@/shared/ui/page-container";
 import { ScreenHeader } from "@/shared/ui/screen-header";
 
 export default function LocationPage() {
   return (
-    <PageContainer>
-      <div className="my-auto w-full max-w-xl self-center py-4 sm:py-8">
-        <ReportProgress currentStep="location" />
+    <ReportStepPage>
+      <ReportProgress currentStep="location" />
 
-        <ScreenHeader
-          title="Confirm the location"
-          description="Location helps the right people understand where the bird was found."
-        />
+      <ScreenHeader
+        title="Confirm the location"
+        description="Location helps the right people understand where the bird was found."
+      />
 
-        <LocationConfirmation />
-      </div>
-    </PageContainer>
+      <LocationConfirmation />
+    </ReportStepPage>
   );
 }

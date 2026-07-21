@@ -219,6 +219,7 @@ Initialise the production-quality application baseline and begin the approved ap
 - Added deterministic Back navigation throughout the active report steps and aligned submission validation with the existing manual location fallback.
 - Replaced the combined photo action with separate camera and existing-image choices after real-device testing exposed unreliable forced-camera behaviour.
 - Replaced the temporary text brand mark with the final Spot & Report logo served from `public/branding` and verified it across its mobile placements.
+- Added the shared Spot & Report brand mark to every active reporting step without changing report behaviour.
 
 ---
 
@@ -253,6 +254,8 @@ Initialise the production-quality application baseline and begin the approved ap
 ### Challenges
 
 AVG Web Shield intercepts HTTPS using a Windows-trusted root that is not included in Node.js's bundled certificate authorities. The install retained TLS verification by temporarily providing Node with the matching trusted local root; no certificate or npm security override was added to the repository.
+
+Testing note: Camera capture was verified successfully on iPhone Safari over HTTPS. The black camera preview occurred only when the app was opened inside the Google app's embedded browser, indicating a browser-specific limitation rather than an application defect.
 
 npm also reported a moderate advisory in Next.js's bundled PostCSS dependency. The current automated remediation would force a breaking downgrade to Next.js 9, so the current stable framework version was retained pending an upstream stable fix. The application does not process user-supplied CSS.
 

@@ -95,6 +95,7 @@ Changes requiring migration or affecting compatibility.
 - Added explicit Back navigation to active report steps and fixed submission validation so manual location descriptions work without device coordinates.
 - Split photo selection into explicit Take Photo and Upload Existing Photo actions, preserving the same validation, preview and reporting flow while providing a reliable gallery fallback.
 - Replaced the temporary typographic brand mark with the final shared Spot & Report logo from `public/branding`, preserving the existing component API and application behaviour.
+- Reused the shared Spot & Report brand mark across Safety, Photo, Location, Questions and Review for consistent report-flow branding with no behaviour changes.
 - Established the Spot & Report repository.
 - Defined the long-term product vision.
 - Created the engineering documentation framework.
