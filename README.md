@@ -7,6 +7,7 @@
 ![OpenAI](https://img.shields.io/badge/OpenAI-Powered-412991)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
+
 > **A mobile-first, AI-assisted incident reporting platform built during OpenAI Build Week 2026.**
 
 Spot & Report helps people report important incidents in under **60 seconds** by combining photos, location, structured information and responsible AI into a simple guided reporting experience.
@@ -17,9 +18,29 @@ The Build Week MVP focuses on reporting **sick or dead wild birds**, while layin
 
 ---
 
-# 📸 Screenshots
+## 🌐 Live Application
 
-![Spot & Report Screenshots](assets/screenshots/screenshots.png)
+
+
+👉 https://spot-and-report.vercel.app/
+
+
+
+## 🎥 Demo Video
+
+
+
+👉 https://www.youtube.com/watch?v=P9M10MpaKg8
+
+---
+
+# 📸 Application Workflow
+
+The Build Week MVP guides users through a complete reporting experience, from capturing an incident to reviewing and submitting a report.
+
+<p align="center">
+  <img src="assets/screenshots/app-workflow.png" alt="Spot & Report application workflow" width="1000">
+</p>
 
 ---
 
@@ -122,7 +143,7 @@ For the complete design see **docs/ARCHITECTURE.md**.
 
 | Item | Status |
 |------|--------|
-| Stage | 🚧 Build Week MVP |
+| Stage | ✅ OpenAI Build Week 2026 Submission |
 | Development | Active |
 | Platform | Mobile-first Web Application |
 | AI | OpenAI |
@@ -133,16 +154,10 @@ For the complete design see **docs/ARCHITECTURE.md**.
 
 # 📈 Build Week Progress
 
-- ✅ Product Vision
-- ✅ Brand Identity
-- ✅ Repository Created
-- ✅ Documentation
-- ✅ User Experience Design
-- ✅ Architecture
-- 🚧 MVP Development
-- ⏳ Testing & Refinement
-- ⏳ Demo Video
-- ⏳ Submission
+- ✅ MVP Development
+- ✅ Testing & Refinement
+- ✅ Demo Video
+- ✅ OpenAI Build Week Submission
 
 Daily progress and engineering decisions are documented in **docs/BUILD_LOG.md**.
 
@@ -261,7 +276,7 @@ Keeping each document focused makes the repository easier to navigate, maintain 
 # 🚀 Quick Start
 
 ```bash
-git clone https://github.com/<username>/spot-and-report.git
+git clone https://github.com/KarnNZ/spot-and-report.git
 
 cd spot-and-report
 
@@ -269,20 +284,6 @@ npm install
 
 npm run dev
 ```
-
----
-
-# 📸 Screenshots
-
-> *(To be added during development.)*
-
-This section will showcase:
-
-- 🏠 Home Screen
-- 📷 Camera Workflow
-- 🤖 AI Review Screen
-- 📤 Report Submission
-- 📱 Mobile Experience
 
 ---
 
@@ -330,4 +331,6 @@ Spot & Report exists to remove friction from reporting important incidents, allo
 
 ---
 
-> **Spot it. Report it.**
+> **The hardest part of reporting an incident should be noticing it.**
+
+> **Everything else should be simple.**
