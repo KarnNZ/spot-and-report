@@ -9,20 +9,20 @@ export default function HomePage() {
     <PageContainer>
       <div className="w-full max-w-xl self-center py-4 sm:py-8">
         <BrandHeader />
-        <div className="max-w-lg">
+        <div className="mt-2 max-w-lg [&_p]:mt-5">
           <ScreenHeader
             title="Report a sick or dead bird in under 60 seconds"
             description="Take a photo, confirm the location, and answer a few simple questions. We’ll help prepare a clear report."
           />
         </div>
 
-        <div className="mt-8">
+        <div className="mt-10">
           <form action="/report/safety" method="get">
             <Button type="submit">Start report</Button>
           </form>
         </div>
 
-        <div className="border-foreground/15 bg-selection/50 mt-6 rounded-2xl border p-4">
+        <div className="border-foreground/15 bg-selection/50 mt-8 rounded-2xl border p-4">
           <p className="text-foreground-muted text-sm leading-6">
             You do not need to identify the bird yourself.
           </p>
@@ -39,7 +39,7 @@ export default function HomePage() {
           </section>
         </div>
 
-        <div className="mt-6">
+        <div className="mt-8">
           <MadLabzAttribution />
         </div>
       </div>
